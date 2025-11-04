@@ -1,0 +1,181 @@
+{
+  "home": "Accueil",
+  "about": "À propos",
+  "services": "Services",
+  "doctor": "Le médecin",
+  "contact": "Contact",
+  "welcome": "Bienvenue sur notre site médical",
+  "heroText": "Votre santé est notre priorité. Découvrez nos services et notre équipe médicale qualifiée.",
+  "readMore": "En savoir plus",
+  "ourServices": "Nos Services",
+  "service1": "Consultations médicales spécialisées",
+  "service2": "Analyses et examens de laboratoire",
+  "service3": "Soins et suivis personnalisés",
+  "aboutClinic": "À propos de la clinique",
+  "aboutText": "Notre clinique offre des soins modernes avec une approche humaine, basée sur l'écoute, la confiance et la compétence.",
+  "meetDoctor": "Rencontrez le médecin",
+  "doctorText": "Le Dr. Benali est un professionnel passionné par le bien-être de ses patients, avec plus de 15 ans d’expérience.",
+  "contactUs": "Contactez-nous",
+  "contactText": "N'hésitez pas à nous écrire pour toute question ou prise de rendez-vous.",
+  "phone": "Téléphone",
+  "email": "E-mail",
+  "address": "Adresse",
+  "rights": "Tous droits réservés.",
+
+
+
+
+  "doc_name": "Dr. Ouafae ELMEHRAOUI",
+  "for_life": "Pour une vie ",
+  "healthy": "saine ",
+  "balance": "et un équilibre durable",
+  "hero_description": "Notre équipe expérimentée s’engage à vous offrir des soins personnalisés et de haute qualité en endocrinologie, diabétologie et nutrition, dans un environnement professionnel et bienveillant.",
+  "experience_years": "Années d'expérience",
+  "patients": "Patients pris en charge",
+  "experts": "Experts médicaux",
+  "appointment": "Prenez rendez-vous",
+  "choisir_title": "Pourquoi choisir la Dr. Ouafae MEHRAOUI pour votre santé ?",
+  "choisir_text": "Notre approche ne se limite pas au traitement, elle transforme la manière dont vous gérez votre santé, votre alimentation et votre bien-être.",
+  "expertise_1": "Expertise médicale reconnue",
+  "expertise_2": "Suivi personnalisé",
+  "expertise_3": "Engagement pour le bien-être global",
+  "expertise_4": "Approche médicale moderne",
+  "about_us": "A propos de nous",
+  "soins_title": "Des soins personnalisés adaptés à vos besoins",
+  "troubles_title": "Troubles endocriniens",
+  "troubles_text": "Diagnostic et traitement des déséquilibres hormonaux comme la thyroïde, le diabète, les troubles métaboliques et nutritionnels, avec un suivi personnalisé visant à rétablir l’équilibre hormonal, améliorer la qualité de vie et prévenir les complications à long terme.",
+  "suivi_title": "Suivi du diabète",
+  "suivi_text": "Gestion personnalisée pour contrôler la glycémie et prévenir les complications, en proposant un suivi régulier, des conseils nutritionnels adaptés et un accompagnement médical complet afin d’améliorer la qualité de vie au quotidien.",
+  "conseil_title": "Conseil du diabète",
+  "conseil_text": "Plans alimentaires personnalisés, conçus pour soutenir la santé globale, favoriser l’équilibre nutritionnel, prévenir les carences, accompagner la gestion des maladies chroniques et promouvoir un mode de vie durable.",
+  "patients_title": "Avis de nos patients sur Dr. Ouafae EL MEHRAOUI",
+  "patients_text": "Avec la Dr Ouafae, la guérison et le bien-être de nos patients sont notre plus grande fierté. Découvrez ce que nos patients disent de leur expérience.",
+
+
+
+
+  "expertise_title": "Expertise en soins préventifs et restauratifs",
+  "learn_more": "En savoir plus",
+  "close": "Fermer",
+  "contact_us": "Contactez-nous",
+  
+  "servicesData": [
+    {
+      "title": "Diabète",
+      "desc": "Suivi complet du diabète avec diagnostic précis, traitement personnalisé incluant médicaments, surveillance glycémique et conseils nutritionnels. Prévention des complications à long terme telles que les maladies cardiovasculaires, rénales et nerveuses, avec accompagnement régulier et soutien éducatif pour améliorer la qualité de vie."
+    },
+    {
+      "title": "Maladies des glandes",
+      "desc": "Prise en charge globale des maladies de la thyroïde, de l’hypophyse et des surrénales. Évaluation hormonale complète, diagnostic précis et traitements adaptés incluant suivi médical, intervention chirurgicale si nécessaire et accompagnement pour les troubles endocriniens et dysfonctionnements glandulaires afin d’assurer un équilibre hormonal optimal."
+    },
+    {
+      "title": "Syndrome des ovaires polykystiques",
+      "desc": "Suivi et traitement personnalisé du SOPK incluant la régulation des cycles menstruels, la gestion des troubles hormonaux, les conseils pour la fertilité et le contrôle du poids. Approche multidisciplinaire incluant nutrition, activité physique et suivi médical pour réduire les symptômes et améliorer le bien-être général."
+    },
+    {
+      "title": "Troubles hormonaux",
+      "desc": "Une prise en charge complète des troubles hormonaux, incluant diagnostic précis, traitements adaptés et suivi régulier. Intervention pour améliorer la santé globale, réguler les déséquilibres hormonaux et prévenir les complications à long terme sur le métabolisme, la fertilité et le bien-être émotionnel."
+    },
+    {
+      "title": "Troubles de la croissance et de la puberté",
+      "desc": "Évaluation approfondie des retards ou avances de croissance et de puberté chez l’enfant et l’adolescent. Suivi médical complet, examens hormonaux, plans de traitement personnalisés pour assurer un développement harmonieux et prévenir les complications futures sur la santé physique et émotionnelle."
+    },
+    {
+      "title": "Infertilité",
+      "desc": "Évaluation complète de l’infertilité liée aux troubles endocriniens et hormonaux. Diagnostics approfondis, traitements personnalisés incluant stimulation hormonale, suivi médical spécialisé et conseils sur la fertilité pour maximiser les chances de conception tout en accompagnant les patients émotionnellement tout au long du processus."
+    },
+    {
+      "title": "Hirsutisme",
+      "desc": "Diagnostic précis des causes de l’hirsutisme chez la femme incluant analyses hormonales et évaluation clinique. Mise en place de protocoles thérapeutiques adaptés, incluant traitement médical, conseils esthétiques et suivi régulier pour réduire les symptômes tout en préservant la santé et le bien-être général."
+    },
+    {
+      "title": "Goutte",
+      "desc": "Prise en charge complète de la goutte incluant conseils alimentaires adaptés, traitement médicamenteux pour réduire l’inflammation et prévention des crises. Suivi personnalisé pour contrôler l’acide urique, améliorer la mobilité articulaire et prévenir les complications chroniques liées à la maladie."
+    },
+    {
+      "title": "Obésité",
+      "desc": "Suivi régulier et individualisé pour prévenir et traiter l’obésité. Conseils nutritionnels, programmes d’activité physique adaptés, suivi médical et éducation à l’hygiène de vie pour favoriser une perte de poids durable et améliorer la santé métabolique et cardiovasculaire."
+    },
+    {
+      "title": "Hypertension artérielle chez les jeunes",
+      "desc": "Suivi spécialisé de l’hypertension artérielle chez les jeunes incluant dépistage des causes hormonales et métaboliques. Traitement personnalisé, conseils sur l’alimentation et le mode de vie, prévention des complications cardiovasculaires et accompagnement régulier pour maintenir une tension artérielle optimale."
+    },
+    {
+      "title": "Cholestérol",
+      "desc": "Dépistage complet et traitement des troubles lipidiques afin de réduire le risque de maladies cardiovasculaires. Suivi régulier, conseils nutritionnels, plan de traitement personnalisé et éducation sur le mode de vie pour maintenir un profil lipidique sain et prévenir les complications à long terme."
+    }
+  ],
+
+
+
+
+  "propos_heading": "Nous sommes engagés à offrir des soins de qualité, dédiés à accompagner et à améliorer votre santé au quotidien.",
+  "propos_solution_title": "Votre solution santé complète et de confiance",
+  "propos_solution_text": "De la prise en charge du diabète aux plans nutritionnels personnalisés, nous vous accompagnons avec attention et expertise. Dr. Ouafae EL MEHRAOUI veille à chaque détail pour vous offrir sérénité et bien-être.",
+  "propos_expertise_1": "Expertise médicale spécialisée",
+  "propos_expertise_2": "Médecin agréée et de confiance",
+  "propos_expertise_3": "Engagement envers la santé du patient",
+  "propos_expertise_4": "Passion pour l’amélioration du mode de vie",
+  "propos_fiab_title": "Fiabilité & Confiance",
+  "propos_fiab_text": "À la recherche d’un suivi médical fiable ? Nous assurons un diagnostic précis et un accompagnement continu.",
+  "propos_qualite_title": "Qualité des Soins",
+  "propos_qualite_text": "Nos solutions médicales reposent sur des traitements personnalisés et adaptés à vos besoins.",
+  "propos_tarif_title": "Tarification Claire & Transparente",
+  "propos_tarif_text": "Aucune surprise ! Nous proposons des consultations claires et des tarifs justes pour des soins de qualité.",
+  "propos_centre_title": "Un centre complet de services médicaux",
+  "propos_centre_text": "Du suivi du diabète aux conseils nutritionnels, nous prenons soin de chaque aspect de votre santé.",
+  "propos_prise_title": "Prise en charge complète du diabète",
+  "propos_plans_title": "Plans nutritionnels personnalisés",
+  "propos_prevention_title": "Prévention & Bien-être durable",
+
+
+
+
+  "medecin_specialite": "Spécialiste en endocrinologie, diabétologie et nutrition",
+  "medecin_contact_title": "Contact Info",
+  "medecin_tel": "TEL: 06 60 68 32 66",
+  "medecin_fix": "FIX: 05 36 69 60 48",
+  "medecin_local": "LOCAL: Angle rue Jakarta et lieutenant Behoucine. Résidence Saîdi 4ème étage appt N°14 (Au-dessus du café ASSITANA, en face du Lycée Abdelmoumen) - OUJDA",
+  "medecin_btn": "Prenez rendez-vous",
+  "medecin_nom": "Dr. Ouafae Elmehraoui",
+  "medecin_intro": "Avec une approche à la fois scientifique et humaine, le Dr. Ouafae Elmehraoui accompagne ses patients dans la prise en charge des maladies endocriniennes et métaboliques. Elle met un point d’honneur à offrir des soins personnalisés, centrés sur la prévention, l’éducation et l’équilibre de vie. Passionnée par la nutrition et la santé hormonale, elle aide ses patients à mieux comprendre leur corps et à adopter des habitudes durables pour améliorer leur bien-être.",
+  "medecin_experience_title": "Expérience",
+  "medecin_experience_1": "Spécialiste reconnue en diabète, nutrition clinique et maladies endocriniennes",
+  "medecin_experience_2": "Plus de 1 000 patients suivis avec succès",
+  "medecin_experience_3": "Certifiée en nutrition thérapeutique et soins métaboliques",
+  "medecin_experience_4": "Participante régulière à des congrès médicaux internationaux",
+  "medecin_experience_5": "Auteure et contributrice dans des revues médicales spécialisées",
+  "medecin_formation_title": "Formation et diplômes",
+  "medecin_formation_1": "Ancienne médecin du Centre Hospitalier d’Avignon – France",
+  "medecin_formation_2": "Diplôme d’échographie et de cytoponction thyroïdienne – Université de Paris",
+  "medecin_formation_3": "Ancienne interne au CHU Mohamed VI – Oujda",
+
+
+
+
+  "contact_title": "Prenez rendez-vous pour votre consultation médicale",
+  "contact_doc": "Besoin d’un avis médical ? Le Dr. Ouafae ELMEHRAOUI vous répond.",
+  "fix_label": "FIX :",
+  "tel_label": "TEL :",
+  "local_label": "Localisation :",
+  "local_value": "Oujda, Maroc",
+  "prenom": "Prénom",
+  "nom": "Nom",
+  "numero": "N° de téléphone",
+  "choose_service": "-- Choisissez un service --",
+  "consultation": "Consultation générale",
+  "dermato": "Dermatologie",
+  "analyse": "Analyses / Bilans",
+  "message": "Votre Message",
+  "submit": "Prendre rendez-vous",
+
+
+
+
+  "follow_us": "Suivez-nous sur les réseaux sociaux pour rester informé des dernières actualités et conseils de santé.",
+  "pages_title": "Pages",
+  "page_faq": "FAQ's",
+  "cms_pages_title": "CMS Pages",
+  "address_title": "Adresse",
+  "location": "Angle rue Jakarta et lieutenant Behoucine. Résidence Saïdi 4eme étage appt N° 14 (Au dessus du café ASSITANA, en face au Lycée Abdelmoumen) - OUJDA"
+}

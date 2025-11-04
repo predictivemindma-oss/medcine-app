@@ -1,0 +1,655 @@
+@import url('https://fonts.googleapis.com/css2?family=Cactus+Classical+Serif&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Playpen+Sans+Thai:wght@100..800&family=Share:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+.accueilRoot {
+    --main-blue: #117090;
+    --main-red: #fe1952;
+    --second-blue: #c6e5fe;
+    --dark-grey: #555555;
+}
+
+.no-transition * {
+    transition: none !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Share', sans-serif !important;
+    font-weight: bold !important;
+}
+
+/* Arabic active */
+html[dir="rtl"] .accueil-container * {
+    text-align: right;
+}
+
+.accueil-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    text-align: left;
+}
+
+.vie-saine {
+    width: 92%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    color: var(--dark-grey);
+    margin-bottom: 100px;
+    min-height: 100vh;
+}
+
+.vie-saine .text {
+    width: 43%;
+    text-align: left;
+}
+
+.dr {
+    color: var(--main-red) !important;
+    margin-top: -20px;
+}
+
+.vie-saine h1 {
+    color: var(--main-blue);
+    font-size: 40px !important;
+    font-weight: bold;
+    font-family: share;
+}
+
+.vie-saine h1 span {
+    color: var(--main-red);
+    font-size: 40px;
+    background: none;
+}
+
+.vie-saine .long-p {
+    margin-right: 50px;
+    font-size: 17px;
+}
+
+.vie-saine .numbers-flex {
+    display: flex;
+    margin: 10px 0;
+}
+
+.numbers-flex p {
+    margin: 0 !important;
+}
+
+.vie-saine .numbers-flex .numbers {
+    margin-right: 25px;
+}
+
+.vie-saine .numbers-flex h1 {
+    margin-top: -10px;
+    margin-bottom: -20px;
+    font-family: 'Satoshi';
+    font-size: xx-large;
+}
+
+.vie-saine .numbers-flex p {
+    font-size: small;
+    margin-top: 10px;
+}
+
+.accueil-links {
+    display: inline-block;
+    background: var(--main-blue);
+    text-decoration: none;
+    color: white;
+    padding: 10px 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 5px solid transparent;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: bold !important;
+    text-align: inherit !important;
+
+    transition: background 0.5s ease, border-color 0.5s ease;
+}
+
+.accueil-links:hover {
+    background: var(--main-red);
+    border-color: #feddddce;
+}
+
+.vie-saine .text .ligne-tel-flex {
+    display: flex;
+    border: 3px solid #348daa;
+    background: #006887;
+    align-items: center;
+    border-radius: 16px;
+    width: 320px !important;
+    gap: 14px;
+}
+
+.vie-saine .text .ligne-tel-flex span {
+    font-size: 16px;
+    font-weight: bold;
+    background: none;
+    color: white;
+}
+
+.vie-saine .text .ligne-tel-flex .phone-icon {
+    display: flex;
+    align-items: center;
+}
+
+.vie-saine .text .ligne-tel-flex .phone-icon img {
+    width: 55px !important;
+    padding-left: 8px;
+    align-self: center;
+}
+
+.vie-saine .slider {
+    width: 48%;
+    position: relative;
+}
+
+.vie-saine .slider-image {
+    width: 85%;
+    border-radius: 20px;
+    margin-top: 30px;
+    display: block;
+}
+
+.dots {
+    position: relative;
+    bottom: 40px;
+    background: #0000004a;
+    width: 100px;
+    height: 35px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: auto;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #a5cae8;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.dot.active {
+    background: var(--main-red);
+}
+
+/* ----------------- */
+/* Choisir Section */
+/* ----------------- */
+.choisir {
+    width: 92%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.choisir-img {
+    width: 50%;
+}
+
+.choisir-img * {
+    width: 100%;
+    border-radius: 20px;
+    margin: auto !important;
+    text-align: center !important;
+}
+
+.choisir .choisir-text {
+    width: 45%;
+    text-align: left;
+    padding: 20px;
+}
+
+.choisir-text h1 {
+    color: var(--main-red);
+    font-size: 44px;
+    font-family: share;
+    margin-top: -25px;
+}
+
+.choisir-text p {
+    color: var(--dark-grey);
+    font-size: 17px;
+}
+
+.choisir-text .expertise {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.expertise-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.expertise-image {
+    background: var(--second-blue);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.expertise-image img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+.choisir a:hover {
+    background: var(--main-red);
+}
+
+.h1-soins {
+    color: var(--main-red);
+    font-size: xx-large !important;
+    font-family: share;
+    margin: 25px;
+    margin-bottom: 50px;
+    width: 70%;
+    text-align: center;
+}
+
+
+.soins-number {
+    background: var(--main-red);
+    color: white;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-left: 10px;
+    font-size: medium;
+    padding: 10px;
+}
+
+.headings {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+/* ----------------- */
+/* Troubles Section */
+/* ----------------- */
+html[dir="rtl"] .troubles-text,
+html[dir="rtl"] .suivi-text,
+html[dir="rtl"] .conseil-text {
+    padding-right: 20px;
+    margin: auto;
+}
+
+.troubles {
+    display: flex;
+    justify-content: space-evenly;
+    width: 98%;
+    margin-bottom: 100px;
+}
+
+.troubles-image {
+    width: 45%;
+}
+
+.troubles-image img {
+    width: 90%;
+    border-radius: 20px;
+}
+
+.troubles-text {
+    width: 42%;
+    text-align: left;
+}
+
+.troubles-text h1,
+.suivi-text h1,
+.conseil-text h1 {
+    color: var(--main-blue);
+    font-weight: bold !important;
+    font-size: 27px !important;
+}
+
+.troubles-text p {
+    color: var(--dark-grey);
+    font-size: 23px;
+    margin-bottom: 30px;
+    width: 90%;
+}
+
+.troubles a:hover {
+    background: var(--main-red);
+}
+
+/* ----------------- */
+/* Suivi Section */
+/* ----------------- */
+.suivi,
+.conseil,
+.rencontrez {
+    width: 98%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 100px;
+}
+
+.troubles-text,
+.suivi-text,
+.conseil-text {
+    width: 42%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    align-items: flex-start;
+    color: var(--dark-grey);
+    margin-bottom: 30px;
+    margin-top: 20px;
+    padding-left: 50px;
+}
+
+.suivi-text p {
+    font-size: 23px;
+    width: 80%;
+}
+
+.suivi-image,
+.conseil-image {
+    width: 45%;
+}
+
+.suivi-image img {
+    width: 90%;
+    border-radius: 20px;
+}
+
+.suivi a:hover {
+    background: var(--main-red);
+}
+
+/* ----------------- */
+/* Conseil Section */
+/* ----------------- */
+.conseil-image img {
+    width: 90%;
+    border-radius: 20px;
+}
+
+.conseil-text p {
+    font-size: 23px;
+    width: 80%;
+}
+
+/* ----------------- */
+/* Avis Section */
+/* ----------------- */
+.patients-avis {
+    width: 98%;
+    text-align: center;
+    overflow: hidden;
+}
+
+.patients-avis .head * {
+    text-align: center !important;
+
+}
+
+.patients-avis h1 {
+    color: var(--main-red);
+    font-size: xx-large;
+}
+
+.h1-soins {
+    text-align: center;
+}
+
+.patients-avis p {
+    color: var(--dark-grey);
+    font-size: 18px;
+}
+
+.head {
+    width: 80%;
+    margin: auto;
+}
+
+.carousel-container {
+    display: flex;
+    margin: 30px auto;
+    padding: 10px 0;
+    width: 95%;
+    overflow: hidden;
+}
+
+.carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.avis-animation {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    width: max-content;
+    animation: scroll 40s linear infinite;
+    direction: ltr !important;
+    text-align: left;
+}
+
+.avis {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 260px !important;
+    border: 1px solid var(--main-blue);
+    border-top: 8px solid var(--main-blue);
+    border-radius: 20px;
+    padding: 20px;
+    text-align: start;
+    margin: 20px;
+   }
+
+.avis .heading {
+    display: flex;
+    width: 100%;
+}
+
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.carousel-container:hover .avis-animation {
+    animation-play-state: paused;
+}
+
+.avis p {
+    font-size: 16px !important;
+}
+
+.hanane-letter,
+.fatiha-letter,
+.zdenko-letter,
+.soufiane-letter {
+    border-radius: 50%;
+    width: fit-content !important;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    color: white;
+    font-size: x-large;
+    font-weight: bold;
+    padding: 10px 18px;
+    margin-right: 10px;
+}
+
+.hanane-letter {
+    background: #318878 !important;
+}
+
+.fatiha-letter {
+    background: blueviolet !important;
+}
+
+.zdenko-letter {
+    background: #93582d !important;
+}
+
+.soufiane-letter {
+    background: #6a89a7 !important;
+}
+
+.review-google {
+    color: gray;
+    font-weight: lighter;
+    font-size: small;
+}
+
+.stars-rate {
+    display: flex;
+}
+
+.stars-rate img {
+    width: 20px;
+}
+
+p {
+    font-size: 22px !important;
+    margin: 0 20px;
+}
+
+@media (max-width: 900px) {
+    .vie-saine {
+        flex-direction: column-reverse;
+        margin: 4px;
+    }
+
+    .vie-saine .text {
+        width: 98%;
+        text-align: left;
+    }
+
+    .vie-saine .outer-span {
+        display: none;
+    }
+
+    .vie-saine .text a {
+        padding: 10px 20px;
+        font-weight: 100
+    }
+
+    .text .ligne-tel-flex {
+        width: 90% !important;
+        gap: 14px;
+    }
+
+    .vie-saine .slider {
+        width: 90%;
+        text-align: center;
+    }
+
+    .vie-saine .slider-image {
+        width: 100%;
+    }
+
+    .choisir {
+        width: 98%;
+        margin-bottom: 2px;
+        flex-direction: column;
+
+    }
+
+    .choisir-img {
+        width: 100% !important;
+        margin-top: 30px;
+    }
+
+    .choisir-img * {
+        width: 90% !important;
+        border-radius: 20px;
+        margin: auto !important;
+        text-align: center !important;
+    }
+
+
+    .choisir .choisir-text {
+        width: 95%;
+    }
+
+    .choisir-text h1 {
+        font-size: 30px;
+        margin-top: 0;
+    }
+
+    .h1-soins {
+        font-size: large;
+    }
+
+    .troubles {
+        flex-direction: column;
+        margin-bottom: 20px;
+        width: 98%;
+    }
+
+    .troubles-image,
+    .suivi-image,
+    .conseil-image {
+        width: 95%;
+    }
+
+    .troubles-text p {
+        font-size: 20px;
+        width: 95%;
+        margin-bottom: 20px;
+        margin: auto;
+    }
+
+    .troubles-text a {
+        margin-left: 16px;
+    }
+
+    .suivi {
+        width: 98%;
+        flex-direction: column-reverse;
+    }
+
+    .troubles-text,
+    .suivi-text,
+    .conseil-text,
+    .rencontrez-text {
+        width: 98%;
+        margin-bottom: 10px;
+        padding-left: 20px;
+    }
+
+    .suivi-text p {
+        font-size: 20px;
+        width: 90%;
+    }
+
+    .conseil {
+        flex-direction: column;
+    }
+
+    .conseil-text p {
+        font-size: 20px;
+        width: 95%;
+    }
+}
