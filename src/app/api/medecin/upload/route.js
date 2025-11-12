@@ -1,7 +1,10 @@
+// src/app/api/medecin/upload/route.js
 import fs from "fs";
 import path from "path";
-import connectDB from "@/lib/mongoose";
-import Medecin from "@/models/medcin";
+
+// Chemin relatif correct vers mongoose.js et le modèle Medecin
+import connectDB from "../../../lib/mongoose";
+import Medecin from "../../../models/medcin";
 
 export const POST = async (req) => {
   try {
@@ -18,7 +21,6 @@ export const POST = async (req) => {
 
     fs.writeFileSync(uploadPath, buffer);
 
-    // Mettre à jour l'image dans MongoDB
     const medecin = await Medecin.findOneAndUpdate(
       {}, // si tu n’as qu’un seul médecin
       { image: `/uploads/${fileName}` },
@@ -27,9 +29,10 @@ export const POST = async (req) => {
 
     return new Response(JSON.stringify({ url: medecin.image }), {
       status: 200,
+      headers: { "Content-Type": "application/json" },
     });
   } catch (err) {
-    console.error(err);
+    console.error("Erreur upload :", err);
     return new Response("Erreur upload", { status: 500 });
   }
 };
