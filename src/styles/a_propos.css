@@ -1,0 +1,283 @@
+:root {
+    --main-blue: #117090;
+    --main-red: #fe1952;
+    --second-blue: #c6e5fe;
+    --dark-grey: #555555;
+    --second-teal: #41f4fac6;
+    --teal: #009ca2;
+}
+html[dir="rtl"] .propos-container * {
+    text-align: right;
+}
+html[dir="rtl"] p {
+    font-size: 20px;
+}
+html[dir="rtl"] .centre-complet * {
+    font-size: 20px;
+}
+.propos-container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--dark-grey);
+}
+
+.heading {
+    width: 55%;
+    margin: auto;
+    font-family: share;
+    font-weight: bold;
+}
+
+.heading p {
+    color: var(--teal);
+    font-size: 20px;
+}
+
+/* -------------- */
+/* Votre Solution */
+/* -------------- */
+.votre-solution {
+    display: flex;
+    width: 89%;
+    margin-bottom: 100px
+}
+
+.votre-solution-image {
+    width: 45%;
+}
+
+.votre-solution-image img {
+    width: 90%;
+    margin-top: 30px;
+    border-radius: 20px;
+}
+
+.votre-solution-text {
+    width: 45%;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.votre-solution-text h1,
+.centre-complet h1 {
+    color: var(--main-blue);
+    font-size: 30px !important;
+    font-weight: bold;
+}
+
+.expertises {
+    display: flex;
+}
+
+.expertise-flex {
+    display: flex;
+    justify-content: left;
+    gap: 10px;
+    align-self: center;
+    align-items: center;
+}
+
+.expertise-flex span {
+    background: var(--main-red);
+    color: white;
+    width: fit-content;
+    border-radius: 50%;
+    padding: 0 5px;
+}
+
+/* ------------------ */
+/* Fiab Qualite Tarif */
+/* ------------------ */
+.fiab-qualite-tarif {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 30px;
+    width: 98%;
+    margin: auto;
+    margin-bottom: 100px;
+}
+
+.fiabilite,
+.sualite,
+.tarif {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: left;
+    padding: 16px;
+    border-radius: 20px;
+    width: 300px;
+    background: #e0eefa;
+}
+
+.fiab-qualite-tarif img {
+    width: 60px;
+}
+
+.fiab-qualite-tarif h3 {
+    color: var(--main-blue);
+}
+
+/* -------------- */
+/* Centre Complet */
+/* -------------- */
+.centre-complet {
+    display: flex;
+    gap: 20px;
+    margin: auto;
+    width: 90%;
+}
+
+.centre-complet-text {
+    width: 48%;
+    margin-left: 30px;
+    text-align: left;
+}
+
+.centre-complet-text h1 {
+    font-size: x-large;
+}
+
+.prise,
+.plans,
+.prevention {
+    background: var(--second-blue);
+    color: var(--main-blue);
+    display: flex;
+    justify-content: space-around;
+    align-self: center;
+    align-items: center;
+    gap: 10px;
+    margin: 10px auto;
+    padding: 6px 4px;
+    border-radius: 10px;
+    width: 1+98%;
+    transition: background 0.6s ease;
+}
+
+.prise:hover *,
+.plans:hover *,
+.prevention:hover * {
+    color: white !important;
+}
+
+.prise:hover,
+.plans:hover,
+.prevention:hover {
+    background: var(--main-red);
+}
+
+.centre-complet-text h3 {
+    width: 200px;
+}
+
+.centre-complet-text img {
+    width: 56px;
+}
+
+.centre-complet-text a {
+    text-decoration: none;
+    color: var(--main-blue);
+}
+
+.centre-complet-image {
+    width: 50%;
+}
+
+.centre-complet-image img {
+    width: 90%;
+    border-radius: 20px;
+    margin: auto;
+    border: 20px solid rgba(0, 0, 200, 0.1);
+    box-sizing: content-box;
+}
+
+@media (max-width: 940px) {
+    .votre-solution {
+        flex-direction: column;
+        width: 95%;
+        margin-bottom: 10px
+    }
+
+    .votre-solution-image {
+        width: 95%;
+        margin: auto;
+    }
+
+    .votre-solution-image img {
+        width: 100%;
+    }
+
+
+    .votre-solution-text {
+        width: 95%;
+        margin: auto;
+    }
+
+}
+
+@media (max-width: 700px) {
+    .heading {
+        width: 90%;
+    }
+
+    .votre-solution {
+        flex-direction: column;
+        width: 95%;
+        margin-bottom: 10px
+    }
+
+    .votre-solution-image {
+        width: 95%;
+        margin: auto;
+    }
+
+    .votre-solution-image img {
+        width: 100%;
+    }
+
+
+    .votre-solution-text {
+        width: 95%;
+        margin: auto;
+    }
+
+    .fiab-qualite-tarif {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .fiabilite,
+    .sualite,
+    .tarif {
+        margin: auto;
+    }
+
+    .centre-complet {
+        flex-direction: column-reverse;
+        width: 98%;
+    }
+
+    .centre-complet-image {
+        width: 90%;
+        margin: auto;
+    }
+
+    .centre-complet-text {
+        width: 98%;
+        margin-left: auto;
+    }
+
+    .prise,
+    .plans,
+    .prevention {
+        margin: 10px auto;
+        width: 90%;
+    }
+}

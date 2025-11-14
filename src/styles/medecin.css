@@ -1,0 +1,115 @@
+.medecinRoot {
+    --main-blue: #117090;
+    --main-red: #fe1952;
+    --second-blue: #c6e5fe;
+    --dark-grey: #393939;
+    --teal: #009ca2;
+}
+html[dir="rtl"] .medecin-container * {
+    text-align: right;
+}
+.medecin-container {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 30px;
+    width: 98%;
+    margin: auto;
+    padding: 0 30px;
+    font-size: 16px;
+    color: var(--dark-grey);
+}
+
+.medecin-container h3 {
+    color: var(--main-blue);
+    font-size: x-large;
+    font-weight: bold !important;
+}
+
+.contact-info {
+    width: 28%;
+    border-radius: 20px;
+    padding: 20px 20px;
+    background: rgba(92, 171, 200, 0.3);
+    backdrop-filter: blur(30px);
+}
+
+.doc-img img {
+    width: 98%;
+    border-radius: 16px;
+}
+
+.contact-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+    padding: 10px 0 0 0;
+}
+
+.contact-text h3 {
+    color: var(--teal);
+}
+
+.intro {
+    text-align: left;
+    width: 64%;
+    padding: 0 70px 0 10px;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    overflow: hidden;
+}
+
+.intro ul {
+    color: var(--dark-grey);
+    display: block;
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-top: 0.5rem;
+    font-size: 20px;
+}
+
+html[dir="rtl"] .intro ul {
+    padding-right: 20px;
+}
+
+i {
+    font-size: 17px;
+}
+
+@media (max-width: 1000px) {
+    .contact-info {
+        width: 40%;
+    }
+
+    .intro {
+        width: 58%;
+    }
+}
+
+@media (max-width: 900px) {
+    .medecin-container {
+        flex-direction: column;
+        padding: 0 10px;
+    }
+
+
+    .contact-info {
+        width: 95%;
+        margin: auto;
+    }
+
+    .doc-img img {
+        width: 98%;
+        border-radius: 16px;
+    }
+
+    .contact-link {
+        padding: 8px 10px;
+    }
+
+    .intro {
+        text-align: left;
+        width: 98%;
+        padding: 8px;
+    }
+}
