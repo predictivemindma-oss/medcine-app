@@ -11,18 +11,39 @@ export default function ContactListPage() {
     totalPages: 1,
     totalContacts: 0,
     hasNextPage: false,
-    hasPrevPage: false
+    hasPrevPage: false,
   });
+  const [filterPresence, setFilterPresence] = useState("tous");
+  const [filterDate, setFilterDate] = useState(""); // ✅ Nouveau filtre par date
 
-  // 📌 Fonction pour récupérer les contacts avec pagination
-  async function fetchContacts(page = 1) {
+  // 📌 Fonction pour récupérer les contacts avec pagination et filtrage
+  async function fetchContacts(page = 1, presence = filterPresence) {
     setLoading(true);
     try {
-      const res = await fetch(`/api/contacts/getContacts?page=${page}&limit=15`);
+      const res = await fetch(
+        `/api/contacts/getContacts?page=${page}&limit=15&presence=${presence}`
+      );
       if (!res.ok) throw new Error("Erreur lors de la récupération");
-      
+
       const data = await res.json();
-      setContacts(data.contacts);
+
+      // ✅ Filtrage par présence
+      let filteredContacts = data.contacts;
+      if (presence !== "tous") {
+        filteredContacts = filteredContacts.filter(
+          (c) => (c.presence || "en cours") === presence
+        );
+      }
+
+      // ✅ Filtrage par date (frontend)
+      if (filterDate) {
+        filteredContacts = filteredContacts.filter((c) => {
+          const createdAtDate = new Date(c.createdAt).toISOString().split("T")[0];
+          return createdAtDate === filterDate;
+        });
+      }
+
+      setContacts(filteredContacts);
       setPagination(data.pagination);
       setCurrentPage(page);
     } catch (err) {
@@ -36,6 +57,12 @@ export default function ContactListPage() {
     fetchContacts(1);
   }, []);
 
+  // 📌 Quand le filtre change (présence ou date)
+  useEffect(() => {
+    fetchContacts(1, filterPresence);
+  }, [filterPresence, filterDate]);
+
+  // 📌 Mise à jour du champ "presence"
   async function handlePresence(id, presence) {
     try {
       const res = await fetch("/api/contacts/updateContact", {
@@ -44,7 +71,7 @@ export default function ContactListPage() {
         body: JSON.stringify({ id, presence }),
       });
       if (!res.ok) throw new Error("Erreur lors de la mise à jour");
-      
+
       setContacts((prev) =>
         prev.map((c) => (c._id === id ? { ...c, presence } : c))
       );
@@ -55,19 +82,15 @@ export default function ContactListPage() {
 
   // 📌 Fonctions de navigation
   const goToNextPage = () => {
-    if (pagination.hasNextPage) {
-      fetchContacts(currentPage + 1);
-    }
+    if (pagination.hasNextPage) fetchContacts(currentPage + 1, filterPresence);
   };
 
   const goToPrevPage = () => {
-    if (pagination.hasPrevPage) {
-      fetchContacts(currentPage - 1);
-    }
+    if (pagination.hasPrevPage) fetchContacts(currentPage - 1, filterPresence);
   };
 
   const goToPage = (page) => {
-    fetchContacts(page);
+    fetchContacts(page, filterPresence);
   };
 
   if (loading) return <p>Chargement des contacts...</p>;
@@ -75,25 +98,97 @@ export default function ContactListPage() {
   return (
     <div className="contact-list-container">
       <h1>Liste des contacts</h1>
-      <button
-  style={{
-    padding: '10px 20px',
-    backgroundColor: '#007bff',
-    color: 'white',
-    border: 'none',
-    borderRadius: '6px',
-    cursor: 'pointer',
-    marginBottom: '15px'
-  }}
-  onClick={() => window.open('/api/contacts/exportContacts', '_blank')}
->
-  Exporter tous les contacts
-</button>
-      {/* 📊 Informations de pagination */}
-      
 
+      {/* ✅ Filtres combinés */}
+      <div
+        style={{
+          marginBottom: "20px",
+          display: "flex",
+          gap: "15px",
+          alignItems: "center",
+          flexWrap: "wrap",
+        }}
+      >
+        {/* 🔹 Filtre par présence */}
+        <div>
+          <label htmlFor="presenceFilter" style={{ fontWeight: "bold" }}>
+            Filtrer par présence :
+          </label>
+          <select
+            id="presenceFilter"
+            value={filterPresence}
+            onChange={(e) => setFilterPresence(e.target.value)}
+            style={{
+              padding: "6px 10px",
+              borderRadius: "5px",
+              border: "1px solid #ccc",
+              backgroundColor: "#f9f9f9",
+              marginLeft: "8px",
+            }}
+          >
+            <option value="tous">Tous</option>
+            <option value="en cours">⏳ En cours</option>
+            <option value="confirmé">✅ Confirmé</option>
+            <option value="annulé">❌ Annulé</option>
+          </select>
+        </div>
+
+        {/* 🔹 Filtre par date de création */}
+        <div>
+          <label htmlFor="dateFilter" style={{ fontWeight: "bold" }}>
+            Filtrer par date :
+          </label>
+          <input
+            id="dateFilter"
+            type="date"
+            value={filterDate}
+            onChange={(e) => setFilterDate(e.target.value)}
+            style={{
+              padding: "6px 10px",
+              borderRadius: "5px",
+              border: "1px solid #ccc",
+              backgroundColor: "#f9f9f9",
+              marginLeft: "8px",
+            }}
+          />
+          {filterDate && (
+            <button
+              onClick={() => setFilterDate("")}
+              style={{
+                marginLeft: "10px",
+                backgroundColor: "#dc3545",
+                color: "white",
+                border: "none",
+                borderRadius: "5px",
+                padding: "6px 10px",
+                cursor: "pointer",
+              }}
+            >
+              ❌ Réinitialiser
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Bouton export */}
+      <button
+        style={{
+          padding: "10px 20px",
+          backgroundColor: "#007bff",
+          color: "white",
+          border: "none",
+          borderRadius: "6px",
+          cursor: "pointer",
+          marginBottom: "15px",
+        }}
+        onClick={() => window.open("/api/contacts/exportContacts", "_blank")}
+      >
+        Exporter tous les contacts
+      </button>
+
+      {/* Tableau des contacts */}
       {contacts.length === 0 ? (
-        <p>Aucun contact pour le moment.</p>
+        <p>Aucun contact trouvé.</p>
       ) : (
         <>
           <table className="contact-table">
@@ -108,7 +203,6 @@ export default function ContactListPage() {
                 <th>Message</th>
                 <th>Date</th>
                 <th>Présence</th>
-                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -132,80 +226,100 @@ export default function ContactListPage() {
                         })
                       : "—"}
                   </td>
-                  <td>{contact.presence || "en cours"}</td>
                   <td>
-                    <button onClick={() => handlePresence(contact._id, "en cours")}>
-                      ⏳ En cours
-                    </button>
-                    <button onClick={() => handlePresence(contact._id, "confirmé")}>
-                      ✅ Confirmé
-                    </button>
-                    <button onClick={() => handlePresence(contact._id, "annulé")}>
-                      ❌ Annulé
-                    </button>
+                    <select
+                      value={contact.presence || "en cours"}
+                      onChange={(e) =>
+                        handlePresence(contact._id, e.target.value)
+                      }
+                      style={{
+                        padding: "6px 10px",
+                        borderRadius: "5px",
+                        border: "1px solid #ccc",
+                        backgroundColor:
+                          contact.presence === "confirmé"
+                            ? "#d4edda"
+                            : contact.presence === "annulé"
+                            ? "#f8d7da"
+                            : "#fff3cd",
+                        color:
+                          contact.presence === "confirmé"
+                            ? "#155724"
+                            : contact.presence === "annulé"
+                            ? "#721c24"
+                            : "#856404",
+                        fontWeight: "500",
+                      }}
+                    >
+                      <option value="en cours">⏳ En cours</option>
+                      <option value="confirmé">✅ Confirmé</option>
+                      <option value="annulé">❌ Annulé</option>
+                    </select>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
 
-          {/* 🔽 Contrôles de pagination */}
-          <div style={{ 
-            display: 'flex', 
-            justifyContent: 'center', 
-            alignItems: 'center', 
-            gap: '8px', 
-            margin: '25px 0',
-            flexWrap: 'wrap'
-          }}>
-            <button 
-              onClick={goToPrevPage} 
+          {/* Pagination */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "8px",
+              margin: "25px 0",
+              flexWrap: "wrap",
+            }}
+          >
+            <button
+              onClick={goToPrevPage}
               disabled={!pagination.hasPrevPage}
               style={{
-                padding: '8px 16px',
-                background: 'transparent',
-                color: pagination.hasPrevPage ? '#333' : '#ccc',
-                border: '1px solid #ddd',
-                borderRadius: '4px',
-                cursor: pagination.hasPrevPage ? 'pointer' : 'not-allowed',
-                fontSize: '14px'
+                padding: "8px 16px",
+                background: "transparent",
+                color: pagination.hasPrevPage ? "#333" : "#ccc",
+                border: "1px solid #ddd",
+                borderRadius: "4px",
+                cursor: pagination.hasPrevPage ? "pointer" : "not-allowed",
               }}
             >
               ← Précédent
             </button>
 
-            <div style={{ display: 'flex', gap: '5px' }}>
-              {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map((page) => (
-                <button
-                  key={page}
-                  onClick={() => goToPage(page)}
-                  style={{
-                    padding: '6px 12px',
-                    background: currentPage === page ? '#333' : 'transparent',
-                    color: currentPage === page ? 'white' : '#333',
-                    border: `1px solid ${currentPage === page ? '#333' : '#ddd'}`,
-                    borderRadius: '4px',
-                    cursor: 'pointer',
-                    fontSize: '13px',
-                    minWidth: '36px'
-                  }}
-                >
-                  {page}
-                </button>
-              ))}
+            <div style={{ display: "flex", gap: "5px" }}>
+              {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map(
+                (page) => (
+                  <button
+                    key={page}
+                    onClick={() => goToPage(page)}
+                    style={{
+                      padding: "6px 12px",
+                      background: currentPage === page ? "#333" : "transparent",
+                      color: currentPage === page ? "white" : "#333",
+                      border: `1px solid ${
+                        currentPage === page ? "#333" : "#ddd"
+                      }`,
+                      borderRadius: "4px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {page}
+                  </button>
+                )
+              )}
             </div>
 
-            <button 
-              onClick={goToNextPage} 
+            <button
+              onClick={goToNextPage}
               disabled={!pagination.hasNextPage}
               style={{
-                padding: '8px 16px',
-                background: 'transparent',
-                color: pagination.hasNextPage ? '#333' : '#ccc',
-                border: '1px solid #ddd',
-                borderRadius: '4px',
-                cursor: pagination.hasNextPage ? 'pointer' : 'not-allowed',
-                fontSize: '14px'
+                padding: "8px 16px",
+                background: "transparent",
+                color: pagination.hasNextPage ? "#333" : "#ccc",
+                border: "1px solid #ddd",
+                borderRadius: "4px",
+                cursor: pagination.hasNextPage ? "pointer" : "not-allowed",
               }}
             >
               Suivant →
