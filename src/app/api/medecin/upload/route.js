@@ -5,8 +5,18 @@ import path from "path";
 // Chemin relatif correct vers mongoose.js et le modèle Medecin
 import connectDB from "../../../lib/mongoose";
 import Medecin from "../../../models/medcin";
+import { authorize } from "@/app/lib/authorize";
 
 export const POST = async (req) => {
+  // Autorisation : seul le doctor peut uploader
+  const auth = await authorize(req, "doctor");
+  if (!auth.authorized) {
+    return new Response(JSON.stringify({ message: auth.message }), {
+      status: auth.status,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
   try {
     await connectDB();
 

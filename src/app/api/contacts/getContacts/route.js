@@ -1,9 +1,40 @@
 import connectDB from "../../../lib/mongoose";
 import Contact from "../../../models/contact";
 import { NextResponse } from "next/server";
+import { jwtVerify } from "jose";
 
 export async function GET(request) {
   try {
+    // ✅ VÉRIFICATION D'AUTHENTIFICATION
+    const token = request.cookies.get("token")?.value;
+
+    if (!token) {
+      return NextResponse.json(
+        { message: "Non authentifié" },
+        { status: 401 }
+      );
+    }
+
+    // ✅ VÉRIFIER LE TOKEN ET LE RÔLE
+    try {
+      const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+      const { payload } = await jwtVerify(token, secret);
+
+      // Vérifier que c'est un doctor
+      if (payload.role !== "doctor") {
+        return NextResponse.json(
+          { message: "Accès refusé : réservé aux docteurs" },
+          { status: 403 }
+        );
+      }
+    } catch (err) {
+      return NextResponse.json(
+        { message: "Token invalide" },
+        { status: 401 }
+      );
+    }
+
+    // ✅ SI AUTHENTIFIÉ, CONTINUER AVEC LA LOGIQUE NORMALE
     await connectDB();
 
     // 📌 Récupérer les paramètres de pagination depuis l'URL

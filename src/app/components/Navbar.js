@@ -2,19 +2,74 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
-import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import i18n from "../../i18n";
 import morocco from "../../../public/assets/morocco.png";
 import france from "../../../public/assets/france.png";
 import "../../styles/navbar.css";
-import LoginModal from "../models/LoginModal"; 
+import LoginModal from "../models/LoginModal";
 
 export default function Navbar() {
   const [isCLicked, setIsClicked] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false); // <-- Etat pour la modale
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  // États pour l'authentification
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userRole, setUserRole] = useState(null);
+  const [userEmail, setUserEmail] = useState(null);
+
+  const router = useRouter();
+
+  // Vérifier si l'utilisateur est connecté au chargement
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
+  const checkAuth = async () => {
+    try {
+      const res = await fetch("/api/auth/me", {
+        method: "GET",
+        credentials: "include",
+        cache: "no-store",
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setIsLoggedIn(true);
+        setUserRole(data.user.role);
+        setUserEmail(data.user.email);
+      } else {
+        setIsLoggedIn(false);
+        setUserRole(null);
+        setUserEmail(null);
+      }
+    } catch (err) {
+      console.error(err);
+      setIsLoggedIn(false);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      const res = await fetch("/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+
+      if (res.ok) {
+        setIsLoggedIn(false);
+        setUserRole(null);
+        setUserEmail(null);
+        router.push("/");
+      }
+    } catch (err) {
+      console.error("Erreur logout:", err);
+      alert("Erreur lors de la déconnexion");
+    }
+  };
 
   const toggleNavbar = () => {
     if (isCLicked) {
@@ -37,7 +92,10 @@ export default function Navbar() {
   };
 
   const openLoginModal = () => setShowLoginModal(true);
-  const closeLoginModal = () => setShowLoginModal(false);
+  const closeLoginModal = () => {
+    setShowLoginModal(false);
+    checkAuth(); // Recharger l'état d'authentification après login
+  };
 
   const baseStyle =
     "relative text-[#117090] font-[500] text-xl transition-colors duration-200 ease-in-out hover:text-[#fe1952] after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:bg-[#fe1952] after:transition-all after:duration-500 after:ease-in-out";
@@ -89,18 +147,35 @@ export default function Navbar() {
             <div className="flex items-center max-[1100px]:hidden space-x-4">
               <Link
                 href="/Contact"
-                className="text-white no-underline bg-[var(--main-blue)] px-4 py-2 border-4 border-[#4d96ae] rounded-xl font-normal transition-all duration-500 ease-in-out hover:bg-[var(--main-red)] hover:border-[#feddddce]"
+                className="text-white no-underline bg-[var(--main-blue)] px-4 py-2 border-4 border-[#4d96ae] rounded-xl font-normal transition-all duration-500 ease-in-out hover:bg-[var(--main-red)] hover:border-[#feddddce] whitespace-nowrap"
               >
                 {t("appointment")}
               </Link>
 
-              {/* Bouton Login */}
-              <button
-                onClick={openLoginModal}
-                className="text-white bg-[var(--main-blue)] px-4 py-2 border-4 border-[#4d96ae] rounded-xl font-normal transition-all duration-500 ease-in-out hover:bg-[var(--main-red)] hover:border-[#feddddce]"
-              >
-                {t("login")}
-              </button>
+              {/* Affichage conditionnel : Login ou Info utilisateur + Logout */}
+              {isLoggedIn ? (
+                <div className="flex items-center space-x-3 min-w-0">
+
+                  {userRole && (
+                    <span className="text-xs bg-[var(--main-blue)] text-white px-2 py-1 rounded whitespace-nowrap">
+                      {userRole === "doctor" ? "🩺 Dr.Ouafae" : "👨‍💼 Assistant"}
+                    </span>
+                  )}
+                  <button
+                    onClick={handleLogout}
+                    className="text-white bg-[var(--main-red)] px-4 py-2 border-4 border-[#feddddce] rounded-xl font-normal transition-all duration-500 ease-in-out hover:bg-[#d01444] whitespace-nowrap"
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={openLoginModal}
+                  className="text-white bg-[var(--main-blue)] px-4 py-2 border-4 border-[#4d96ae] rounded-xl font-normal transition-all duration-500 ease-in-out hover:bg-[var(--main-red)] hover:border-[#feddddce] whitespace-nowrap"
+                >
+                  {t("login")}
+                </button>
+              )}
             </div>
             <div className="flex items-center">
               <div className="flex flex-col h-15 justify-between max-[900px]:hidden">
@@ -189,6 +264,32 @@ export default function Navbar() {
               >
                 {t("contact")}
               </Link>
+
+              {/* Login/Logout dans le menu mobile */}
+              {isLoggedIn ? (
+                <div className="flex flex-col space-y-2">
+                  <div className="text-[var(--main-blue)] font-semibold text-center">
+                    {userRole === "doctor" ? "🩺 Docteur" : "👨‍💼 Assistant"}
+                  </div>
+                  <div className="text-[var(--main-blue)] text-sm text-center mb-2">
+                    {userRole === "doctor" ? "Dr." : ""} {userEmail}
+                  </div>
+                  <button
+                    onClick={handleLogout}
+                    className="text-white bg-[var(--main-red)] px-4 py-2 rounded-xl"
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={openLoginModal}
+                  className="text-white bg-[var(--main-blue)] px-4 py-2 rounded-xl"
+                >
+                  {t("login")}
+                </button>
+              )}
+
               <div className="flex flex-row items-center gap-8 mt-2 justify-center">
                 <Image
                   src={morocco}
@@ -210,7 +311,6 @@ export default function Navbar() {
         )}
       </nav>
 
-      {/* Affichage de la modale */}
       {showLoginModal && <LoginModal closeModal={closeLoginModal} />}
     </>
   );

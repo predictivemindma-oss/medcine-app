@@ -8,9 +8,11 @@ import "../../styles/medecin.css";
 
 export default function Medecin() {
   const [medecin, setMedecin] = useState(null);
-  const [editingField, setEditingField] = useState(""); 
+  const [editingField, setEditingField] = useState("");
   const [tempValue, setTempValue] = useState("");
+  const [userRole, setUserRole] = useState(null); // Rôle utilisateur
 
+  // Récupérer le médecin
   useEffect(() => {
     const fetchMedecin = async () => {
       try {
@@ -25,6 +27,21 @@ export default function Medecin() {
     fetchMedecin();
   }, []);
 
+  // Vérifier le rôle de l'utilisateur
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await fetch("/api/auth/me");
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data.user) setUserRole(data.user.role);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    checkAuth();
+  }, []);
+
   if (!medecin) return <p>Chargement...</p>;
 
   const startEdit = (field, value) => {
@@ -36,8 +53,8 @@ export default function Medecin() {
     let updated = { ...medecin };
 
     if (index !== null) {
-      // Pour expériences/formations
-      const arrField = field === "experiences" ? [...medecin.experiences] : [...medecin.formations];
+      const arrField =
+        field === "experiences" ? [...medecin.experiences] : [...medecin.formations];
       arrField[index] = tempValue;
       updated[field] = arrField;
     } else {
@@ -95,10 +112,12 @@ export default function Medecin() {
         ) : (
           <>
             <span>{value}</span>
-            <FaEdit
-              onClick={() => startEdit(key, value)}
-              className="cursor-pointer text-blue-600"
-            />
+            {userRole === "doctor" && (
+              <FaEdit
+                onClick={() => startEdit(key, value)}
+                className="cursor-pointer text-blue-600"
+              />
+            )}
           </>
         )}
       </div>
@@ -109,49 +128,48 @@ export default function Medecin() {
     <div className="medecin-container">
       {/* Contact Info */}
       <div className="contact-info">
-       <div className="doc-img" style={{ position: "relative" }}>
-  <Image
-    src={medecin.image || "/doc.jpg"}
-    alt="doctor"
-    width={300}
-    height={400}
-  />
-  
-  {/* Icône de modification */}
-  <FaEdit
-    onClick={() => document.getElementById("imageUpload").click()}
-    className="cursor-pointer text-purple-600"
-    style={{ position: "absolute", top: 10, right: 10 }}
-  />
+        <div className="doc-img" style={{ position: "relative" }}>
+          <Image
+            src={medecin.image || "/doc.jpg"}
+            alt="doctor"
+            width={300}
+            height={400}
+          />
 
-  {/* Input caché pour téléverser */}
-  <input
-    type="file"
-    id="imageUpload"
-    style={{ display: "none" }}
-    accept="image/*"
-    onChange={async (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
+          {/* Icône de modification image seulement pour doctor */}
+          {userRole === "doctor" && (
+            <>
+              <FaEdit
+                onClick={() => document.getElementById("imageUpload").click()}
+                className="cursor-pointer text-purple-600"
+                style={{ position: "absolute", top: 10, right: 10 }}
+              />
+              <input
+                type="file"
+                id="imageUpload"
+                style={{ display: "none" }}
+                accept="image/*"
+                onChange={async (e) => {
+                  const file = e.target.files[0];
+                  if (!file) return;
 
-      const formData = new FormData();
-      formData.append("image", file);
+                  const formData = new FormData();
+                  formData.append("image", file);
 
-      // Envoyer le fichier à l’API
-      const res = await fetch("/api/medecin/upload", {
-        method: "POST",
-        body: formData,
-      });
+                  const res = await fetch("/api/medecin/upload", {
+                    method: "POST",
+                    body: formData,
+                  });
 
-      if (res.ok) {
-        const data = await res.json();
-        // Mettre à jour l’image dans l’état
-        setMedecin({ ...medecin, image: data.url });
-      }
-    }}
-  />
-</div>
-
+                  if (res.ok) {
+                    const data = await res.json();
+                    setMedecin({ ...medecin, image: data.url });
+                  }
+                }}
+              />
+            </>
+          )}
+        </div>
 
         <div className="contact-text">
           <i>{renderField("specialite", medecin.specialite)}</i>
@@ -160,9 +178,9 @@ export default function Medecin() {
             {renderField("contactTitle", "Contact")}
           </h3>
 
-         <div>{renderField("telephone", medecin.telephone)}</div>
-<div>{renderField("fixe", medecin.fixe)}</div>
-<div>{renderField("localisation", medecin.localisation)}</div>
+          <div>{renderField("telephone", medecin.telephone)}</div>
+          <div>{renderField("fixe", medecin.fixe)}</div>
+          <div>{renderField("localisation", medecin.localisation)}</div>
 
           <Link
             href="/Contact"
@@ -177,7 +195,7 @@ export default function Medecin() {
       <div className="intro">
         <h3>{renderField("nom", medecin.nom)}</h3>
 
-<div>{renderField("introduction", medecin.introduction, true)}</div>
+        <div>{renderField("introduction", medecin.introduction, true)}</div>
 
         <h3>Expérience</h3>
         <ul>

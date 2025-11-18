@@ -155,7 +155,7 @@ const handleSubmit = async (e) => {
           <label>
             <h3>{t("message")}</h3><br />
             <textarea name="message" value={formData.message} onChange={handleChange} />
-          </label>
+          </label>+
 
           <button type="submit">{t("submit")}</button>
         </form>

@@ -1,9 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import "./contactList.css";
 
 export default function ContactListPage() {
+  const router = useRouter();
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [userRole, setUserRole] = useState(null);
+
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -14,14 +21,46 @@ export default function ContactListPage() {
     hasPrevPage: false,
   });
   const [filterPresence, setFilterPresence] = useState("tous");
-  const [filterDate, setFilterDate] = useState(""); // ✅ Nouveau filtre par date
+  const [filterDate, setFilterDate] = useState("");
+
+  // ✅ Vérification de l'authentification via token
+  useEffect(() => {
+    async function checkAuth() {
+      try {
+        const res = await fetch("/api/auth/me", {
+          method: "GET",
+          credentials: "include", // Important pour envoyer les cookies
+        });
+
+        if (!res.ok) {
+          setIsAuthenticated(false);
+          setIsLoading(false);
+          return;
+        }
+
+        const data = await res.json();
+        setIsAuthenticated(true);
+        setUserRole(data.user?.role); // Accès au rôle depuis data.user
+        setIsLoading(false);
+      } catch (err) {
+        console.error("Erreur d'authentification:", err);
+        setIsAuthenticated(false);
+        setIsLoading(false);
+      }
+    }
+
+    checkAuth();
+  }, []);
 
   // 📌 Fonction pour récupérer les contacts avec pagination et filtrage
   async function fetchContacts(page = 1, presence = filterPresence) {
     setLoading(true);
     try {
       const res = await fetch(
-        `/api/contacts/getContacts?page=${page}&limit=15&presence=${presence}`
+        `/api/contacts/getContacts?page=${page}&limit=15&presence=${presence}`,
+        {
+          credentials: "include", // Inclure le cookie d'authentification
+        }
       );
       if (!res.ok) throw new Error("Erreur lors de la récupération");
 
@@ -54,12 +93,16 @@ export default function ContactListPage() {
   }
 
   useEffect(() => {
-    fetchContacts(1);
-  }, []);
+    if (isAuthenticated) {
+      fetchContacts(1);
+    }
+  }, [isAuthenticated]);
 
   // 📌 Quand le filtre change (présence ou date)
   useEffect(() => {
-    fetchContacts(1, filterPresence);
+    if (isAuthenticated) {
+      fetchContacts(1, filterPresence);
+    }
   }, [filterPresence, filterDate]);
 
   // 📌 Mise à jour du champ "presence"
@@ -68,6 +111,7 @@ export default function ContactListPage() {
       const res = await fetch("/api/contacts/updateContact", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({ id, presence }),
       });
       if (!res.ok) throw new Error("Erreur lors de la mise à jour");
@@ -93,11 +137,36 @@ export default function ContactListPage() {
     fetchContacts(page, filterPresence);
   };
 
+  // 📌 Si l'utilisateur n'est pas authentifié, afficher "Unauthorized"
+  if (isLoading) {
+    return (
+      <div style={{ textAlign: "center", padding: "50px" }}>
+        <p>Vérification de l'authentification...</p>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div style={{ textAlign: "center", padding: "50px" }}>
+        <h1>🚫 Accès non autorisé</h1>
+
+      </div>
+    );
+  }
+
   if (loading) return <p>Chargement des contacts...</p>;
 
   return (
     <div className="contact-list-container">
       <h1>Liste des contacts</h1>
+
+      {/* ✅ Affichage du rôle (optionnel) */}
+      {userRole && (
+        <p style={{ marginBottom: "10px", color: "#666" }}>
+          Connecté en tant que : <strong>{userRole}</strong>
+        </p>
+      )}
 
       {/* ✅ Filtres combinés */}
       <div

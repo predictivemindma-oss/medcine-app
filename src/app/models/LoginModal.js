@@ -8,7 +8,7 @@ export default function LoginModal({ closeModal }) {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const email = e.target.email.value.trim(); // supprime espaces inutiles
+    const email = e.target.email.value.trim();
     const password = e.target.password.value;
 
     if (!email || !password) {
@@ -21,6 +21,7 @@ export default function LoginModal({ closeModal }) {
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include", // Important pour recevoir les cookies
         body: JSON.stringify({ email, password }),
       });
 
@@ -28,20 +29,24 @@ export default function LoginModal({ closeModal }) {
       setLoading(false);
 
       if (!res.ok) {
-        console.log("Erreur API:", data); // log pour debug
+        console.log("Erreur API:", data);
         return alert(data.message || "Erreur de connexion");
       }
 
-      // Sauvegarde token et rôle
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("role", data.role);
+      // ✅ Plus besoin de localStorage, le cookie est géré automatiquement
+      alert(`Bienvenue ${data.user.role === "doctor" ? "Docteur" : "Assistant"} !`);
 
-      closeModal(); // Fermer la modale
+      closeModal(); // Fermer la modale (et recharger l'auth dans Navbar)
 
       // Redirection selon rôle
-      if (data.role === "doctor") router.push("/dashboard/doctor");
-      else if (data.role === "assistant") router.push("/dashboard/assistant");
-      else router.push("/"); // fallback
+      if (data.user.role === "doctor") {
+        router.push("/ContactList");
+        router.push("/Medecin");
+      } else if (data.user.role === "assistant") {
+        router.push("/dashboard/assistant");
+      } else {
+        router.push("/");
+      }
 
     } catch (err) {
       setLoading(false);
@@ -65,4 +70,4 @@ export default function LoginModal({ closeModal }) {
       </div>
     </div>
   );
-}
+} // <- ici c’est la fermeture correcte du composant, pas besoin d’autre }
