@@ -21,7 +21,7 @@ export async function GET(request) {
       const { payload } = await jwtVerify(token, secret);
 
       // Vérifier que c'est un doctor
-      if (payload.role !== "doctor") {
+if (!["doctor", "assistant"].includes(payload.role)) {
         return NextResponse.json(
           { message: "Accès refusé : réservé aux docteurs" },
           { status: 403 }

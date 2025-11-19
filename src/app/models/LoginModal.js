@@ -43,7 +43,7 @@ export default function LoginModal({ closeModal }) {
         router.push("/ContactList");
         router.push("/Medecin");
       } else if (data.user.role === "assistant") {
-        router.push("/dashboard/assistant");
+        router.push("/ContactList");
       } else {
         router.push("/");
       }
