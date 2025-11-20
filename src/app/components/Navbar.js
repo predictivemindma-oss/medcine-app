@@ -15,6 +15,9 @@ export default function Navbar() {
   const [isCLicked, setIsClicked] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  // Nouvel état pour dropdown rôle
+const [isRoleDropdownOpen, setIsRoleDropdownOpen] = useState(false);
+
 
   // États pour l'authentification
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -152,30 +155,38 @@ export default function Navbar() {
                 {t("appointment")}
               </Link>
 
-              {/* Affichage conditionnel : Login ou Info utilisateur + Logout */}
-              {isLoggedIn ? (
-                <div className="flex items-center space-x-3 min-w-0">
+            {/* Affichage conditionnel : Login ou Info utilisateur + Dropdown */}
+{/* Bouton rôle + dropdown déconnexion */}
+{isLoggedIn ? (
+  <div className="relative">
+    <button
+      onClick={() => setIsRoleDropdownOpen(prev => !prev)}
+      className="text-white bg-[var(--main-blue)] px-4 py-2 border-4 border-[#4d96ae] rounded-xl font-normal hover:bg-[var(--main-red)] whitespace-nowrap"
+    >
+      {userRole === "doctor" ? t("doctor_role") : t("assistant_role")}
+    </button>
 
-                  {userRole && (
-                    <span className="text-xs bg-[var(--main-blue)] text-white px-2 py-1 rounded whitespace-nowrap">
-                      {userRole === "doctor" ? "🩺 Dr.Ouafae" : "👨‍💼 Assistant"}
-                    </span>
-                  )}
-                  <button
-                    onClick={handleLogout}
-                    className="text-white bg-[var(--main-red)] px-4 py-2 border-4 border-[#feddddce] rounded-xl font-normal transition-all duration-500 ease-in-out hover:bg-[#d01444] whitespace-nowrap"
-                  >
-                    Logout
-                  </button>
-                </div>
-              ) : (
-                <button
-                  onClick={openLoginModal}
-                  className="text-white bg-[var(--main-blue)] px-4 py-2 border-4 border-[#4d96ae] rounded-xl font-normal transition-all duration-500 ease-in-out hover:bg-[var(--main-red)] hover:border-[#feddddce] whitespace-nowrap"
-                >
-                  {t("login")}
-                </button>
-              )}
+    {isRoleDropdownOpen && (
+      <div className="absolute right-0 mt-2 w-32 bg-white rounded-xl shadow-lg z-50">
+        <button
+          onClick={handleLogout}
+          className="w-full text-[#fe1952] px-4 py-2 hover:bg-[#fcecec] rounded-xl text-left"
+        >
+          {t("logout")}
+        </button>
+      </div>
+    )}
+  </div>
+) : (
+  <button
+    onClick={openLoginModal}
+    className="text-white bg-[var(--main-blue)] px-4 py-2 border-4 border-[#4d96ae] rounded-xl font-normal hover:bg-[var(--main-red)] whitespace-nowrap"
+  >
+    Login
+  </button>
+)}
+
+
             </div>
             <div className="flex items-center">
               <div className="flex flex-col h-15 justify-between max-[900px]:hidden">
@@ -271,14 +282,12 @@ export default function Navbar() {
                   <div className="text-[var(--main-blue)] font-semibold text-center">
                     {userRole === "doctor" ? "🩺 Docteur" : "👨‍💼 Assistant"}
                   </div>
-                  <div className="text-[var(--main-blue)] text-sm text-center mb-2">
-                    {userRole === "doctor" ? "Dr." : ""} {userEmail}
-                  </div>
+                  
                   <button
                     onClick={handleLogout}
                     className="text-white bg-[var(--main-red)] px-4 py-2 rounded-xl"
                   >
-                    Logout
+                  {t("logout")}
                   </button>
                 </div>
               ) : (

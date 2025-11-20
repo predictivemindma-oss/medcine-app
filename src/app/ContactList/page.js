@@ -3,8 +3,13 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import "./contactList.css";
+import { useTranslation } from "react-i18next";
+import i18n from "../../i18n";
+
 
 export default function ContactListPage() {
+    const { t } = useTranslation(); // <-- initialiser t ici
+
   const router = useRouter();
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -159,14 +164,9 @@ export default function ContactListPage() {
 
   return (
     <div className="contact-list-container">
-      <h1>Liste des contacts</h1>
+      <h1>{t("contact_list")}</h1>
 
-      {/* ✅ Affichage du rôle (optionnel) */}
-      {userRole && (
-        <p style={{ marginBottom: "10px", color: "#666" }}>
-          Connecté en tant que : <strong>{userRole}</strong>
-        </p>
-      )}
+     
 
       {/* ✅ Filtres combinés */}
       <div
@@ -181,7 +181,7 @@ export default function ContactListPage() {
         {/* 🔹 Filtre par présence */}
         <div>
           <label htmlFor="presenceFilter" style={{ fontWeight: "bold" }}>
-            Filtrer par présence :
+  {t("filter_presence")} :
           </label>
           <select
             id="presenceFilter"
@@ -195,17 +195,17 @@ export default function ContactListPage() {
               marginLeft: "8px",
             }}
           >
-            <option value="tous">Tous</option>
-            <option value="en cours">⏳ En cours</option>
-            <option value="confirmé">✅ Confirmé</option>
-            <option value="annulé">❌ Annulé</option>
+           <option value="tous">{t("all")}</option>
+  <option value="en cours">{t("in_progress")}</option>
+  <option value="confirmé">{t("confirmed")}</option>
+  <option value="annulé">{t("cancelled")}</option>
           </select>
         </div>
 
         {/* 🔹 Filtre par date de création */}
         <div>
           <label htmlFor="dateFilter" style={{ fontWeight: "bold" }}>
-            Filtrer par date :
+  {t("filter_date")} :
           </label>
           <input
             id="dateFilter"
@@ -233,7 +233,8 @@ export default function ContactListPage() {
                 cursor: "pointer",
               }}
             >
-              ❌ Réinitialiser
+              ❌{t("reset")} 
+
             </button>
           )}
         </div>
@@ -252,7 +253,7 @@ export default function ContactListPage() {
         }}
         onClick={() => window.open("/api/contacts/exportContacts", "_blank")}
       >
-        Exporter tous les contacts
+  {t("export_all_contacts")}
       </button>
 
       {/* Tableau des contacts */}
@@ -263,15 +264,15 @@ export default function ContactListPage() {
           <table className="contact-table">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Prénom</th>
-                <th>Nom</th>
-                <th>Email</th>
-                <th>Numéro</th>
-                <th>Service</th>
-                <th>Message</th>
-                <th>Date</th>
-                <th>Présence</th>
+           <th>{t("id")}</th>
+    <th>{t("first_name")}</th>
+    <th>{t("last_name")}</th>
+    <th>{t("email")}</th>
+    <th>{t("phone_number")}</th>
+    <th>{t("service")}</th>
+    <th>{t("message")}</th>
+    <th>{t("date")}</th>
+    <th>{t("presence")}</th>
               </tr>
             </thead>
             <tbody>
@@ -320,9 +321,9 @@ export default function ContactListPage() {
                         fontWeight: "500",
                       }}
                     >
-                      <option value="en cours">⏳ En cours</option>
-                      <option value="confirmé">✅ Confirmé</option>
-                      <option value="annulé">❌ Annulé</option>
+                       <option value="en cours">{t("in_progress")}</option>
+  <option value="confirmé">{t("confirmed")}</option>
+  <option value="annulé">{t("cancelled")}</option>
                     </select>
                   </td>
                 </tr>
@@ -353,7 +354,7 @@ export default function ContactListPage() {
                 cursor: pagination.hasPrevPage ? "pointer" : "not-allowed",
               }}
             >
-              ← Précédent
+              ← {t("previous")}
             </button>
 
             <div style={{ display: "flex", gap: "5px" }}>
@@ -391,7 +392,7 @@ export default function ContactListPage() {
                 cursor: pagination.hasNextPage ? "pointer" : "not-allowed",
               }}
             >
-              Suivant →
+              {t("next")} →
             </button>
           </div>
         </>

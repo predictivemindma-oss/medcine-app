@@ -107,13 +107,19 @@ const handleSubmit = async (e) => {
 
         <div className="local">
           <div className="contact-icons">
-            <Image src="/assets/icons/local.png" alt="location" width={40} height={40} />
-          </div>
-          <div>
-            <span>{t("local_label")}</span>
-            <br />
-            <span className="blue-spans">{t("local_value")}</span>
-          </div>
+    <a
+      href="https://www.google.com/maps?q=4ème+étage+appt+N°14,+et+lieutenant+Belhoucine,+Résidence+Saîdi,+Angle+Rue+Jakarta,+Oujda+60000"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <Image src="/assets/icons/local.png" alt="location" width={40} height={40} />
+    </a>
+  </div>
+  <div>
+    <span>{t("local_label")}</span>
+    <br />
+    <span className="blue-spans">{t("local_value")}</span>
+  </div>
         </div>
       </div>
 
@@ -145,17 +151,17 @@ const handleSubmit = async (e) => {
           <label>
             <span>{t("services")}</span><br />
             <select name="service" value={formData.service} onChange={handleChange} required>
-              <option value="">-- Choisissez un service --</option>
-              <option value="consultation">Consultation générale</option>
-              <option value="dermato">Dermatologie</option>
-              <option value="analyse">Analyses / Bilans</option>
+              <option value="">-- {t("choose_service")} --</option>
+              <option value="consultation">{t("consultation")}</option>
+              <option value="dermato">{t("dermato")}</option>
+              <option value="analyse">{t("analyse")}</option>
             </select>
           </label>
 
           <label>
             <h3>{t("message")}</h3><br />
             <textarea name="message" value={formData.message} onChange={handleChange} />
-          </label>+
+          </label>
 
           <button type="submit">{t("submit")}</button>
         </form>

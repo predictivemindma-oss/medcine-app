@@ -61,8 +61,8 @@ if (!["doctor", "assistant"].includes(payload.role)) {
 
     // 📌 Retourner les données + métadonnées de pagination
     return NextResponse.json({
-      contacts,
-      pagination: {
+        contacts,
+        pagination: {
         currentPage: page,
         totalPages,
         totalContacts,

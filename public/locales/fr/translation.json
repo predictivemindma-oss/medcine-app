@@ -128,9 +128,6 @@
   "propos_plans_title": "Plans nutritionnels personnalisés",
   "propos_prevention_title": "Prévention & Bien-être durable",
 
-
-
-
   "medecin_specialite": "Spécialiste en endocrinologie, diabétologie et nutrition",
   "medecin_contact_title": "Contact Info",
   "medecin_tel": "TEL: 06 60 68 32 66",
@@ -149,9 +146,6 @@
   "medecin_formation_1": "Ancienne médecin du Centre Hospitalier d’Avignon – France",
   "medecin_formation_2": "Diplôme d’échographie et de cytoponction thyroïdienne – Université de Paris",
   "medecin_formation_3": "Ancienne interne au CHU Mohamed VI – Oujda",
-
-
-
 
   "contact_title": "Prenez rendez-vous pour votre consultation médicale",
   "contact_doc": "Besoin d’un avis médical ? Le Dr Ouafae ELMEHRAOUI vous répond.",
@@ -177,5 +171,33 @@
   "page_faq": "FAQ's",
   "cms_pages_title": "CMS Pages",
   "address_title": "Adresse",
-  "location": "Angle rue Jakarta et lieutenant Behoucine. Résidence Saïdi 4eme étage appt N° 14 (Au dessus du café ASSITANA, en face au Lycée Abdelmoumen) - OUJDA"
+  "location": "Angle rue Jakarta et lieutenant Behoucine. Résidence Saïdi 4eme étage appt N° 14 (Au dessus du café ASSITANA, en face au Lycée Abdelmoumen) - OUJDA",
+  "login": "Connexion",
+  "logout": "Déconnexion",
+  "doctor_role": "Docteur",
+  "assistant_role": "Assistant",
+  "checking_auth": "Vérification de l'authentification...",
+  "unauthorized_access": "Accès non autorisé",
+  "loading_contacts": "Chargement des contacts...",
+  "contact_list": "Liste des contacts",
+  "connected_as": "Connecté en tant que",
+  "filter_presence": "Filtrer par présence",
+  "filter_date": "Filtrer par date",
+  "reset": "Réinitialiser",
+  "export_all_contacts": "Exporter tous les contacts",
+  "all": "Tous",
+  "in_progress": "En cours",
+  "confirmed": "Confirmé",
+  "cancelled": "Annulé",
+  "previous": "Précédent",
+  "next": "Suivant",
+  "id": "ID",
+  "first_name": "Prénom",
+  "last_name": "Nom",
+  "phone_number": "Numéro",
+  "service": "Service",
+  "date": "Date",
+  "presence": "Présence"
+  
+
 }

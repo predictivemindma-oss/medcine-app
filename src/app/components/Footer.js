@@ -19,10 +19,13 @@ const { t } = useTranslation();
         <div className="social-media">
           <Image src={logo} alt="logo" width={100} height={100} />
           <p>{t("follow_us")}</p>
-          <div className="media-icons">
-            <Image src={ig} alt="instagram" width={40} height={40} className="footer-icon" />
-            <Image src={fb} alt="facebook" width={40} height={40} className="footer-icon" />
-          </div>
+         <div className="media-icons">
+  <a href="https://www.instagram.com/dr_soumaya_faras/" target="_blank" rel="noopener noreferrer">
+    <Image src={ig} alt="instagram" width={40} height={40} className="footer-icon" />
+  </a>
+  <Image src={fb} alt="facebook" width={40} height={40} className="footer-icon" />
+</div>
+
         </div>
 
         <div className="mobile-pages">

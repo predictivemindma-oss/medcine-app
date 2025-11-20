@@ -4,9 +4,24 @@ import Contact from "../../../models/contact";
 export async function GET(req) {
   try {
     await connectDB();
-    const contacts = await Contact.find().sort({ createdAt: -1 });
 
-    const header = ["ID","Prénom","Nom","Email","Numéro","Service","Message","Date","Présence"];
+    // 🔥 TRI NUMÉRIQUE pour contactId même s'il est string
+    const contacts = await Contact.find()
+      .collation({ locale: "en", numericOrdering: true })
+      .sort({ contactId: 1 });
+
+    const header = [
+      "ID",
+      "Prénom",
+      "Nom",
+      "Email",
+      "Numéro",
+      "Service",
+      "Message",
+      "Date",
+      "Présence"
+    ];
+
     const rows = contacts.map(c => [
       c.contactId,
       c.prenom,
@@ -14,7 +29,7 @@ export async function GET(req) {
       c.email,
       c.numero,
       c.service,
-      `"${c.message.replace(/"/g,'""')}"`,
+      `"${c.message.replace(/"/g, '""')}"`,
       c.createdAt ? new Date(c.createdAt).toLocaleString("fr-FR") : "",
       c.presence || "En cours"
     ]);
@@ -31,6 +46,9 @@ export async function GET(req) {
 
   } catch (err) {
     console.error("Erreur export CSV:", err);
-    return new Response(JSON.stringify({ message: "Erreur serveur", error: err.message }), { status: 500 });
+    return new Response(
+      JSON.stringify({ message: "Erreur serveur", error: err.message }),
+      { status: 500 }
+    );
   }
 }
