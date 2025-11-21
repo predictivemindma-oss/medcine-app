@@ -1,11 +1,32 @@
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]/route";
+
 import { NextResponse } from "next/server";
 import connectionToDatabase from "@/lib/mongoose";
 import Service from "@/models/Service";
 import fs from "fs/promises";
 import path from "path";
 
-// CREATE (POST)
+// Role check helper
+async function requireDoctor(request) {
+  const session = await getServerSession({ req: request, ...authOptions });
+
+  if (!session) {
+    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+  }
+
+  if (session.user.role !== "doctor") {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  return null; // allowed
+}
+
+// CREATE (POST) - doctor only
 export async function POST(request) {
+  const authError = await requireDoctor(request);
+  if (authError) return authError;
+
   try {
     await connectionToDatabase();
     const formData = await request.formData();
@@ -39,19 +60,21 @@ export async function POST(request) {
   }
 }
 
-// READ (GET)
+// READ (GET) - public
 export async function GET() {
   await connectionToDatabase();
-  const services = await Service.find();
+  const services = await Service.find().sort({ order: 1 });
   return NextResponse.json({ services });
 }
 
-// UPDATE (PATCH)
+// UPDATE (PATCH) - doctor only
 export async function PATCH(request) {
+  const authError = await requireDoctor(request);
+  if (authError) return authError
+
   try {
     await connectionToDatabase();
 
-    // Parse form data
     const contentType = request.headers.get("content-type") || "";
     if (contentType.includes("multipart/form-data")) {
       const formData = await request.formData();
@@ -100,8 +123,11 @@ export async function PATCH(request) {
 }
 
 
-// DELETE
+// DELETE - doctor only
 export async function DELETE(request) {
+  const authError = await requireDoctor(request);
+  if (authError) return authError;
+
   try {
     await connectionToDatabase();
     const { searchParams } = new URL(request.url);

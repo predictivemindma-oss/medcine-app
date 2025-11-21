@@ -1,5 +1,7 @@
 "use client";
 
+// import { getServerSession } from "next-auth";
+// import { authOptions } from "../api/auth/[...nextauth]/route";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
@@ -8,13 +10,17 @@ import { useTranslation } from "react-i18next";
 import i18n from "../../i18n";
 import morocco from "../../../public/assets/morocco.png";
 import france from "../../../public/assets/france.png";
+import LogoutButton from "./LogoutButton"
+import { useSession } from "next-auth/react";
 import "../../styles/navbar.css"
 
 export default function Navbar() {
   const [isCLicked, setIsClicked] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+
+  const { data: session } = useSession();
+
   const toggleNavbar = () => {
-    // setIsClicked(!isCLicked);
     if (isCLicked) {
       setIsClosing(true);
       setTimeout(() => {
@@ -32,8 +38,8 @@ export default function Navbar() {
     i18n.changeLanguage(lang);
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
   };
-  const baseStyle =
-    "relative text-[#117090] font-[500] text-xl transition-colors duration-200 ease-in-out hover:text-[#fe1952] after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:bg-[#fe1952] after:transition-all after:duration-500 after:ease-in-out";
+  const baseStyle = "relative text-[#117090] font-[500] text-xl transition-colors duration-200 ease-in-out hover:text-[#fe1952] after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:bg-[#fe1952] after:transition-all after:duration-500 after:ease-in-out";
+  // const session = await getServerSession(authOptions);
 
   return (
     <>
@@ -52,9 +58,12 @@ export default function Navbar() {
                 <Link href="/Services" className={`${baseStyle} ${pathname === "/Services" ? "font-semibold text-[#fe1952]" : ""}`}>{t("services")}</Link>
                 <Link href="/Medecin" className={`${baseStyle} ${pathname === "/Medecin" ? "font-semibold text-[#fe1952]" : ""}`}>{t("doctor")}</Link>
                 <Link href="/Contact" className={`${baseStyle} ${pathname === "/Contact" ? "font-semibold text-[#fe1952]" : ""}`}>{t("contact")}</Link>
-                <Link href="/Reservations" className={`${baseStyle} ${pathname === "/Reservations" ? "font-semibold text-[#fe1952]" : ""}`}>{t("reservations")}</Link>
+                {(session?.user?.role === "doctor" || session?.user?.role === "assistant") && (
+                  <Link href="/Reservations" className={`${baseStyle} ${pathname === "/Reservations" ? "font-semibold text-[#fe1952]" : ""}`}>{t("reservations")}</Link>
+                )}
               </div>
             </div>
+            <LogoutButton />
             <div className="flex items-center max-[1300px]:hidden">
               <Link href="/Contact" className="text-white no-underline bg-[var(--main-blue)] px-4 py-2 border-4 border-[#4d96ae] rounded-xl font-normal transition-all duration-500 ease-in-out hover:bg-[var(--main-red)] hover:border-[#feddddce]" >{t("appointment")}</Link>
             </div>
@@ -85,7 +94,9 @@ export default function Navbar() {
               <Link href="/Services" className={`${baseStyle} ${pathname === "/Services" ? "font-semibold text-[#fe1952]" : ""} block w-full`}>{t("services")}</Link>
               <Link href="/Medecin" className={`${baseStyle} ${pathname === "/Medecin" ? "font-semibold text-[#fe1952]" : ""} block w-full`}>{t("doctor")}</Link>
               <Link href="/Contact" className={`${baseStyle} ${pathname === "/Contact" ? "font-semibold text-[#fe1952]" : ""} block w-full`}>{t("contact")}</Link>
-              <Link href="/Reservations" className={`${baseStyle} ${pathname === "/Reservations" ? "font-semibold text-[#fe1952]" : ""} block w-full`}>{t("reservations")}</Link>
+              {(session?.user?.role === "doctor" || session?.user?.role === "assistant") && (
+                <Link href="/Reservations" className={`${baseStyle} ${pathname === "/Reservations" ? "font-semibold text-[#fe1952]" : ""} block w-full`}>{t("reservations")}</Link>
+              )}
               <div className="flex flex-row items-center gap-8 mt-2 justify-center">
                 <Image src={morocco} alt="ar" width={25} className="cursor-pointer" onClick={() => toggleLang("ar")} />
                 <Image src={france} alt="fr" width={25} className="cursor-pointer" onClick={() => toggleLang("fr")} />
