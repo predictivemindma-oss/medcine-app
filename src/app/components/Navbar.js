@@ -63,10 +63,10 @@ export default function Navbar() {
                 )}
               </div>
             </div>
-            <LogoutButton />
             <div className="flex items-center max-[1300px]:hidden">
               <Link href="/Contact" className="text-white no-underline bg-[var(--main-blue)] px-4 py-2 border-4 border-[#4d96ae] rounded-xl font-normal transition-all duration-500 ease-in-out hover:bg-[var(--main-red)] hover:border-[#feddddce]" >{t("appointment")}</Link>
             </div>
+            <LogoutButton />
             <div className="flex items-center">
               <div className="flex flex-col h-15 justify-between max-[1000px]:hidden">
                 <Image src={morocco} alt="ar" width={25} className="cursor-pointer" onClick={() => toggleLang("ar")} />
@@ -97,6 +97,7 @@ export default function Navbar() {
               {(session?.user?.role === "doctor" || session?.user?.role === "assistant") && (
                 <Link href="/Reservations" className={`${baseStyle} ${pathname === "/Reservations" ? "font-semibold text-[#fe1952]" : ""} block w-full`}>{t("reservations")}</Link>
               )}
+              <LogoutButton />
               <div className="flex flex-row items-center gap-8 mt-2 justify-center">
                 <Image src={morocco} alt="ar" width={25} className="cursor-pointer" onClick={() => toggleLang("ar")} />
                 <Image src={france} alt="fr" width={25} className="cursor-pointer" onClick={() => toggleLang("fr")} />
