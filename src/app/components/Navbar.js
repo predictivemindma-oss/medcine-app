@@ -15,18 +15,16 @@ export default function Navbar() {
   const [isCLicked, setIsClicked] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  // Nouvel état pour dropdown rôle
-const [isRoleDropdownOpen, setIsRoleDropdownOpen] = useState(false);
+  const [isRoleDropdownOpen, setIsRoleDropdownOpen] = useState(false);
 
-
-  // États pour l'authentification
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState(null);
   const [userEmail, setUserEmail] = useState(null);
 
   const router = useRouter();
+  const pathname = usePathname();
+  const { t } = useTranslation();
 
-  // Vérifier si l'utilisateur est connecté au chargement
   useEffect(() => {
     checkAuth();
   }, []);
@@ -82,12 +80,9 @@ const [isRoleDropdownOpen, setIsRoleDropdownOpen] = useState(false);
         setIsClicked(false);
       }, 300);
     } else {
-      setIsCLicked(true);
+      setIsClicked(true);
     }
   };
-
-  const pathname = usePathname();
-  const { t } = useTranslation();
 
   const toggleLang = (lang) => {
     i18n.changeLanguage(lang);
@@ -97,7 +92,7 @@ const [isRoleDropdownOpen, setIsRoleDropdownOpen] = useState(false);
   const openLoginModal = () => setShowLoginModal(true);
   const closeLoginModal = () => {
     setShowLoginModal(false);
-    checkAuth(); // Recharger l'état d'authentification après login
+    checkAuth();
   };
 
   const baseStyle =
@@ -105,7 +100,7 @@ const [isRoleDropdownOpen, setIsRoleDropdownOpen] = useState(false);
 
   return (
     <>
-      <nav className="relative top-[5px] my-4 h-[90px] rounded-[20px] backdrop-blur-[20px] !items-center text-center">
+      <nav className="relative top-[5px] my-4 h-130px]rounded-[20px] backdrop-blur-[20px] !items-center text-center">
         <div className="max-w-6xl mx-auto px-8 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-[90px] px-8">
             <div className="flex items-center">
@@ -117,34 +112,59 @@ const [isRoleDropdownOpen, setIsRoleDropdownOpen] = useState(false);
               <div className="ml-4 flex items-center space-x-6 max-[900px]:hidden">
                 <Link
                   href="/"
-                  className={`${baseStyle} ${pathname === "/" ? "font-semibold text-[#fe1952]" : ""}`}
+                  className={`${baseStyle} ${
+                    pathname === "/" ? "font-semibold text-[#fe1952]" : ""
+                  }`}
                 >
                   {t("home")}
                 </Link>
                 <Link
                   href="/Apropos"
-                  className={`${baseStyle} ${pathname === "/Apropos" ? "font-semibold text-[#fe1952]" : ""}`}
+                  className={`${baseStyle} ${
+                    pathname === "/Apropos" ? "font-semibold text-[#fe1952]" : ""
+                  }`}
                 >
                   {t("about")}
                 </Link>
                 <Link
                   href="/Services"
-                  className={`${baseStyle} ${pathname === "/Services" ? "font-semibold text-[#fe1952]" : ""}`}
+                  className={`${baseStyle} ${
+                    pathname === "/Services" ? "font-semibold text-[#fe1952]" : ""
+                  }`}
                 >
                   {t("services")}
                 </Link>
                 <Link
                   href="/Medecin"
-                  className={`${baseStyle} ${pathname === "/Medecin" ? "font-semibold text-[#fe1952]" : ""}`}
+                  className={`${baseStyle} ${
+                    pathname === "/Medecin" ? "font-semibold text-[#fe1952]" : ""
+                  }`}
                 >
                   {t("doctor")}
                 </Link>
                 <Link
                   href="/Contact"
-                  className={`${baseStyle} ${pathname === "/Contact" ? "font-semibold text-[#fe1952]" : ""}`}
+                  className={`${baseStyle} ${
+                    pathname === "/Contact" ? "font-semibold text-[#fe1952]" : ""
+                  }`}
                 >
                   {t("contact")}
                 </Link>
+
+                {/* Lien Réservations seulement pour les utilisateurs authentifiés */}
+                {isLoggedIn && (
+                  <Link
+    href="/ContactList"
+                    className={`${baseStyle} ${
+                      pathname === "/Reservations"
+                        ? "font-semibold text-[#fe1952]"
+                        : ""
+                    }`}
+
+                  >
+                    {t("reservations")}
+                  </Link>
+                )}
               </div>
             </div>
             <div className="flex items-center max-[1100px]:hidden space-x-4">
@@ -155,39 +175,41 @@ const [isRoleDropdownOpen, setIsRoleDropdownOpen] = useState(false);
                 {t("appointment")}
               </Link>
 
-            {/* Affichage conditionnel : Login ou Info utilisateur + Dropdown */}
-{/* Bouton rôle + dropdown déconnexion */}
-{isLoggedIn ? (
-  <div className="relative">
-    <button
-      onClick={() => setIsRoleDropdownOpen(prev => !prev)}
-      className="text-white bg-[var(--main-blue)] px-4 py-2 border-4 border-[#4d96ae] rounded-xl font-normal hover:bg-[var(--main-red)] whitespace-nowrap"
-    >
-      {userRole === "doctor" ? t("doctor_role") : t("assistant_role")}
-    </button>
+              {/* Bouton rôle + dropdown déconnexion */}
+              {isLoggedIn ? (
+                <div className="relative">
+                  <button
+                    onClick={() =>
+                      setIsRoleDropdownOpen((prev) => !prev)
+                    }
+                    className="text-white bg-[var(--main-blue)] px-4 py-2 border-4 border-[#4d96ae] rounded-xl font-normal hover:bg-[var(--main-red)] whitespace-nowrap"
+                  >
+                    {userRole === "doctor"
+                      ? t("doctor_role")
+                      : t("assistant_role")}
+                  </button>
 
-    {isRoleDropdownOpen && (
-      <div className="absolute right-0 mt-2 w-32 bg-white rounded-xl shadow-lg z-50">
-        <button
-          onClick={handleLogout}
-          className="w-full text-[#fe1952] px-4 py-2 hover:bg-[#fcecec] rounded-xl text-left"
-        >
-          {t("logout")}
-        </button>
-      </div>
-    )}
-  </div>
-) : (
-  <button
-    onClick={openLoginModal}
-    className="text-white bg-[var(--main-blue)] px-4 py-2 border-4 border-[#4d96ae] rounded-xl font-normal hover:bg-[var(--main-red)] whitespace-nowrap"
-  >
-    Login
-  </button>
-)}
-
-
+                  {isRoleDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-32 bg-white rounded-xl shadow-lg z-50">
+                      <button
+                        onClick={handleLogout}
+                        className="w-full text-[#fe1952] px-4 py-2 hover:bg-[#fcecec] rounded-xl text-left"
+                      >
+                        {t("logout")}
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <button
+                  onClick={openLoginModal}
+                  className="text-white bg-[var(--main-blue)] px-4 py-2 border-4 border-[#4d96ae] rounded-xl font-normal hover:bg-[var(--main-red)] whitespace-nowrap"
+                >
+                  {t("login")}
+                </button>
+              )}
             </div>
+
             <div className="flex items-center">
               <div className="flex flex-col h-15 justify-between max-[900px]:hidden">
                 <Image
@@ -206,6 +228,7 @@ const [isRoleDropdownOpen, setIsRoleDropdownOpen] = useState(false);
                 />
               </div>
             </div>
+
             <div className="flex items-center max-[900px]:flex hidden">
               <button
                 className="inline-flex items-center justify-center p-2 rounded-md focus:outline-none focus:ring-inset"
@@ -237,6 +260,7 @@ const [isRoleDropdownOpen, setIsRoleDropdownOpen] = useState(false);
           </div>
         </div>
 
+        {/* Menu mobile */}
         {(isCLicked || isClosing) && (
           <div
             className="mobile-menu"
@@ -247,47 +271,71 @@ const [isRoleDropdownOpen, setIsRoleDropdownOpen] = useState(false);
             <div className="flex flex-col space-y-6">
               <Link
                 href="/"
-                className={`${baseStyle} ${pathname === "/" ? "font-semibold text-[#fe1952]" : ""} block w-full`}
+                className={`${baseStyle} ${
+                  pathname === "/" ? "font-semibold text-[#fe1952]" : ""
+                } block w-full`}
               >
                 {t("home")}
               </Link>
               <Link
                 href="/Apropos"
-                className={`${baseStyle} ${pathname === "/Apropos" ? "font-semibold text-[#fe1952]" : ""} block w-full`}
+                className={`${baseStyle} ${
+                  pathname === "/Apropos" ? "font-semibold text-[#fe1952]" : ""
+                } block w-full`}
               >
                 {t("about")}
               </Link>
               <Link
                 href="/Services"
-                className={`${baseStyle} ${pathname === "/Services" ? "font-semibold text-[#fe1952]" : ""} block w-full`}
+                className={`${baseStyle} ${
+                  pathname === "/Services" ? "font-semibold text-[#fe1952]" : ""
+                } block w-full`}
               >
                 {t("services")}
               </Link>
               <Link
                 href="/Medecin"
-                className={`${baseStyle} ${pathname === "/Medecin" ? "font-semibold text-[#fe1952]" : ""} block w-full`}
+                className={`${baseStyle} ${
+                  pathname === "/Medecin" ? "font-semibold text-[#fe1952]" : ""
+                } block w-full`}
               >
                 {t("doctor")}
               </Link>
               <Link
                 href="/Contact"
-                className={`${baseStyle} ${pathname === "/Contact" ? "font-semibold text-[#fe1952]" : ""} block w-full`}
+                className={`${baseStyle} ${
+                  pathname === "/Contact" ? "font-semibold text-[#fe1952]" : ""
+                } block w-full`}
               >
                 {t("contact")}
               </Link>
 
-              {/* Login/Logout dans le menu mobile */}
+              {/* Lien Réservations menu mobile */}
+              {isLoggedIn && (
+                <Link
+    href="/ContactList"
+                  className={`${baseStyle} ${
+                    pathname === "/Reservations"
+                      ? "font-semibold text-[#fe1952]"
+                      : ""
+                  } block w-full`}
+                >
+                  {t("reservations")}
+                </Link>
+              )}
+
+              {/* Login/Logout menu mobile */}
               {isLoggedIn ? (
                 <div className="flex flex-col space-y-2">
                   <div className="text-[var(--main-blue)] font-semibold text-center">
                     {userRole === "doctor" ? "🩺 Docteur" : "👨‍💼 Assistant"}
                   </div>
-                  
+
                   <button
                     onClick={handleLogout}
                     className="text-white bg-[var(--main-red)] px-4 py-2 rounded-xl"
                   >
-                  {t("logout")}
+                    {t("logout")}
                   </button>
                 </div>
               ) : (

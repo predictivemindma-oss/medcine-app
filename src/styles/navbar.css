@@ -3,9 +3,37 @@ html[dir="rtl"] nav * {
     font-weight: bolder !important;
 }
 
+/* FIX PRINCIPAL: Empêcher le retour à la ligne des liens */
+nav a {
+  white-space: nowrap !important;
+}
+
+/* S'assurer que les liens restent sur une ligne */
+.ml-4.flex.items-center.space-x-6 {
+  white-space: nowrap;
+  gap: 1.5rem !important; /* Augmente l'espacement entre les liens */
+  margin-left: 3rem !important; /* Éloigne les liens du logo */
+}
+
+/* Espacement pour le container principal du navbar */
+nav .flex.items-center.justify-between {
+  gap: 2rem;
+}
+
+/* Espacement pour les boutons à droite */
+nav .flex.items-center.space-x-4 {
+  gap: 1rem !important;
+  margin-left: 2rem;
+}
+
+/* Assurer que le logo a de l'espace */
+nav .flex-shrink-0 {
+  margin-right: 2rem;
+}
+
 .mobile-menu {
   position: fixed !important;
-  top: 90px;
+  top: 130px;
   left: 0;
   width: 100%;
   z-index: 999999999 !important;
@@ -32,6 +60,7 @@ html[dir="rtl"] nav * {
   from { opacity: 1; transform: translateY(0); }
   to { opacity: 0; transform: translateY(-20px); }
 }
+
 /* Modal Login */
 .login-modal {
   position: fixed;
@@ -47,7 +76,7 @@ html[dir="rtl"] nav * {
 }
 
 .login-content {
-  background-color: #D1E6FF; /* similaire à la navbar mobile */
+  background-color: #D1E6FF;
   padding: 30px 40px;
   border-radius: 12px;
   min-width: 300px;
@@ -59,6 +88,14 @@ html[dir="rtl"] nav * {
   margin-bottom: 20px;
   color: #117090;
   text-align: center;
+}
+
+.login-content label {
+  display: block;
+  color: #117090;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 16px;
 }
 
 .login-content input {
@@ -90,8 +127,12 @@ html[dir="rtl"] nav * {
   cursor: pointer;
   color: #117090;
 }
+
 /* Assurer que les éléments flex ne se wrap pas */
 .navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   flex-wrap: nowrap;
 }
 

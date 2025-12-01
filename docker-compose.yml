@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://host.docker.internal:27017/medc
+      - JWT_SECRET=e8eec2371906bc669db4db95da81e1bb3eee561d45465c3f664668d341caf21c9e5d10ffd8e9fa1f4a33c2b2ad2dcfb04d1c6ba7f637ea533b2b9574cce8aa61
+      - PORT=3000
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+   
+
+# Pas besoin du service mongodb puisque vous l'utilisez localement

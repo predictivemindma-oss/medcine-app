@@ -21,7 +21,7 @@ export default function LoginModal({ closeModal }) {
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include", // Important pour recevoir les cookies
+        credentials: "include",
         body: JSON.stringify({ email, password }),
       });
 
@@ -33,12 +33,9 @@ export default function LoginModal({ closeModal }) {
         return alert(data.message || "Erreur de connexion");
       }
 
-      // ✅ Plus besoin de localStorage, le cookie est géré automatiquement
-      alert(`Bienvenue ${data.user.role === "doctor" ? "Docteur" : "Assistant"} !`);
 
-      closeModal(); // Fermer la modale (et recharger l'auth dans Navbar)
+      closeModal();
 
-      // Redirection selon rôle
       if (data.user.role === "doctor") {
         router.push("/ContactList");
         router.push("/Medecin");
@@ -60,8 +57,24 @@ export default function LoginModal({ closeModal }) {
       <div className="login-content">
         <h2>Connexion</h2>
         <form onSubmit={handleLogin}>
-          <input type="email" name="email" placeholder="Email" required />
-          <input type="password" name="password" placeholder="Mot de passe" required />
+          <label htmlFor="email">Email</label>
+          <input 
+            type="email" 
+            id="email"
+            name="email" 
+            placeholder="exemple@email.com" 
+            required 
+          />
+          
+          <label htmlFor="password">Mot de passe</label>
+          <input 
+            type="password" 
+            id="password"
+            name="password" 
+            placeholder="••••••••" 
+            required 
+          />
+          
           <button type="submit" disabled={loading}>
             {loading ? "Connexion..." : "Se connecter"}
           </button>
@@ -70,4 +83,4 @@ export default function LoginModal({ closeModal }) {
       </div>
     </div>
   );
-} // <- ici c’est la fermeture correcte du composant, pas besoin d’autre }
+}

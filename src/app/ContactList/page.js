@@ -164,6 +164,13 @@ export default function ContactListPage() {
 
   return (
     <div className="contact-list-container">
+        {/* Message Bonjour [Rôle] */}
+    {userRole && (
+      <h2 style={{ marginBottom: "20px", color: "#fe1952"}}>
+            Bienvenue {userRole === "doctor" ? "Docteur" : "Assistant"} !
+
+      </h2>
+    )}
       <h1>{t("contact_list")}</h1>
 
      
