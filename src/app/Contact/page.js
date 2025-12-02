@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import Image from "next/image";
 import { Share } from 'next/font/google';
@@ -10,20 +11,25 @@ const share = Share({ subsets: ['latin'], weight: '400' });
 function Contact() {
   const { t } = useTranslation();
 
+
   // ⚡ Gestion des données du formulaire
+
   const [formData, setFormData] = useState({
     prenom: "",
     nom: "",
     email: "",
     numero: "",
     service: "",
+
     message: ""
   });
 
   // ⚡ Met à jour les valeurs au fur et à mesure de la saisie
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
 
   // ⚡ Envoi du formulaire
 const handleSubmit = async (e) => {
@@ -51,12 +57,14 @@ const handleSubmit = async (e) => {
       alert(result.message);
 
       // Réinitialiser le formulaire
+
       setFormData({
         prenom: "",
         nom: "",
         email: "",
         numero: "",
         service: "",
+
         message: ""
       });
     } else {
@@ -81,6 +89,7 @@ const handleSubmit = async (e) => {
       <div className="desk-image">
         <Image src="/desk.jpg" alt="contact" width={1000} height={600} />
       </div>
+
 
       <div className="contact-numbers">
         <div className="fix">
@@ -107,6 +116,7 @@ const handleSubmit = async (e) => {
 
         <div className="local">
           <div className="contact-icons">
+
     <a
       href="https://www.google.com/maps?q=4ème+étage+appt+N°14,+et+lieutenant+Belhoucine,+Résidence+Saîdi,+Angle+Rue+Jakarta,+Oujda+60000"
       target="_blank"
@@ -120,6 +130,7 @@ const handleSubmit = async (e) => {
     <br />
     <span className="blue-spans">{t("local_value")}</span>
   </div>
+
         </div>
       </div>
 
@@ -129,38 +140,50 @@ const handleSubmit = async (e) => {
           <div className="labels">
             <label>
               <span>{t("prenom")}</span><br />
+
               <input type="text" name="prenom" value={formData.prenom} onChange={handleChange} required />
+
             </label>
 
             <label>
               <span>{t("nom")}</span><br />
+
               <input type="text" name="nom" value={formData.nom} onChange={handleChange} required />
+
             </label>
 
             <label>
               <span>{t("email")}</span><br />
+
               <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+
             </label>
 
             <label>
               <span>{t("numero")}</span><br />
+
               <input type="tel" name="numero" value={formData.numero} onChange={handleChange} required placeholder="Ex: +212 6 12 34 56 78" />
+
             </label>
           </div>
 
           <label>
             <span>{t("services")}</span><br />
+
             <select name="service" value={formData.service} onChange={handleChange} required>
               <option value="">-- {t("choose_service")} --</option>
               <option value="consultation">{t("consultation")}</option>
               <option value="dermato">{t("dermato")}</option>
               <option value="analyse">{t("analyse")}</option>
+
             </select>
           </label>
 
           <label>
             <h3>{t("message")}</h3><br />
+
             <textarea name="message" value={formData.message} onChange={handleChange} />
+
           </label>
 
           <button type="submit">{t("submit")}</button>
@@ -170,4 +193,6 @@ const handleSubmit = async (e) => {
   );
 }
 
+
 export default Contact;
+

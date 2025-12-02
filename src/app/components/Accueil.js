@@ -204,27 +204,33 @@ export default function Accueil() {
                     letter: "H",
                     className: "hanane-letter",
                     text: "Je recommande vivement DR OUAFAE EL MAHRAOUI pour ses compétences exceptionnelles et son approche empathique envers les patients",
+
+
                   },
                   {
                     name: "Zdenko Bican",
                     letter: "Z",
                     className: "zdenko-letter",
                     text: "Dr Ouafae Elmehraoui saved my life and thanks to her I am still alive. I got proper treatment with such kindness and warmness that only a few doctor can give.",
+
                   },
                   {
                     name: "Fatiha Douiri",
                     letter: "F",
                     className: "fatiha-letter",
                     text: "Le Dr Mahrawi est un médecin distingué, doté d'une personnalité bienveillante et compréhensive. C'est une médecin hautement compétente.",
+
                   },
                   {
                     name: "Soufiane Samoudi",
                     letter: "S",
                     className: "soufiane-letter",
                     text: "Je recommande vivement Dr.Ouafae El Mahraoui à toute personne cherchant un endocrinologue. Elle est très compétente dans son métier et très humaine",
+
                   },
                 ].map((review, i) => (
                   <div key={`${repeatIndex}-${i}`} className="avis">
+
                     <div className="heading">
                       <div>
                         <span className={review.className}>{review.letter}</span>
@@ -240,7 +246,9 @@ export default function Accueil() {
                         <Image key={j} src={star} alt="rating" />
                       ))}
                     </div>
+
                   </div>
+
                 ))
               )}
           </div>

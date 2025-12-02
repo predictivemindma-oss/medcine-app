@@ -1,9 +1,11 @@
+
 // src/app/layout.js
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "./components/Footer";
 import NavbarWrapper from "./components/NavbarWrapper"; // NEW wrapper for client hooks
 import "../styles/footer.css";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,6 +41,7 @@ export default function RootLayout({ children }) {
         >
           <source src="/bg.mp4" type="video/mp4" />
         </video>
+
           <NavbarWrapper /> {/* Client wrapper */}
 
         <div className="relative z-10">
@@ -49,3 +52,4 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+

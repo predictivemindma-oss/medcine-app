@@ -3,6 +3,7 @@ html[dir="rtl"] nav * {
     font-weight: bolder !important;
 }
 
+
 /* FIX PRINCIPAL: Empêcher le retour à la ligne des liens */
 nav a {
   white-space: nowrap !important;
@@ -34,6 +35,7 @@ nav .flex-shrink-0 {
 .mobile-menu {
   position: fixed !important;
   top: 130px;
+
   left: 0;
   width: 100%;
   z-index: 999999999 !important;
@@ -59,6 +61,7 @@ nav .flex-shrink-0 {
 @keyframes dropdownClose {
   from { opacity: 1; transform: translateY(0); }
   to { opacity: 0; transform: translateY(-20px); }
+
 }
 
 /* Modal Login */
@@ -149,4 +152,5 @@ nav .flex-shrink-0 {
     flex-direction: column;
     align-items: flex-start;
   }
+
 }

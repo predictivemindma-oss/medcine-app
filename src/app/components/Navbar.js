@@ -1,19 +1,24 @@
 "use client";
 
+
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
+
 import { useTranslation } from "react-i18next";
 import i18n from "../../i18n";
 import morocco from "../../../public/assets/morocco.png";
 import france from "../../../public/assets/france.png";
+
 import "../../styles/navbar.css";
 import LoginModal from "../models/LoginModal";
+
 
 export default function Navbar() {
   const [isCLicked, setIsClicked] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [isRoleDropdownOpen, setIsRoleDropdownOpen] = useState(false);
 
@@ -72,22 +77,26 @@ export default function Navbar() {
     }
   };
 
+
   const toggleNavbar = () => {
     if (isCLicked) {
       setIsClosing(true);
       setTimeout(() => {
         setIsClosing(false);
         setIsClicked(false);
+
       }, 300);
     } else {
       setIsClicked(true);
     }
   };
 
+
   const toggleLang = (lang) => {
     i18n.changeLanguage(lang);
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
   };
+
 
   const openLoginModal = () => setShowLoginModal(true);
   const closeLoginModal = () => {
@@ -102,6 +111,7 @@ export default function Navbar() {
     <>
       <nav className="relative top-[5px] my-4 h-130px]rounded-[20px] backdrop-blur-[20px] !items-center text-center">
         <div className="max-w-6xl mx-auto px-8 sm:px-6 lg:px-8">
+
           <div className="flex items-center justify-between h-[90px] px-8">
             <div className="flex items-center">
               <div className="flex-shrink-0">
@@ -109,6 +119,7 @@ export default function Navbar() {
               </div>
             </div>
             <div className="hidden md:block">
+
               <div className="ml-4 flex items-center space-x-6 max-[900px]:hidden">
                 <Link
                   href="/"
@@ -255,12 +266,15 @@ export default function Navbar() {
                     <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
                   </svg>
                 )}
+
               </button>
             </div>
           </div>
         </div>
 
+
         {/* Menu mobile */}
+
         {(isCLicked || isClosing) && (
           <div
             className="mobile-menu"
@@ -269,6 +283,7 @@ export default function Navbar() {
             }}
           >
             <div className="flex flex-col space-y-6">
+
               <Link
                 href="/"
                 className={`${baseStyle} ${
@@ -362,13 +377,16 @@ export default function Navbar() {
                   className="cursor-pointer"
                   onClick={() => toggleLang("fr")}
                 />
+
               </div>
             </div>
           </div>
         )}
       </nav>
 
+
       {showLoginModal && <LoginModal closeModal={closeLoginModal} />}
     </>
   );
 }
+

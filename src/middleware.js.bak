@@ -1,0 +1,39 @@
+import { NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
+
+export function middleware(request) {
+  const token = request.cookies.get("token")?.value;
+
+  // Si pas de token, rediriger vers login
+  if (!token) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+
+  try {
+    // Vérifier le token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    // Vérifier si l'utilisateur est un doctor
+    // Note: Le middleware ne peut pas accéder à la DB directement,
+    // mais on peut vérifier le rôle stocké dans le token
+    if (decoded.role !== "doctor") {
+      // Rediriger les non-doctors vers la page services
+      return NextResponse.redirect(new URL("/Services", request.url));
+    }
+
+    // Si tout est OK, continuer
+    return NextResponse.next();
+  } catch (error) {
+    // Token invalide ou expiré
+    console.error("Token verification failed:", error);
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+}
+
+export const config = {
+  matcher: [
+    "/AddService/:path*",
+    // Ajoutez d'autres routes protégées ici si nécessaire
+    // "/dashboard/:path*",
+  ],
+};

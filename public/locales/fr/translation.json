@@ -128,6 +128,11 @@
   "propos_plans_title": "Plans nutritionnels personnalisés",
   "propos_prevention_title": "Prévention & Bien-être durable",
 
+
+
+
+
+
   "medecin_specialite": "Spécialiste en endocrinologie, diabétologie et nutrition",
   "medecin_contact_title": "Contact Info",
   "medecin_tel": "TEL: 06 60 68 32 66",
@@ -147,8 +152,10 @@
   "medecin_formation_2": "Diplôme d’échographie et de cytoponction thyroïdienne – Université de Paris",
   "medecin_formation_3": "Ancienne interne au CHU Mohamed VI – Oujda",
 
+
   "contact_title": "Prenez rendez-vous pour votre consultation médicale",
   "contact_doc": "Besoin d’un avis médical ? Le Dr Ouafae ELMEHRAOUI vous répond.",
+
   "fix_label": "FIX :",
   "tel_label": "TEL :",
   "local_label": "Localisation :",
@@ -166,11 +173,14 @@
 
 
 
+
+
   "follow_us": "Suivez-nous sur les réseaux sociaux pour rester informé des dernières actualités et conseils de santé.",
   "pages_title": "Pages",
   "page_faq": "FAQ's",
   "cms_pages_title": "CMS Pages",
   "address_title": "Adresse",
+
   "location": "Angle rue Jakarta et lieutenant Behoucine. Résidence Saïdi 4eme étage appt N° 14 (Au dessus du café ASSITANA, en face au Lycée Abdelmoumen) - OUJDA",
   "login": "Connexion",
   "logout": "Déconnexion",
@@ -199,5 +209,6 @@
   "date": "Date",
   "presence": "Présence"
   
+
 
 }
