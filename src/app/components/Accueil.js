@@ -204,37 +204,37 @@ export default function Accueil() {
                     letter: "H",
                     className: "hanane-letter",
                     text: "Je recommande vivement DR OUAFAE EL MAHRAOUI pour ses compétences exceptionnelles et son approche empathique envers les patients",
-                    link: "https://share.google/2kFLrr7Mv4b5QuhvO",
+
+
+
                   },
                   {
                     name: "Zdenko Bican",
                     letter: "Z",
                     className: "zdenko-letter",
                     text: "Dr Ouafae Elmehraoui saved my life and thanks to her I am still alive. I got proper treatment with such kindness and warmness that only a few doctor can give.",
-                    link: "https://share.google/3wLrkoj1mxI6Gftnm",
+
+
                   },
                   {
                     name: "Fatiha Douiri",
                     letter: "F",
                     className: "fatiha-letter",
                     text: "Le Dr Mahrawi est un médecin distingué, doté d'une personnalité bienveillante et compréhensive. C'est une médecin hautement compétente.",
-                    link: "https://share.google/2kFLrr7Mv4b5QuhvO",
+
+
                   },
                   {
                     name: "Soufiane Samoudi",
                     letter: "S",
                     className: "soufiane-letter",
                     text: "Je recommande vivement Dr.Ouafae El Mahraoui à toute personne cherchant un endocrinologue. Elle est très compétente dans son métier et très humaine",
-                    link: "https://share.google/3wLrkoj1mxI6Gftnm",
+
+
                   },
                 ].map((review, i) => (
-                  <a 
-                  key={`${repeatIndex}-${i}`} 
-                  href={review.link}
-                  className="avis" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >
+                  <div key={`${repeatIndex}-${i}`} className="avis">
+
                     <div className="heading">
                       <div>
                         <span className={review.className}>{review.letter}</span>
@@ -250,7 +250,10 @@ export default function Accueil() {
                         <Image key={j} src={star} alt="rating" />
                       ))}
                     </div>
-                  </a>
+
+
+                  </div>
+
                 ))
               )}
           </div>

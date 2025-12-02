@@ -111,6 +111,13 @@ html[dir="rtl"] .footer * {
         background-color: rgba(61, 147, 190, 0.4);
     }
 
+
+
+    .footer * {
+        font-size: 17px !important;
+    }
+
+
     .social-media {
         width: 80%;
         flex-direction: row !important;

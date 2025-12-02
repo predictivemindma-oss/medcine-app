@@ -3,9 +3,40 @@ html[dir="rtl"] nav * {
     font-weight: bolder !important;
 }
 
+
+
+/* FIX PRINCIPAL: Empêcher le retour à la ligne des liens */
+nav a {
+  white-space: nowrap !important;
+}
+
+/* S'assurer que les liens restent sur une ligne */
+.ml-4.flex.items-center.space-x-6 {
+  white-space: nowrap;
+  gap: 1.5rem !important; /* Augmente l'espacement entre les liens */
+  margin-left: 3rem !important; /* Éloigne les liens du logo */
+}
+
+/* Espacement pour le container principal du navbar */
+nav .flex.items-center.justify-between {
+  gap: 2rem;
+}
+
+/* Espacement pour les boutons à droite */
+nav .flex.items-center.space-x-4 {
+  gap: 1rem !important;
+  margin-left: 2rem;
+}
+
+/* Assurer que le logo a de l'espace */
+nav .flex-shrink-0 {
+  margin-right: 2rem;
+}
+
 .mobile-menu {
   position: fixed !important;
-  top: 90px;
+  top: 130px;
+
   left: 0;
   width: 100%;
   z-index: 999999999 !important;
@@ -31,4 +62,97 @@ html[dir="rtl"] nav * {
 @keyframes dropdownClose {
   from { opacity: 1; transform: translateY(0); }
   to { opacity: 0; transform: translateY(-20px); }
+
+
+}
+
+/* Modal Login */
+.login-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999999999;
+}
+
+.login-content {
+  background-color: #D1E6FF;
+  padding: 30px 40px;
+  border-radius: 12px;
+  min-width: 300px;
+  max-width: 400px;
+  position: relative;
+}
+
+.login-content h2 {
+  margin-bottom: 20px;
+  color: #117090;
+  text-align: center;
+}
+
+.login-content label {
+  display: block;
+  color: #117090;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.login-content input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #117090;
+}
+
+.login-content button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background-color: #117090;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #117090;
+}
+
+/* Assurer que les éléments flex ne se wrap pas */
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+
+/* Gérer les textes longs */
+.truncate-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1100px) {
+  .user-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
 }
