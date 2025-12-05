@@ -208,7 +208,17 @@
   "phone_number": "Numéro",
   "service": "Service",
   "date": "Date",
-  "presence": "Présence"
+  "presence": "Présence",
+  "add_experience": "Ajouter une expérience",
+  "add_formation": "Ajouter une formation",
+  "undo": "Annuler",
+  "speciality": "Spécialité",
+  "experience": "Expérience",
+  "formation": "Formation",
+  "fixe": "Téléphone fixe"
+
+
+
   
 
 

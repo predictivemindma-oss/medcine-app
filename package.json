@@ -2,7 +2,6 @@
   "name": "medc-next",
   "version": "0.1.0",
   "private": true,
-
   "type": "module",
   "scripts": {
     "dev": "next dev --webpack",
@@ -11,7 +10,6 @@
     "lint": "eslint"
   },
   "dependencies": {
-
     "@hello-pangea/dnd": "^18.0.1",
     "axios": "^1.13.2",
     "bcrypt": "^6.0.0",
@@ -28,9 +26,9 @@
     "next-i18next": "^15.4.2",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-
     "react-i18next": "^16.2.1",
-    "react-icons": "^5.5.0"
+    "react-icons": "^5.5.0",
+    "translation-widget": "^1.1.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

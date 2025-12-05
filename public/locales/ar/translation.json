@@ -215,7 +215,19 @@
   "service": "الخدمة",
   "date": "التاريخ",
 
-  "contact_title": "حدد موعدك لاستشارتك الطبية"
+  "contact_title": "حدد موعدك لاستشارتك الطبية",
+   "add_experience": "إضافة خبرة",
+  "add_formation": "إضافة تكوين",
+  "undo": "تراجع",
+  "speciality": "التخصص",
+  "experience": "خبرة",
+  "formation": "التكوين",
+
+  "fixe": "هاتف ثابت"
+
+
+
+
 
 
    

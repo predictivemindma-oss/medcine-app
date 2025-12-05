@@ -228,24 +228,25 @@ export default function Navbar() {
               )}
             </div>
 
-            <div className="flex items-center">
-              <div className="flex flex-col h-15 justify-between max-[900px]:hidden">
-                <Image
-                  src={morocco}
-                  alt="ar"
-                  width={25}
-                  className="cursor-pointer"
-                  onClick={() => toggleLang("ar")}
-                />
-                <Image
-                  src={france}
-                  alt="fr"
-                  width={25}
-                  className="cursor-pointer"
-                  onClick={() => toggleLang("fr")}
-                />
-              </div>
-            </div>
+         <div className="flex items-center">
+  <div className="lang-switcher hidden md:flex">
+    <Image
+      src={morocco}
+      alt="ar"
+      width={25}
+      className="cursor-pointer"
+      onClick={() => toggleLang("ar")}
+    />
+    <Image
+      src={france}
+      alt="fr"
+      width={25}
+      className="cursor-pointer"
+      onClick={() => toggleLang("fr")}
+    />
+  </div>
+</div>
+
 
             <div className="flex items-center max-[900px]:flex hidden">
               <button

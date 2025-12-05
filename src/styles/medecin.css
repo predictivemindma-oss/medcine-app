@@ -1,115 +1,401 @@
+/* =======================
+   Variables
+======================= */
 .medecinRoot {
-    --main-blue: #117090;
-    --main-red: #fe1952;
-    --second-blue: #c6e5fe;
-    --dark-grey: #393939;
-    --teal: #009ca2;
+  --main-blue: #117090;
+  --main-red: #fe1952;
+  --second-blue: #c6e5fe;
+  --dark-grey: #393939;
+  --teal: #009ca2;
 }
+
+/* =======================
+   Conteneur global uniforme
+======================= */
+.page-container {
+  width: 98%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px 30px;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+  color: var(--dark-grey);
+  line-height: 1.6;
+  background: #f9f9f9;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* =======================
+   Justification du texte
+======================= */
+.page-container,
+.page-container * {
+  text-align: justify;
+}
+
+/* =======================
+   RTL Support
+======================= */
 html[dir="rtl"] .medecin-container * {
-    text-align: right;
+  text-align: right;
 }
+
+/* =======================
+   Titres uniformes
+======================= */
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--main-blue);
+}
+
+/* =======================
+   Conteneur principal du médecin
+======================= */
 .medecin-container {
-    display: flex;
-    justify-content: space-evenly;
-    gap: 30px;
-    width: 98%;
-    margin: auto;
-    padding: 0 30px;
-    font-size: 16px;
-    color: var(--dark-grey);
+  display: flex;
+  justify-content: space-evenly;
+  gap: 30px;
+  width: 100%;
+  margin: auto;
+  padding: 20px 0;
+  font-size: 16px;
+  color: var(--dark-grey);
 }
 
-.medecin-container h3 {
-    color: var(--main-blue);
-    font-size: x-large;
-    font-weight: bold !important;
-}
-
+/* =======================
+   Section contact
+======================= */
 .contact-info {
-    width: 28%;
-    border-radius: 20px;
-    padding: 20px 20px;
-    background: rgba(92, 171, 200, 0.3);
-    backdrop-filter: blur(30px);
+  width: 28%;
+  border-radius: 20px;
+  padding: 20px;
+  background: rgba(92, 171, 200, 0.3);
+  backdrop-filter: blur(30px);
 }
 
-.doc-img img {
-    width: 98%;
-    border-radius: 16px;
+.doc-img-wrapper {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.doc-img {
+  width: 100% !important;
+  height: auto !important;
+  border-radius: 16px;
+  display: block;
+}
+
+.image-edit-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(21, 93, 252, 0.9);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.image-edit-btn:hover {
+  background: rgba(21, 93, 252, 1);
+  transform: scale(1.1);
 }
 
 .contact-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-align: left;
-    padding: 10px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-align: justify; /* Texte justifié dans contact */
 }
 
-.contact-text h3 {
-    color: var(--teal);
+.contact-title {
+  color: var(--teal) !important;
+  margin-top: 0.5rem;
 }
 
+.speciality-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.appointment-btn {
+  display: block;
+  text-align: center;
+  color: white;
+  margin-top: 1rem;
+  background: #009ca2;
+  padding: 12px 24px;
+  border-radius: 18px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.appointment-btn:hover {
+  background: #fe1952;
+}
+
+/* =======================
+   Section intro
+======================= */
 .intro {
-    text-align: left;
-    width: 64%;
-    padding: 0 70px 0 10px;
-    border-radius: 20px;
-    backdrop-filter: blur(20px);
-    overflow: hidden;
+  text-align: justify;
+  width: 64%;
+  padding: 20px 70px 20px 10px;
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  overflow: hidden;
 }
 
-.intro ul {
-    color: var(--dark-grey);
-    display: block;
-    list-style-type: disc;
-    padding-left: 20px;
-    margin-top: 0.5rem;
-    font-size: 20px;
+.intro-text {
+  margin-bottom: 1rem;
+  line-height: 1.4;
 }
 
-html[dir="rtl"] .intro ul {
-    padding-right: 20px;
+/* =======================
+   Sections expériences & formations
+======================= */
+.section {
+  margin-bottom: 2rem;
 }
 
-i {
-    font-size: 17px;
+.section-header {
+  display: flex;
+  flex-direction: column;     /* Title on first line, button on second */
+  align-items: flex-start;    /* Left aligned */
+  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
+
+.add-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 8px 16px;
+  background: #e76593;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.add-btn:hover {
+  background: #fe1952;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* =======================
+   Listes
+======================= */
+.list-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 4px 10px;       /* less internal height */
+  margin-bottom: 8px;
+  margin-bottom: 4px;      /* less vertical gap */
+  transition: all 0.2s ease;
+}
+
+
+
+.list-item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* =======================
+   Champs modifiables
+======================= */
+.field-wrapper {
+  width: 100%;
+}
+
+.display-container,
+.editing-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.field-value {
+  flex: 1;
+  line-height: 1.6;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+}
+.section-header h3,
+.intro h3,
+.contact-title {
+  font-size: 28px;     /* Bigger title */
+  font-weight: 700;
+}
+
+
+.edit-input,
+.edit-textarea {
+  flex: 1;
+  padding: 8px 12px;
+  border: 2px solid #009ca2;
+  border-radius: 6px;
+  font-size: 15px;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+  min-width: 0;
+  width: 100%;
+}
+
+.edit-input:focus,
+.edit-textarea:focus {
+  outline: none;
+  border-color: var(--main-blue);
+  box-shadow: 0 0 0 3px rgba(17, 112, 144, 0.1);
+}
+
+.edit-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* =======================
+   Boutons icônes
+======================= */
+.icon-btn {
+  flex-shrink: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  font-size: 20px;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+}
+
+.edit-btn { color: #155DFC; }
+.edit-btn:hover { background: rgba(21, 93, 252, 0.1); transform: scale(1.1); }
+
+.save-btn { color: #10b981; }
+.save-btn:hover { background: rgba(16, 185, 129, 0.1); transform: scale(1.1); }
+
+.delete-btn { color: #ef4444; }
+.delete-btn:hover { background: rgba(239, 68, 68, 0.1); transform: scale(1.1); }
+
+/* =======================
+   Section undo
+======================= */
+.undo-container {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: rgba(243, 244, 246, 0.8);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.undo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 10px 14px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.undo-text { font-size: 14px; flex: 1; }
+
+.undo-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.undo-btn:hover { background: #059669; transform: translateY(-1px); box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3); }
+
+/* =======================
+   Italique
+======================= */
+i { font-size: 17px; }
+
+/* =======================
+   Images
+======================= */
+img { display: block; max-width: 100%; height: auto; }
+
+/* =======================
+   Responsive
+======================= */
 @media (max-width: 1000px) {
-    .contact-info {
-        width: 40%;
-    }
-
-    .intro {
-        width: 58%;
-    }
+  .contact-info { width: 40%; }
+  .intro { width: 58%; padding: 20px 30px 20px 10px; }
 }
 
 @media (max-width: 900px) {
-    .medecin-container {
-        flex-direction: column;
-        padding: 0 10px;
-    }
-
-
-    .contact-info {
-        width: 95%;
-        margin: auto;
-    }
-
-    .doc-img img {
-        width: 98%;
-        border-radius: 16px;
-    }
-
-    .contact-link {
-        padding: 8px 10px;
-    }
-
-    .intro {
-        text-align: left;
-        width: 98%;
-        padding: 8px;
-    }
+  .medecin-container { flex-direction: column; padding: 0 10px; }
+  .contact-info { width: 95%; margin: auto; }
+  .intro { width: 98%; padding: 20px; }
+  .section-header { flex-direction: column; align-items: flex-start; }
+  .add-btn { width: 100%; justify-content: center; }
+  .list-item { flex-wrap: wrap; }
+  .undo-item { flex-direction: column; align-items: flex-start; }
+  .undo-btn { width: 100%; justify-content: center; }
 }
+
+/* =======================
+   RTL - Bordure droite pour les listes
+======================= */
+html[dir="rtl"] .list-item { border-left: none; border-right: 3px solid var(--main-blue); }
+html[dir="rtl"] .intro ul { padding-right: 20px; padding-left: 0; }
