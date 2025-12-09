@@ -89,44 +89,37 @@ export default function ContactListPage() {
   }, []);
 
   // 📌 Fonction pour récupérer les contacts avec pagination et filtrage
-  async function fetchContacts(page = 1, presence = filterPresence) {
-    setLoading(true);
-    try {
-      const res = await fetch(
-        `/api/contacts/getContacts?page=${page}&limit=15&presence=${presence}`,
-        {
-          credentials: "include", // Inclure le cookie d'authentification
-        }
-      );
-      if (!res.ok) throw new Error("Erreur lors de la récupération");
-
-      const data = await res.json();
-
-      // ✅ Filtrage par présence
-      let filteredContacts = data.contacts;
-      if (presence !== "tous") {
-        filteredContacts = filteredContacts.filter(
-          (c) => (c.presence || "en cours") === presence
-        );
-      }
-
-      // ✅ Filtrage par date (frontend)
-      if (filterDate) {
-        filteredContacts = filteredContacts.filter((c) => {
-          const createdAtDate = new Date(c.createdAt).toISOString().split("T")[0];
-          return createdAtDate === filterDate;
-        });
-      }
-
-      setContacts(filteredContacts);
-      setPagination(data.pagination);
-      setCurrentPage(page);
-    } catch (err) {
-      console.error("Erreur lors de la récupération", err);
-    } finally {
-      setLoading(false);
+async function fetchContacts(page = 1, presence = filterPresence) {
+  setLoading(true);
+  try {
+    // Construire l'URL avec tous les filtres
+    let url = `/api/contacts/getContacts?page=${page}&limit=15&presence=${presence}`;
+    
+    // Ajouter le filtre date seulement s'il y en a un
+    if (filterDate) {
+      url += `&date=${filterDate}`;
     }
+    
+    console.log("Fetching URL:", url); // Pour debug
+    
+    const res = await fetch(url, {
+      credentials: "include",
+    });
+    
+    if (!res.ok) throw new Error("Erreur lors de la récupération");
+    const data = await res.json();
+    
+    // NE PLUS FILTRER COTÉ FRONTEND - l'API le fait déjà
+    setContacts(data.contacts);
+    setPagination(data.pagination);
+    setCurrentPage(page);
+    
+  } catch (err) {
+    console.error("Erreur lors de la récupération", err);
+  } finally {
+    setLoading(false);
   }
+}
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -196,12 +189,11 @@ export default function ContactListPage() {
   return (
     <div className="contact-list-container">
         {/* Message Bonjour [Rôle] */}
-    {userRole && (
-      <h2 style={{ marginBottom: "20px", color: "#fe1952"}}>
-            Bienvenue {userRole === "doctor" ? "Docteur" : "Assistant"} !
-
-      </h2>
-    )}
+   {userRole && (
+  <h2 style={{ marginBottom: "20px", color: "#fe1952"}}>
+    {userRole === "doctor" ? t("welcome_doctor") : t("welcome_assistant")}
+  </h2>
+)}
       <h1>{t("contact_list")}</h1>
 
      
@@ -267,12 +259,35 @@ export default function ContactListPage() {
 >
   {t("export_all_contacts")}
 </button>
+<button
+  style={{
+    padding: "6px 12px",
+    backgroundColor: "#006887",
+    color: "#fff",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    marginLeft: "10px",
+  }}
+  onClick={() => {
+    const today = new Date();
+    // Format YYYY-MM-DD pour l'input date
+    const todayStr = today.toISOString().split('T')[0];
+    setFilterDate(todayStr);
+    // Pas besoin d'appeler fetchContacts ici, le useEffect le fera
+  }}
+>
+  Rendez-vous d'aujourd'hui
+</button>
+
+
+
 
 
 
       {/* Tableau des contacts */}
       {contacts.length === 0 ? (
-        <p>Aucun contact trouvé.</p>
+  <p>{t("no_contacts_found")}</p>
       ) : (
         <>
           <table className="contact-table">

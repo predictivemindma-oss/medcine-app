@@ -225,6 +225,20 @@ font-weight: bold;
   white-space: nowrap;        /* empêche le retour à la ligne */
 }
 
+.export-btn {
+  margin-bottom: 10px;
+}
+
+/* Ajoute de l'espace entre Export et Aujourd’hui */
+.export-btn + button {
+  margin-left: 12px !important;
+}
+
+/* En arabe (RTL), le margin doit être à droite */
+html[dir="rtl"] .export-btn + button {
+  margin-left: 0 !important;
+  margin-right: 12px !important;
+}
 
 
 
