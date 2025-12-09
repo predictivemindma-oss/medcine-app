@@ -16,6 +16,44 @@ nav a {
   margin-left: 3rem !important;
 }
 
+/* Supprimer tous les espacements par défaut de Tailwind */
+.ml-4.flex.items-center.space-x-6 > * {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* ========================================
+   FIX RTL: Empêcher les liens de chevaucher le logo
+   ======================================== */
+html[dir="rtl"] .ml-4.flex.items-center.space-x-6 {
+  margin-left: 0 !important;
+  margin-right: 3rem !important;
+  flex-direction: row-reverse;
+}
+
+/* Supprimer les marges en RTL aussi */
+html[dir="rtl"] .ml-4.flex.items-center.space-x-6 > * {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* Espacer correctement en RTL */
+html[dir="rtl"] nav .flex.items-center.justify-between {
+  gap: 2rem;
+}
+
+html[dir="rtl"] nav .flex-shrink-0 {
+  margin-right: 0;
+  margin-left: 2rem;
+}
+
+html[dir="rtl"] nav .flex.items-center.space-x-4 {
+  margin-left: 0;
+  margin-right: 2rem;
+  flex-direction: row-reverse;
+}
+/* ======================================== */
+
 /* Espacement global du navbar */
 nav .flex.items-center.justify-between {
   gap: 2rem;
@@ -25,6 +63,12 @@ nav .flex.items-center.justify-between {
 nav .flex.items-center.space-x-4 {
   gap: 1rem !important;
   margin-left: 2rem;
+}
+
+/* Supprimer les marges des enfants aussi */
+nav .flex.items-center.space-x-4 > * {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 
 /* Logo spacing */
