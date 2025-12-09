@@ -18,8 +18,7 @@ border-radius: 12px;
 box-shadow: 0 8px 20px rgba(0,0,0,0.05);
 max-width: 1200px;
 margin: auto;
- font-family: Arial, sans-serif; /* même police que les labels */
-
+font-family: Arial, sans-serif;
 }
 
 /* Headings */
@@ -44,21 +43,21 @@ color: var(--main-red);
 font-size: 14px;
 transition: all 0.3s ease;
 }
+
 .export-btn {
-  padding: 10px 20px;
-  background-color: #006887;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-bottom: 15px;
-  transition: all 0.3s ease;
+padding: 10px 20px;
+background-color: #006887;
+color: white;
+border: none;
+border-radius: 6px;
+cursor: pointer;
+margin-bottom: 15px;
+transition: all 0.3s ease;
 }
 
 .export-btn:hover {
-  background-color: var(--main-red);
+background-color: var(--main-red);
 }
-
 
 .contact-list-container button {
 background-color: var(--btn-bg);
@@ -93,8 +92,7 @@ text-align: left;
 }
 
 .contact-table th {
-  background: #006887; /* Couleur unique demandée */
-
+background: #006887;
 color: #fff;
 font-weight: 600;
 }
@@ -149,96 +147,266 @@ color: #fff;
 border-color: var(--teal);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-.contact-table, .contact-table thead, .contact-table tbody, .contact-table th, .contact-table td, .contact-table tr {
-display: block;
+.filters-container {
+display: flex;
+flex-wrap: wrap;
+gap: 15px;
+align-items: center;
+margin-bottom: 20px;
 }
 
-.contact-table tr {
-margin-bottom: 15px;
-border-radius: 10px;
-border: 1px solid #ddd;
-padding: 10px;
+.filter-item {
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.filter-item label {
+font-weight: bold;
+font-family: inherit;
+white-space: nowrap;
+}
+
+.filter-item select,
+.filter-item input[type="date"] {
+padding: 6px 10px;
+border-radius: 5px;
+border: 1px solid #ccc;
+font-family: inherit;
+font-size: 14px;
+}
+
+.filter-item button {
+padding: 6px 10px;
+border-radius: 5px;
+border: none;
+background-color: #dc3545;
+color: #fff;
+cursor: pointer;
+font-family: inherit;
+font-size: 14px;
 }
 
 .contact-table td {
-text-align: right;
-padding-left: 50%;
-position: relative;
+max-width: 200px;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+}
+
+.export-btn {
+margin-bottom: 10px;
+}
+
+.export-btn + button {
+margin-left: 12px !important;
+}
+
+html[dir="rtl"] .export-btn + button {
+margin-left: 0 !important;
+margin-right: 12px !important;
+}
+
+/* ========================================
+   RESPONSIVE TABLETTE (768px - 1024px)
+   ======================================== */
+@media (max-width: 1024px) {
+.contact-list-container {
+padding: 20px;
+}
+
+.contact-list-container h1 {
+font-size: 1.75rem;
+}
+
+.contact-list-container h2 {
+font-size: 1.3rem;
+}
+
+.contact-table th,
+.contact-table td {
+padding: 10px 12px;
+font-size: 13px;
+}
+}
+
+/* ========================================
+   RESPONSIVE MOBILE (max 768px)
+   ======================================== */
+@media (max-width: 768px) {
+.contact-list-container {
+padding: 15px;
+border-radius: 8px;
+}
+
+.contact-list-container h1 {
+font-size: 1.5rem;
+margin-bottom: 20px;
+}
+
+.contact-list-container h2 {
+font-size: 1.2rem;
+margin-bottom: 15px;
+}
+
+/* Filtres en colonne sur mobile */
+.filters-container {
+flex-direction: column;
+align-items: stretch;
+gap: 12px;
+}
+
+.filter-item {
+flex-direction: column;
+align-items: flex-start;
+width: 100%;
+}
+
+.filter-item label {
+margin-bottom: 5px;
+font-size: 14px;
+}
+
+.filter-item select,
+.filter-item input[type="date"] {
+width: 100%;
+padding: 8px 12px;
+font-size: 14px;
+}
+
+.filter-item button {
+width: 100%;
+padding: 10px;
+font-size: 14px;
+}
+
+/* Boutons Export empilés */
+.export-btn,
+.export-btn + button {
+width: 100%;
+margin-left: 0 !important;
+margin-bottom: 10px;
+padding: 12px;
+font-size: 14px;
+}
+
+/* Table en mode carte sur mobile */
+.contact-table {
+box-shadow: none;
+}
+
+.contact-table thead {
+display: none;
+}
+
+.contact-table,
+.contact-table tbody,
+.contact-table tr,
+.contact-table td {
+display: block;
+width: 100%;
+}
+
+.contact-table tr {
+margin-bottom: 20px;
+border-radius: 12px;
+border: 2px solid #e0e0e0;
+padding: 15px;
+background: #fff;
+box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+.contact-table tr:hover {
+transform: none;
+box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+}
+
+.contact-table td {
+text-align: left;
+padding: 10px 0;
 border: none;
-border-bottom: 1px solid #eee;
+border-bottom: 1px solid #f0f0f0;
+position: relative;
+padding-left: 45%;
+min-height: 40px;
+display: flex;
+align-items: center;
+max-width: 100%;
+white-space: normal;
+word-wrap: break-word;
+}
+
+.contact-table td:last-child {
+border-bottom: none;
 }
 
 .contact-table td::before {
 content: attr(data-label);
 position: absolute;
-left: 10px;
-width: 45%;
-text-align: left;
+left: 0;
+width: 40%;
+padding-right: 10px;
 font-weight: bold;
-}
-}
-.filters-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  align-items: center; /* aligne label et input verticalement */
-  margin-bottom: 20px;
+color: #006887;
+font-size: 13px;
+white-space: normal;
 }
 
-.filter-item {
-  display: flex;
-  align-items: center; /* label + input alignés */
-  gap: 8px; /* espace entre label et input */
+.contact-table select {
+width: 100%;
+padding: 8px;
+font-size: 14px;
 }
 
-.filter-item label {
-  font-weight: bold;
-  font-family: inherit;
-  white-space: nowrap; /* empêche le label de descendre */
+/* Pagination adaptée */
+.pagination-controls {
+gap: 8px;
+margin-top: 20px;
 }
 
-.filter-item select,
-.filter-item input[type="date"] {
-  padding: 6px 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-family: inherit;
-  font-size: 14px;
+.pagination-btn,
+.page-number {
+padding: 8px 12px;
+font-size: 13px;
+}
 }
 
-.filter-item button {
-  padding: 6px 10px;
-  border-radius: 5px;
-  border: none;
-  background-color: #dc3545;
-  color: #fff;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 14px;
+/* ========================================
+   RESPONSIVE PETIT MOBILE (max 480px)
+   ======================================== */
+@media (max-width: 480px) {
+.contact-list-container {
+padding: 10px;
 }
+
+.contact-list-container h1 {
+font-size: 1.3rem;
+margin-bottom: 15px;
+}
+
+.contact-list-container h2 {
+font-size: 1.1rem;
+}
+
+.contact-table tr {
+padding: 12px;
+margin-bottom: 15px;
+}
+
 .contact-table td {
-  max-width: 200px;          /* largeur max de la colonne */
-  overflow: hidden;           /* cache le texte qui dépasse */
-  text-overflow: ellipsis;    /* affiche "..." si trop long */
-  white-space: nowrap;        /* empêche le retour à la ligne */
+padding: 8px 0;
+padding-left: 42%;
+font-size: 13px;
 }
 
-.export-btn {
-  margin-bottom: 10px;
+.contact-table td::before {
+font-size: 12px;
+width: 38%;
 }
 
-/* Ajoute de l'espace entre Export et Aujourd’hui */
-.export-btn + button {
-  margin-left: 12px !important;
+.pagination-btn,
+.page-number {
+padding: 6px 10px;
+font-size: 12px;
 }
-
-/* En arabe (RTL), le margin doit être à droite */
-html[dir="rtl"] .export-btn + button {
-  margin-left: 0 !important;
-  margin-right: 12px !important;
 }
-
-
-
