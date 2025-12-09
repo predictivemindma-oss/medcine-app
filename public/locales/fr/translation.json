@@ -117,7 +117,7 @@
   "propos_expertise_3": "Engagement envers la santé du patient",
   "propos_expertise_4": "Passion pour l’amélioration du mode de vie",
   "propos_fiab_title": "Fiabilité & Confiance",
-  "propos_fiab_text": "À la recherche d’un suivi médical fiable ? Nous assurons un diagnostic précis et un accompagnement continu.",
+  "propos_fiab_text": "Profitez d’un suivi médical fiable et rapide, pour des diagnostics précis et une tranquillité d’esprit totale.",
   "propos_qualite_title": "Qualité des Soins",
   "propos_qualite_text": "Nos solutions médicales reposent sur des traitements personnalisés et adaptés à vos besoins.",
   "propos_tarif_title": "Tarification Claire & Transparente",
@@ -215,7 +215,13 @@
   "speciality": "Spécialité",
   "experience": "Expérience",
   "formation": "Formation",
-  "fixe": "Téléphone fixe"
+  "fixe": "Téléphone fixe",
+    "propos_prise_text": "Suivi, accompagnement et conseils pour un quotidien plus sain.",
+  "propos_plans_text": "Des régimes adaptés à votre état de santé et à vos objectifs.",
+  "propos_prevention_text": "Adopter des habitudes saines pour préserver votre santé à long terme.",
+   "apropos_hero_title": "À propos",
+  "apropos_hero_subtitle": "À propos de Dr. Ouafae ELMEHRAOUI",
+  "apropos_hero_text": "Nous sommes engagés à offrir des soins de qualité, dédiés à accompagner et à améliorer votre santé au quotidien."
 
 
 

@@ -77,16 +77,24 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .doc-img-wrapper {
+  width: 100%;
+  height: 450px;
   position: relative;
-  margin-bottom: 1rem;
+  border-radius: 8px; /* léger arrondi, pas un gros rond */
+
+  overflow: hidden;
+  background-color: transparent;
 }
 
 .doc-img {
-  width: 100% !important;
-  height: auto !important;
-  border-radius: 16px;
-  display: block;
+  object-fit: contain; /* l’image ne sera JAMAIS coupée */
+  object-position: center;
+  border-radius: 8px;
+
 }
+
+
+
 
 .image-edit-btn {
   position: absolute;

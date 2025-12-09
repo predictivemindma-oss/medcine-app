@@ -46,13 +46,13 @@ if (!["doctor", "assistant"].includes(payload.role)) {
     const skip = (page - 1) * limit;
 
     // 📌 Compter le nombre total de contacts
-    const totalContacts = await Contact.countDocuments();
+const totalContacts = await Contact.countDocuments({ terminated: { $ne: true } });
 
     // 📌 Récupérer les contacts paginés, triés par contactId croissant
-    const contacts = await Contact.find()
-      .sort({ contactId: 1 })  // Tri par ID croissant
-      .skip(skip)
-      .limit(limit);
+  const contacts = await Contact.find({ terminated: { $ne: true } })
+  .sort({ contactId: 1 })  // Tri par ID croissant
+  .skip(skip)
+  .limit(limit);
 
     // 📌 Calculer les informations de pagination
     const totalPages = Math.ceil(totalContacts / limit);

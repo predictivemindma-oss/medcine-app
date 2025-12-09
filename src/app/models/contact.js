@@ -38,7 +38,9 @@ const contactSchema = new mongoose.Schema({
     type: String,
     enum: ["en cours", "confirmé", "annulé"],
     default: "en cours",
-  }
+  },
+    terminated: { type: Boolean, default: false }, // ← Nouveau champ
+
 }, {
   timestamps: true // Supprime le champ createdAt manuel
 });

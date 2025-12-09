@@ -1,158 +1,223 @@
+:root {
+--main-blue: #117090;
+--main-red: #fe1952;
+--second-blue: #c6e5fe;
+--second-teal: #41f4fac6;
+--table-hover: #e0f7fa;
+--table-alt: #f9f9f9;
+--btn-bg: #117090;
+--btn-hover: #009ca2;
+}
+
+/* Container */
 .contact-list-container {
-  padding: 20px;
-  font-family: Arial, sans-serif;
+padding: 25px;
+font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+background: #fdfdfd;
+border-radius: 12px;
+box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+max-width: 1200px;
+margin: auto;
+ font-family: Arial, sans-serif; /* même police que les labels */
+
 }
 
+/* Headings */
 .contact-list-container h1 {
-  color: #009ca2;
-  text-align: center;
-  margin-bottom: 20px;
+color: #006887;
+text-align: center;
+font-size: 2rem;
+margin-bottom: 25px;
 }
 
+.contact-list-container h2 {
+font-size: 1.5rem;
+margin-bottom: 20px;
+text-align: center;
+color: var(--main-red);
+}
+
+/* Filters & Export Button */
+.contact-list-container select,
+.contact-list-container input[type="date"],
+.contact-list-container button {
+font-size: 14px;
+transition: all 0.3s ease;
+}
+.export-btn {
+  padding: 10px 20px;
+  background-color: #006887;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
+
+.export-btn:hover {
+  background-color: var(--main-red);
+}
+
+
+.contact-list-container button {
+background-color: var(--btn-bg);
+color: #fff;
+border: none;
+border-radius: 8px;
+padding: 10px 22px;
+cursor: pointer;
+box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.contact-list-container button:hover {
+background-color: var(--main-red);
+transform: translateY(-2px);
+box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+/* Table */
 .contact-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: auto;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+width: 100%;
+border-collapse: collapse;
+margin: auto;
+box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+border-radius: 10px;
+overflow: hidden;
 }
 
 .contact-table th,
 .contact-table td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: left;
+padding: 12px 15px;
+text-align: left;
 }
 
 .contact-table th {
-  background-color: #10bcc2;
-  color: white;
+  background: #006887; /* Couleur unique demandée */
+
+color: #fff;
+font-weight: 600;
 }
 
 .contact-table tr:nth-child(even) {
-  background-color: #f9f9f9;
+background-color: var(--table-alt);
 }
 
 .contact-table tr:hover {
-  background-color: #e0f7fa;
+background-color: var(--table-hover);
+transform: scale(1.01);
+transition: 0.2s;
+}
+
+/* Presence select */
+.contact-table select {
+padding: 5px 8px;
+border-radius: 6px;
+border: 1px solid #ccc;
+font-weight: 500;
 }
 
 /* Pagination */
-.pagination-info {
-  text-align: center;
-  margin: 15px 0;
-  font-size: 14px;
-  color: #666;
-}
-
 .pagination-controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  margin: 25px 0;
-  flex-wrap: wrap;
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 10px;
+flex-wrap: wrap;
+margin-top: 30px;
 }
 
-.pagination-btn {
-  padding: 8px 16px;
-  background: transparent;
-  color: #333;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: all 0.2s;
-}
-
-.pagination-btn:hover:not(:disabled) {
-  background: #f5f5f5;
-  border-color: #999;
-}
-
-.pagination-btn:disabled {
-  color: #ccc;
-  border-color: #e5e5e5;
-  cursor: not-allowed;
-}
-
-.pagination-pages {
-  display: flex;
-  gap: 5px;
-}
-
+.pagination-btn,
 .page-number {
-  padding: 6px 12px;
-  background: transparent;
-  color: #333;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 13px;
-  transition: all 0.2s;
-  min-width: 36px;
+padding: 8px 16px;
+border-radius: 6px;
+border: 1px solid #ccc;
+background: #fff;
+cursor: pointer;
+transition: 0.3s ease;
 }
 
+.pagination-btn:hover:not(:disabled),
 .page-number:hover {
-  background: #f5f5f5;
-  border-color: #999;
+background: var(--second-blue);
+border-color: var(--teal);
 }
 
 .page-number.active {
-  background: #333;
-  color: white;
-  border-color: #333;
+background: var(--main-blue);
+color: #fff;
+border-color: var(--teal);
 }
 
-/* ===================== */
-/* Responsive Mobile (<768px) */
-/* ===================== */
+/* Responsive */
 @media (max-width: 768px) {
-  .contact-table, 
-  .contact-table thead, 
-  .contact-table tbody, 
-  .contact-table th, 
-  .contact-table td, 
-  .contact-table tr {
-    display: block;
-  }
-
-  .contact-table tr {
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 6px;
-  }
-
-  .contact-table td {
-    text-align: right;
-    padding-left: 50%;
-    position: relative;
-    border: none;
-    border-bottom: 1px solid #eee;
-  }
-
-  .contact-table td::before {
-    content: attr(data-label);
-    position: absolute;
-    left: 10px;
-    width: 45%;
-    text-align: left;
-    font-weight: bold;
-  }
-
-  /* Pagination responsive */
-  .pagination-controls {
-    gap: 5px;
-  }
-
-  .pagination-btn {
-    padding: 6px 12px;
-    font-size: 13px;
-  }
-
-  .page-number {
-    padding: 5px 10px;
-    font-size: 12px;
-    min-width: 32px;
-  }
+.contact-table, .contact-table thead, .contact-table tbody, .contact-table th, .contact-table td, .contact-table tr {
+display: block;
 }
+
+.contact-table tr {
+margin-bottom: 15px;
+border-radius: 10px;
+border: 1px solid #ddd;
+padding: 10px;
+}
+
+.contact-table td {
+text-align: right;
+padding-left: 50%;
+position: relative;
+border: none;
+border-bottom: 1px solid #eee;
+}
+
+.contact-table td::before {
+content: attr(data-label);
+position: absolute;
+left: 10px;
+width: 45%;
+text-align: left;
+font-weight: bold;
+}
+}
+.filters-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center; /* aligne label et input verticalement */
+  margin-bottom: 20px;
+}
+
+.filter-item {
+  display: flex;
+  align-items: center; /* label + input alignés */
+  gap: 8px; /* espace entre label et input */
+}
+
+.filter-item label {
+  font-weight: bold;
+  font-family: inherit;
+  white-space: nowrap; /* empêche le label de descendre */
+}
+
+.filter-item select,
+.filter-item input[type="date"] {
+  padding: 6px 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.filter-item button {
+  padding: 6px 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #dc3545;
+  color: #fff;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+
+

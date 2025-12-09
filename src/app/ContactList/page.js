@@ -27,6 +27,37 @@ export default function ContactListPage() {
   });
   const [filterPresence, setFilterPresence] = useState("tous");
   const [filterDate, setFilterDate] = useState("");
+  const [terminatedContacts, setTerminatedContacts] = useState([]);
+
+ async function handleTerminate(id) {
+  try {
+    await fetch("/api/contacts/terminateContact", { // Assure-toi que le chemin est correct
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    });
+
+    // Retirer la ligne côté front
+    setTerminatedContacts(prev => [...prev, id]);
+  } catch (err) {
+    console.error("Erreur lors de la terminaison :", err);
+  }
+}
+
+
+
+
+  function getRowColor(presence) {
+  switch (presence) {
+    case "confirmé":
+      return "#d4edda"; // vert clair
+    case "annulé":
+      return "#f8d7da"; // rouge clair
+    case "en cours":
+    default:
+      return "#fff3cd"; // jaune clair
+  }
+}
 
   // ✅ Vérification de l'authentification via token
   useEffect(() => {
@@ -198,7 +229,8 @@ export default function ContactListPage() {
               padding: "6px 10px",
               borderRadius: "5px",
               border: "1px solid #ccc",
-              backgroundColor: "#f9f9f9",
+                  backgroundColor: "transparent", // avant : "#f9f9f9"
+
               marginLeft: "8px",
             }}
           >
@@ -248,20 +280,14 @@ export default function ContactListPage() {
       </div>
 
       {/* Bouton export */}
-      <button
-        style={{
-          padding: "10px 20px",
-          backgroundColor: "#007bff",
-          color: "white",
-          border: "none",
-          borderRadius: "6px",
-          cursor: "pointer",
-          marginBottom: "15px",
-        }}
-        onClick={() => window.open("/api/contacts/exportContacts", "_blank")}
-      >
+    <button
+  className="export-btn"
+  onClick={() => window.open("/api/contacts/exportContacts", "_blank")}
+>
   {t("export_all_contacts")}
-      </button>
+</button>
+
+
 
       {/* Tableau des contacts */}
       {contacts.length === 0 ? (
@@ -280,62 +306,77 @@ export default function ContactListPage() {
     <th>{t("message")}</th>
     <th>{t("date")}</th>
     <th>{t("presence")}</th>
+    <th>{t("action")}</th>
+
               </tr>
             </thead>
-            <tbody>
-              {contacts.map((contact) => (
-                <tr key={contact._id}>
-                  <td>{contact.contactId}</td>
-                  <td>{contact.prenom}</td>
-                  <td>{contact.nom}</td>
-                  <td>{contact.email}</td>
-                  <td>{contact.numero}</td>
-                  <td>{contact.service}</td>
-                  <td>{contact.message}</td>
-                  <td>
-                    {contact.createdAt
-                      ? new Date(contact.createdAt).toLocaleString("fr-FR", {
-                          day: "2-digit",
-                          month: "2-digit",
-                          year: "numeric",
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })
-                      : "—"}
-                  </td>
-                  <td>
-                    <select
-                      value={contact.presence || "en cours"}
-                      onChange={(e) =>
-                        handlePresence(contact._id, e.target.value)
-                      }
-                      style={{
-                        padding: "6px 10px",
-                        borderRadius: "5px",
-                        border: "1px solid #ccc",
-                        backgroundColor:
-                          contact.presence === "confirmé"
-                            ? "#d4edda"
-                            : contact.presence === "annulé"
-                            ? "#f8d7da"
-                            : "#fff3cd",
-                        color:
-                          contact.presence === "confirmé"
-                            ? "#155724"
-                            : contact.presence === "annulé"
-                            ? "#721c24"
-                            : "#856404",
-                        fontWeight: "500",
-                      }}
-                    >
-                       <option value="en cours">{t("in_progress")}</option>
-  <option value="confirmé">{t("confirmed")}</option>
-  <option value="annulé">{t("cancelled")}</option>
-                    </select>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+<tbody>
+  {contacts
+    .filter((contact) => !terminatedContacts.includes(contact._id))
+    .map((contact) => (
+      <tr
+        key={contact._id}
+        style={{
+          backgroundColor: getRowColor(contact.presence || "en cours"),
+          transition: "background-color 0.3s",
+        }}
+      >
+        <td>{contact.contactId}</td>
+        <td>{contact.prenom}</td>
+        <td>{contact.nom}</td>
+        <td>{contact.email}</td>
+        <td>{contact.numero}</td>
+        <td>{contact.service}</td>
+        <td>{contact.message}</td>
+        <td>
+          {contact.createdAt
+            ? new Date(contact.createdAt).toLocaleString("fr-FR", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+              })
+            : "—"}
+        </td>
+        <td>
+          <select
+            value={contact.presence || "en cours"}
+            onChange={(e) => handlePresence(contact._id, e.target.value)}
+            style={{
+              padding: "6px 10px",
+              borderRadius: "5px",
+              border: "1px solid #ccc",
+              backgroundColor: "transparent",
+              fontWeight: "500",
+            }}
+          >
+            <option value="en cours">{t("in_progress")}</option>
+            <option value="confirmé">{t("confirmed")}</option>
+            <option value="annulé">{t("cancelled")}</option>
+          </select>
+        </td>
+        {/* Nouvelle colonne Action */}
+        <td>
+          <button
+            onClick={() => handleTerminate(contact._id)}
+            style={{
+              padding: "6px 12px",
+              backgroundColor: "#28a745",
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+          >
+            {t("terminate")}
+          </button>
+        </td>
+      </tr>
+  ))}
+</tbody>
+
+
           </table>
 
           {/* Pagination */}
