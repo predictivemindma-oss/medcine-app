@@ -218,6 +218,13 @@ font-weight: bold;
   font-family: inherit;
   font-size: 14px;
 }
+.contact-table td {
+  max-width: 200px;          /* largeur max de la colonne */
+  overflow: hidden;           /* cache le texte qui dépasse */
+  text-overflow: ellipsis;    /* affiche "..." si trop long */
+  white-space: nowrap;        /* empêche le retour à la ligne */
+}
+
 
 
 

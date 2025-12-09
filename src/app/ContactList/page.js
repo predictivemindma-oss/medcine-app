@@ -206,78 +206,59 @@ export default function ContactListPage() {
 
      
 
-      {/* ✅ Filtres combinés */}
-      <div
-        style={{
-          marginBottom: "20px",
-          display: "flex",
-          gap: "15px",
-          alignItems: "center",
-          flexWrap: "wrap",
-        }}
-      >
-        {/* 🔹 Filtre par présence */}
-        <div>
-          <label htmlFor="presenceFilter" style={{ fontWeight: "bold" }}>
-  {t("filter_presence")} :
-          </label>
-          <select
-            id="presenceFilter"
-            value={filterPresence}
-            onChange={(e) => setFilterPresence(e.target.value)}
-            style={{
-              padding: "6px 10px",
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-                  backgroundColor: "transparent", // avant : "#f9f9f9"
+ <div
+  style={{
+    marginBottom: "20px",
+    display: "flex",
+    gap: "15px",
+    alignItems: "center",
+    flexWrap: "wrap",
+  }}
+>
+  {/* 🔹 Filtre par présence */}
+  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+    <label htmlFor="presenceFilter" style={{ fontWeight: "bold" }}>
+      {t("filter_presence")} :
+    </label>
+    <select
+      id="presenceFilter"
+      value={filterPresence}
+      onChange={(e) => setFilterPresence(e.target.value)}
+      style={{
+        padding: "6px 10px",
+        borderRadius: "5px",
+        border: "1px solid #ccc",
+        backgroundColor: "transparent",
+      }}
+    >
+      <option value="tous">{t("all")}</option>
+      <option value="en cours">{t("in_progress")}</option>
+      <option value="confirmé">{t("confirmed")}</option>
+      <option value="annulé">{t("cancelled")}</option>
+    </select>
+  </div>
 
-              marginLeft: "8px",
-            }}
-          >
-           <option value="tous">{t("all")}</option>
-  <option value="en cours">{t("in_progress")}</option>
-  <option value="confirmé">{t("confirmed")}</option>
-  <option value="annulé">{t("cancelled")}</option>
-          </select>
-        </div>
+  {/* 🔹 Filtre par date */}
+  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+  <label htmlFor="dateFilter" style={{ fontWeight: "bold", whiteSpace: "nowrap" }}>
+    {t("filter_date")} :
+  </label>
+  <input
+    id="dateFilter"
+    type="date"
+    value={filterDate}
+    onChange={(e) => setFilterDate(e.target.value)}
+    style={{
+      padding: "6px 10px",
+      borderRadius: "5px",
+      border: "1px solid #ccc",
+      backgroundColor: "#f9f9f9",
+    }}
+  />
+</div>
 
-        {/* 🔹 Filtre par date de création */}
-        <div>
-          <label htmlFor="dateFilter" style={{ fontWeight: "bold" }}>
-  {t("filter_date")} :
-          </label>
-          <input
-            id="dateFilter"
-            type="date"
-            value={filterDate}
-            onChange={(e) => setFilterDate(e.target.value)}
-            style={{
-              padding: "6px 10px",
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-              backgroundColor: "#f9f9f9",
-              marginLeft: "8px",
-            }}
-          />
-          {filterDate && (
-            <button
-              onClick={() => setFilterDate("")}
-              style={{
-                marginLeft: "10px",
-                backgroundColor: "#dc3545",
-                color: "white",
-                border: "none",
-                borderRadius: "5px",
-                padding: "6px 10px",
-                cursor: "pointer",
-              }}
-            >
-              ❌{t("reset")} 
+</div>
 
-            </button>
-          )}
-        </div>
-      </div>
 
       {/* Bouton export */}
     <button
@@ -327,7 +308,20 @@ export default function ContactListPage() {
         <td>{contact.email}</td>
         <td>{contact.numero}</td>
         <td>{contact.service}</td>
-        <td>{contact.message}</td>
+        <td
+  data-label={t("message")}
+  title={contact.message}  // ✅ le texte complet apparaît au survol
+  style={{
+    maxWidth: "250px",      // largeur max pour garder les lignes uniformes
+    overflow: "hidden",     // cache le texte qui dépasse
+    textOverflow: "ellipsis", // affiche "..." si le texte est trop long
+    whiteSpace: "nowrap",   // empêche le retour à la ligne
+    cursor: "pointer"       // indique que c’est survolable
+  }}
+>
+  {contact.message}
+</td>
+
         <td>
           {contact.createdAt
             ? new Date(contact.createdAt).toLocaleString("fr-FR", {
