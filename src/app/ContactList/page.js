@@ -277,7 +277,7 @@ async function fetchContacts(page = 1, presence = filterPresence) {
     // Pas besoin d'appeler fetchContacts ici, le useEffect le fera
   }}
 >
-  Rendez-vous d'aujourd'hui
+{t("today_appointments")}
 </button>
 
 

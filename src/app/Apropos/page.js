@@ -25,7 +25,6 @@ function Propos() {
     <div className="propos-container">
       {/* Hero / Heading */}
   <div className="apropos-header">
-        <h1 style={{color: '#007090'}}>{t('apropos_hero_title')}</h1>
         <h2 style={{color: '#ef404d', fontWeight: 'bold'}}>{t('apropos_hero_subtitle')}</h2>
         <p style={{color: '#007090', textAlign: 'center', maxWidth: '700px', margin: '20px auto'}}>
           {t('apropos_hero_text')}
