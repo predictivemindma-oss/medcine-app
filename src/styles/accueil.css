@@ -21,6 +21,7 @@ h6 {
     font-weight: bold !important;
 }
 
+
 /* Arabic active */
 html[dir="rtl"] .accueil-container * {
     text-align: right;
@@ -655,3 +656,50 @@ p {
         width: 95%;
     }
 }
+html[dir="rtl"] h1.dr {
+    font-weight: bold !important;
+        font-size: 55px !important;
+
+  
+}
+html[dir="rtl"] .long-p {
+    font-family: 'Noto Serif', 'Share', serif !important;
+    font-weight: bold; 
+      text-align: justify;       
+
+  }
+.arabic-number {
+    direction: ltr;       
+    unicode-bidi: embed;  
+    text-align: right;    
+    font-family: 'Tajawal', sans-serif; 
+}
+.troubles-text h1,
+.suivi-text h1,
+.conseil-text h1 {
+    color: var(--main-blue);
+    font-weight: bold !important;
+    font-size: 35px !important;
+}
+
+.accueil-container p {
+  font-family: 'Arial', sans-serif; 
+  font-size: 16px; 
+  line-height: 1.6; 
+  text-align: justify; 
+  margin-bottom: 1em; 
+}
+
+html[dir="rtl"] .choisir-text p,
+html[dir="rtl"] .troubles-text p,
+html[dir="rtl"] .suivi-text p,
+html[dir="rtl"] .conseil-text p
+ {
+    text-align: justify;   
+    line-height: 1.6;     
+    font-size: 16px;        
+    margin-bottom: 1em;     
+}
+
+
+

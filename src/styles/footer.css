@@ -55,7 +55,10 @@ html[dir="rtl"] .footer * {
 
 .footer h2 {
     color: var(--main-blue);
+    font-size: 28px; /* taille plus grande */
+    font-weight: bold; /* texte en gras */
 }
+
 
 .pages-flex {
     display: flex;
@@ -132,4 +135,9 @@ html[dir="rtl"] .footer * {
     .address {
         width: 90%;
     }
+}
+/* CSS pour le footer */
+.footer .address .phone a,
+.footer .address .local span {
+  font-weight: bold;
 }

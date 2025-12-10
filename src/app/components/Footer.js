@@ -32,22 +32,17 @@ const { t } = useTranslation();
         </div>
 
         <div className="mobile-pages">
-          <div className="pages-flex">
-            <h2>{t("pages_title")}</h2>
-            <Link href="/">{t("home")}</Link>
+  <div className="pages-flex">
+    <h2>{t("pages_title")}</h2>
+    
+    <Link href="/">{t("home")}</Link>
+    <Link href="/Apropos">{t("about")}</Link>
+    <Link href="/Services">{t("services")}</Link>
+    <Link href="/Medecin">{t("doctor")}</Link>  {/* Nouvelle page Médecin */}
+    <Link href="/Contact">{t("contact")}</Link>        {/* Nouvelle page Contact */}
+  </div>
+</div>
 
-
-            <Link href="/Apropos">{t("about")}</Link>
-
-            <Link href="/Services">{t("services")}</Link>
-            <Link href="/">{t("page_faq")}</Link>
-          </div>
-          <div className="cms-pages">
-            <h2>{t("cms_pages_title")}</h2>
-            <Link href="/Medecin">{t("doctor")}</Link>
-            <Link href="/Contact">{t("contact")}</Link>
-          </div>
-        </div>
 
         <div className="address">
           <h2>{t("address_title")}</h2>

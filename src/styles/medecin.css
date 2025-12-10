@@ -191,6 +191,8 @@ h1, h2, h3, h4, h5, h6 {
 .intro-text {
   margin-bottom: 1rem;
   line-height: 1.4;
+  
+
 }
 
 /* =======================
@@ -238,7 +240,10 @@ h1, h2, h3, h4, h5, h6 {
   list-style: none;
   padding: 0;
   margin: 0;
+   list-style-type: disc; /* Ajoute un point devant chaque li */
+  padding-left: 20px;    
 }
+
 
 .list-item {
   display: flex;

@@ -286,34 +286,44 @@
   line-height: 1.6;
   color: #007090;
   margin: 0 auto;
+
 }
 .votre-solution-text h2 {
-  font-weight: bold;      /* Texte en gras */
-  color: #007090;         /* Texte bleu */
+  font-weight: bold;      
+  color: #007090;        
 }
 .centre-complet-text h2 {
-  font-weight: bold;   /* Texte en gras */
-  color: #007090;      /* Texte bleu */
-  font-size: 2rem;     /* Ajustable selon ton design */
-  margin-bottom: 15px; /* Si tu veux un peu d’espace avec le paragraphe */
+  font-weight: bold;   
+  color: #007090;    
+  font-size: 2rem;    
+  margin-bottom: 15px; 
 }
 /* Conteneur des accordions */
 .centre-complet .accordion-box {
-  min-height: 150px;          /* augmenter la hauteur minimale du bloc */
-  padding: 20px;              /* un peu plus d’espace intérieur */
-  border-radius: 12px;        /* optionnel : coins arrondis */
+  min-height: 150px;         
+  padding: 20px;              
+  border-radius: 12px;       
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* le contenu reste en haut */
-  margin-bottom: 15px;        /* espace entre les blocs */
+  justify-content: flex-start; 
+  margin-bottom: 15px;        
 }
-
+.centre-complet .accordion-box:hover {
+  background-color: #ef404d; 
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 /* Titres des blocs (h3 dans l’accordion) */
 .centre-complet .accordion-box h3 {
-  font-weight: bold;  /* mettre le titre en gras */
-  font-size: 1.1rem;  /* ajustable selon ton design */
-  margin-left: 10px;  /* si tu veux un peu de décalage par rapport à l’icône */
+  font-weight: bold; 
+  font-size: 1.5rem; 
+  margin-left: 10px;  
 }
+.centre-complet .accordion-content p {
+  font-size: 0.2rem;   
+  font-weight: normal;  
+  line-height: 1;    
+}
+
 /* Bloc ouvert : seul le fond change */
 .centre-complet .accordion-box.open {
   background-color: #ef404d;
@@ -324,12 +334,26 @@
 .centre-complet .accordion-box.open h3,
 .centre-complet .accordion-box.open p,
 .centre-complet .accordion-box.open img {
-  color: inherit; /* garde la couleur d’origine */
-  filter: none;   /* icône reste inchangée */
+  color: inherit; 
+  filter: none;   
 }
 /* Titre des blocs Fiabilité / Qualité / Tarif en arabe */
-[dir="rtl"] .fiabilite h3 {
-  text-align: left !important; /* force le titre à rester au début du bloc */
+
+/* Quand la page est en arabe, aligner certains textes à droite */
+[dir="rtl"] .fiabilite h3,
+[dir="rtl"] .fiabilite p {
+    text-align: right;
 }
+.solution-text {
+  text-align: justify;       
+  line-height: 1.6;          
+  text-justify: inter-word;  
+  margin: 0;                 
+}
+
+
+
+
+
 
 

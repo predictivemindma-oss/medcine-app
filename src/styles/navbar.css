@@ -196,3 +196,15 @@ nav .flex-shrink-0 {
     align-items: flex-start;
   }
 }
+/* Forcer l'ordre des liens dans le navbar même en RTL */
+html[dir="rtl"] .ml-4.flex.items-center.space-x-6 {
+  flex-direction: row !important; /* forcer l'ordre normal */
+  margin-right: 3rem; /* garder l'espacement du côté droit */
+  margin-left: 0 !important;
+}
+
+/* Mobile menu */
+html[dir="rtl"] .mobile-menu .flex.flex-col.space-y-6 {
+  flex-direction: column !important; /* ne pas inverser l'ordre vertical */
+}
+

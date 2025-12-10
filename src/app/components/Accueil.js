@@ -70,7 +70,8 @@ export default function Accueil() {
               <Image src={phone} alt="phone" />
             </div>
             <div>
-              <span>+212 5 36 69 60 48</span>
+              <span className="arabic-number">+212 5 36 69 60 48</span>
+
             </div>
           </a>
         </div>
@@ -148,8 +149,8 @@ export default function Accueil() {
             <h1>{t("troubles_title")}</h1>
           </div>
           <p>{t("troubles_text")}</p>
-          <Link href="/Apropos" className="accueil-links">
-            {t("about_us")}
+          <Link href="/Services" className="accueil-links">
+            {t("learn_more")}
           </Link>
         </div>
       </div>

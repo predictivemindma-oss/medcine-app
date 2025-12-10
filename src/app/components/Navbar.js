@@ -180,7 +180,7 @@ export default function Navbar() {
                     }`}
 
                   >
-                    {t("reservations")}
+                    {t("Reservations")}
                   </Link>
                 )}
               </div>
@@ -345,7 +345,7 @@ export default function Navbar() {
                       : ""
                   } block w-full`}
                 >
-                  {t("reservations")}
+                  {t("Reservations")}
                 </Link>
               )}
 

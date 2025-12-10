@@ -26,7 +26,7 @@ function Propos() {
       {/* Hero / Heading */}
   <div className="apropos-header">
         <h2 style={{color: '#ef404d', fontWeight: 'bold'}}>{t('apropos_hero_subtitle')}</h2>
-        <p style={{color: '#007090', textAlign: 'center', maxWidth: '700px', margin: '20px auto'}}>
+        <p style={{color: '#007090', textAlign: 'center', maxWidth: '700px', margin: '20px auto',fontWeight: 'bold'}}>
           {t('apropos_hero_text')}
         </p>
       </div>
@@ -39,7 +39,8 @@ function Propos() {
         </div>
         <div className="votre-solution-text">
           <h2>{t("propos_solution_title")}</h2>
-          <p>{t("propos_solution_text")}</p>
+          <p className="solution-text">{t("propos_solution_text")}</p>
+
 
           <div className="expertises">
             {[1,2,3,4].map((i)=>(
