@@ -27,6 +27,7 @@ export const metadata = {
   },
 };
 
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
@@ -43,7 +44,7 @@ export default function RootLayout({ children }) {
           <source src="/bg.mp4" type="video/mp4" />
         </video>
 
-          <NavbarWrapper /> {/* Client wrapper */}
+        <NavbarWrapper /> {/* Client wrapper */}
 
         <div className="relative z-10">
           <main className="w-full">{children}</main>
@@ -53,4 +54,5 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
 

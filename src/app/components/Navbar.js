@@ -15,6 +15,8 @@ import france from "../../../public/assets/france.png";
 
 import "../../styles/navbar.css";
 import LoginModal from "../models/LoginModal";
+import "../../styles/LoginModal.css";
+
 
 
 export default function Navbar() {

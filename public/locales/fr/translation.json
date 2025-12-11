@@ -45,12 +45,12 @@
   "troubles_title": "Troubles endocriniens",
   "troubles_text": "Nous assurons un diagnostic et un traitement précis des déséquilibres hormonaux, tels que la thyroïde, le diabète et les troubles métaboliques et nutritionnels, avec un suivi personnalisé visant à rétablir l’équilibre hormonal, améliorer votre santé et prévenir les complications à long terme.",
   "suivi_title": "Suivi du diabète",
-"suivi_text": "إدارة شخصية لمستوى السكر في الدم والوقاية من المضاعفات، من خلال متابعة منتظمة، وتقديم نصائح غذائية مناسبة، ومتابعة طبية شاملة لتحسين صحتك اليومية.",
   "conseil_title": "Conseil du diabète",
   "conseil_text": "Plans alimentaires personnalisés, conçus pour soutenir la santé globale, favoriser l’équilibre nutritionnel, prévenir les carences, accompagner la gestion des maladies chroniques et promouvoir un mode de vie durable.",
   "patients_title": "Avis de nos patients sur Dr. Ouafae EL MEHRAOUI",
 "patients_text": "Avec le Dr. Ouafae El Mahraoui, chaque patient bénéficie d’un suivi personnalisé visant sa guérison. Découvrez les expériences et avis de nos patients.",
 
+  "suivi_text": "Une gestion personnalisée du taux de sucre dans le sang et de la prévention des complications, grâce à un suivi régulier, des conseils nutritionnels adaptés et un accompagnement médical complet pour améliorer votre santé au quotidien.",
 
 
 
@@ -170,6 +170,7 @@
   "analyse": "Analyses / Bilans",
   "message": "Votre Message",
   "submit": "Prendre rendez-vous",
+  "password": "Mot de passe",
 
 
 
@@ -226,7 +227,10 @@
   "welcome_doctor": "Bienvenue Docteur !",
   "welcome_assistant": "Bienvenue Assistant !",
   "today_appointments": "Rendez-vous d'aujourd'hui",
-"presence_action": "Présence et action"
+"presence_action": "Présence et action",
+  "scheduled_delete": "Suppression"
+ 
+
 
   
   

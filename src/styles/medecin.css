@@ -236,31 +236,31 @@ h1, h2, h3, h4, h5, h6 {
 /* =======================
    Listes
 ======================= */
-.list-items {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-   list-style-type: disc; /* Ajoute un point devant chaque li */
-  padding-left: 20px;    
-}
-
-
 .list-item {
   display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  padding: 4px 10px;       /* less internal height */
-  margin-bottom: 8px;
-  margin-bottom: 4px;      /* less vertical gap */
-  transition: all 0.2s ease;
+  align-items: center; /* centre verticalement le bullet et le texte */
+  gap: 0.5rem;
 }
 
-
+.bullet {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  width: 24px;           /* largeur fixe */
+  display: flex;
+  align-items: center;    /* centre le • dans sa box */
+  justify-content: center;
+  flex-shrink: 0;
+}
 
 .list-item-content {
   flex: 1;
   min-width: 0;
+  line-height: 1.4;      /* garde la même hauteur de ligne que le texte */
 }
+
+
+
 
 /* =======================
    Champs modifiables
@@ -423,9 +423,7 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* =======================
    RTL - Bordure droite pour les listes
-======================= */
-html[dir="rtl"] .list-item { border-left: none; border-right: 3px solid var(--main-blue); }
-html[dir="rtl"] .intro ul { padding-right: 20px; padding-left: 0; }
+======================= */html[dir="rtl"] .intro ul { padding-right: 20px; padding-left: 0; }
 
 /* Ajouter un espace au-dessus de "Spécialité" pour qu'il ne touche pas l'image */
 .speciality-field {
@@ -438,5 +436,21 @@ html[dir="rtl"] .intro ul { padding-right: 20px; padding-left: 0; }
 .speciality-field i {
     font-weight: bold;
 }
+.bullet {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 1;
+  display: inline-block;
+  width: 18px;
+  text-align: center;
+  font-family: Arial, sans-serif !important; /* important ! */
+}
+
+html[dir="rtl"] .bullet {
+  transform: none !important;
+  direction: ltr !important; /* empêche le changement du point en trait */
+}
+
 
 

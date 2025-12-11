@@ -1,50 +1,241 @@
-.login-modal {
+/* Reset complet pour éviter les conflits */
+.login-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.6);
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
-  padding: 10px; /* pour éviter que le contenu touche les bords */
-}
-
-.login-content {
-  background: #fff;
+  z-index: 9999;
   padding: 20px;
-  border-radius: 8px;
-  width: 100%;
-  max-width: 400px; /* largeur max pour desktop */
-  min-width: 280px; /* largeur min pour mobile */
-  box-sizing: border-box;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
-.login-content form {
+.login-modal-box {
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 420px;
+  min-width: 280px;
+  box-sizing: border-box;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  /* Force le rendu */
+  will-change: transform;
+  transform: translateZ(0);
+   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #237093; /* Couleur du texte */
+}
+
+.login-title {
+  margin: 0 0 30px 0;
+  padding: 0;
+  font-size: 26px;
+  text-align: center;
+  font-weight: 600;
+   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;;
+  color: #237093;
+  font-weight: bold;
+}
+
+.login-form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
+  width: 100%;
+  background-color:#fff;
 }
 
-.login-content input {
-  padding: 10px;
-  font-size: 16px;
+.login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   width: 100%;
-  box-sizing: border-box;
 }
-@media (max-width: 360px) {
-  .login-content {
+
+.login-label {
+  font-weight: 500;
+  font-size: 15px;
+  color: #237093;
+  margin: 0;
+  padding: 0;
+}
+
+.login-input {
+  /* Dimensions fixes */
+  width: 100%;
+  height: 50px;
+  min-height: 50px;
+  max-height: 50px;
+  
+  /* Style */
+  padding: 0 16px;
+  font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 50px;
+  
+  /* Bordure */
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  
+  /* Comportement */
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+  outline: none;
+  
+  /* Anti-zoom iOS */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  
+  /* Force le rendu */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+.login-input:focus {
+  outline: none;
+}
+
+.login-input::placeholder {
+  color: #999;
+  font-size: 16px;
+}
+
+/* Autofill styles - Très important */
+.login-input:-webkit-autofill,
+.login-input:-webkit-autofill:hover,
+.login-input:-webkit-autofill:focus,
+.login-input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 100px white inset !important;
+  box-shadow: 0 0 0 100px white inset !important;
+  -webkit-text-fill-color: #000 !important;
+  font-size: 16px !important;
+  height: 50px !important;
+  min-height: 50px !important;
+  line-height: 50px !important;
+  padding: 0 16px !important;
+  border: 2px solid #ddd !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.login-submit-btn {
+  width: 100%;
+  height: 50px;
+  min-height: 50px;
+  padding: 0 20px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: inherit;
+  
+  background-color: #237093;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  
+  transition: background-color 0.2s ease;
+  margin-top: 10px;
+  
+  /* Force le rendu */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+.login-submit-btn:hover:not(:disabled) {
+  background-color: #fd1c55;
+}
+
+
+
+.login-submit-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.login-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 36px;
+  height: 36px;
+  
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  
+  font-size: 32px;
+  line-height: 1;
+  color: #999;
+  cursor: pointer;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  transition: all 0.2s ease;
+}
+
+.login-close-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #333;
+}
+
+.login-close-btn:active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .login-modal-overlay {
     padding: 15px;
   }
 
-  .login-content input {
-    font-size: 14px;
+  .login-modal-box {
+    padding: 30px 20px;
+    max-width: 100%;
   }
 
-  .login-content button {
-    padding: 8px;
-    font-size: 14px;
+  .login-title {
+    font-size: 24px;
+    margin-bottom: 25px;
   }
+
+  .login-input,
+  .login-submit-btn {
+    height: 48px;
+    min-height: 48px;
+    font-size: 16px;
+  }
+
+  .login-input {
+    line-height: 48px;
+  }
+}
+
+/* Fix spécifique iOS */
+@supports (-webkit-touch-callout: none) {
+  .login-input {
+    font-size: 16px !important;
+    height: 50px !important;
+    min-height: 50px !important;
+  }
+  
+  .login-input:-webkit-autofill {
+    font-size: 16px !important;
+    height: 50px !important;
+  }
+}
+
+/* Fix pour empêcher le zoom sur double-tap iOS */
+* {
+  touch-action: manipulation;
 }

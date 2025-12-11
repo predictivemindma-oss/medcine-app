@@ -302,64 +302,68 @@ const handleDelete = async (field, value) => {
             )}
           </div>
 
-          <ul className="list-items">
-            {medecin.experiences?.map((exp, idx) => (
-              <li key={idx} className="list-item">
-                <div className="list-item-content">
-                  {renderField("experiences", exp, false, idx)}
-                </div>
-                {userRole === "doctor" && (
-                  <button
-                    className="icon-btn delete-btn"
-                    onClick={() => handleDelete("experiences", exp)}
-                    title={t("delete") || "Supprimer"}
-                  >
-                    <FaTrash />
-                  </button>
-                )}
-              </li>
-            ))}
-          </ul>
+         <ul className="list-items">
+  {medecin.experiences?.map((exp, idx) => (
+    <li key={idx} className="list-item">
+      <i className="bullet">•</i>
+      <div className="list-item-content">
+        {renderField("experiences", exp, false, idx)}
+      </div>
+      {userRole === "doctor" && (
+        <button
+          className="icon-btn delete-btn"
+          onClick={() => handleDelete("experiences", exp)}
+          title={t("delete") || "Supprimer"}
+        >
+          <FaTrash />
+        </button>
+      )}
+    </li>
+  ))}
+</ul>
+
         </div>
 
         {/* FORMATIONS */}
-        <div className="section">
-          <div className="section-header">
-            <h3>{t("formation")}</h3>
-            {userRole === "doctor" && (
-              <button
-                onClick={() => {
-                  const updatedFormations = [...(medecin.formations || []), ""];
-                  setMedecin({ ...medecin, formations: updatedFormations });
-                  setEditingField(`formations-${updatedFormations.length - 1}`);
-                  setTempValue("");
-                }}
-                className="add-btn"
-              >
-                <FaPlus /> {t("add_formation")}
-              </button>
-            )}
-          </div>
+       <div className="section">
+  <div className="section-header">
+    <h3>{t("formation")}</h3>
+    {userRole === "doctor" && (
+      <button
+        onClick={() => {
+          const updatedFormations = [...(medecin.formations || []), ""];
+          setMedecin({ ...medecin, formations: updatedFormations });
+          setEditingField(`formations-${updatedFormations.length - 1}`);
+          setTempValue("");
+        }}
+        className="add-btn"
+      >
+        <FaPlus /> {t("add_formation")}
+      </button>
+    )}
+  </div>
 
-          <ul className="list-items">
-            {medecin.formations?.map((form, idx) => (
-              <li key={idx} className="list-item">
-                <div className="list-item-content">
-                  {renderField("formations", form, false, idx)}
-                </div>
-                {userRole === "doctor" && (
-                  <button
-                    className="icon-btn delete-btn"
-                    onClick={() => handleDelete("formations", form)}
-                    title={t("delete") || "Supprimer"}
-                  >
-                    <FaTrash />
-                  </button>
-                )}
-              </li>
-            ))}
-          </ul>
+  <ul className="list-items">
+    {medecin.formations?.map((form, idx) => (
+      <li key={idx} className="list-item">
+        <i className="bullet">•</i>
+        <div className="list-item-content">
+          {renderField("formations", form, false, idx)}
         </div>
+        {userRole === "doctor" && (
+          <button
+            className="icon-btn delete-btn"
+            onClick={() => handleDelete("formations", form)}
+            title={t("delete") || "Supprimer"}
+          >
+            <FaTrash />
+          </button>
+        )}
+      </li>
+    ))}
+  </ul>
+</div>
+
 
         {/* UNDO */}
         {pendingDeletes.length > 0 && (
