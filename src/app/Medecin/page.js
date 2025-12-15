@@ -7,6 +7,7 @@ import { FaEdit, FaSave, FaTrash, FaUndo, FaPlus } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import "../../styles/medecin.css";
 
+
 export default function Medecin() {
   const { t } = useTranslation();
   const [medecin, setMedecin] = useState(null);
@@ -14,20 +15,25 @@ export default function Medecin() {
   const [tempValue, setTempValue] = useState("");
   const [userRole, setUserRole] = useState(null);
   const [pendingDeletes, setPendingDeletes] = useState([]);
+  const { i18n } = useTranslation();
 
-  useEffect(() => {
-    const fetchMedecin = async () => {
-      try {
-        const res = await fetch("/api/medecin");
-        if (!res.ok) throw new Error("Erreur serveur");
-        const data = await res.json();
-        setMedecin(data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchMedecin();
-  }, []);
+
+useEffect(() => {
+  const fetchMedecin = async () => {
+    const lang = i18n.language.startsWith("ar") ? "ar" : "fr";
+    console.log("Langue envoyée au backend:", lang);
+    const res = await fetch(`/api/medecin?lang=${lang}`, { cache: "no-store" });
+    
+console.log("i18n.language:", i18n.language);
+console.log("Lang utilisé pour fetch:", lang);
+
+    const data = await res.json();
+    setMedecin(data);
+  };
+
+  fetchMedecin();
+}, [i18n.language]);
+
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -50,34 +56,106 @@ export default function Medecin() {
     setTempValue(value);
   };
 
-  const handleSave = async (field, index = null) => {
-    let updated = { ...medecin };
+const handleSave = async (field, index = null) => {
+  if (!medecin) return;
 
-    if (index !== null) {
-      const arrField =
-        field === "experiences"
-          ? [...(medecin.experiences || [])]
-          : [...(medecin.formations || [])];
-      arrField[index] = tempValue;
-      updated[field] = arrField;
+  const lang = i18n.language.startsWith("ar") ? "ar" : "fr";
+
+  let payload = {};
+
+  if (index !== null) {
+    // C'est un tableau (experiences ou formations)
+    if (lang === "ar") {
+      // CAS SPÉCIAL: Modification d'une seule ligne arabe
+      payload = {
+        editArabicLine: {
+          field: field,
+          index: index,
+          value: tempValue
+        }
+      };
     } else {
-      updated[field] = tempValue;
+      // Modification FR: on envoie tout le tableau FR
+      const updatedArray = [...(medecin[field] || [])];
+      updatedArray[index] = tempValue;
+      payload = {
+        [field]: updatedArray,
+        lang: lang
+      };
     }
-
-    setMedecin(updated);
-    setEditingField("");
-
-    try {
-      const res = await fetch("/api/medecin", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updated),
-      });
-      if (!res.ok) console.error("Erreur sauvegarde côté serveur");
-    } catch (err) {
-      console.error(err);
+  } else {
+    // Champ simple
+    if (lang === "ar") {
+      payload = {
+        [`${field}_ar`]: tempValue,
+        lang: lang
+      };
+    } else {
+      payload = {
+        [field]: tempValue,
+        lang: lang
+      };
     }
-  };
+  }
+
+  // Mise à jour optimiste de l'UI
+  setMedecin((prev) => {
+    const updated = { ...prev };
+    if (index !== null) {
+      const arrField = lang === "ar" ? `${field}_ar` : field;
+      const arr = [...(updated[arrField] || [])];
+      arr[index] = tempValue;
+      updated[arrField] = arr;
+    } else {
+      const fieldName = lang === "ar" ? `${field}_ar` : field;
+      updated[fieldName] = tempValue;
+    }
+    return updated;
+  });
+
+  setEditingField("");
+
+  try {
+    const res = await fetch("/api/medecin", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+      const errText = await res.text();
+      console.error("Erreur sauvegarde côté serveur :", errText);
+    } else {
+      // Rafraîchir les données depuis le serveur
+      const updatedData = await res.json();
+      
+      // Reconstruire l'objet medecin avec les bonnes données selon la langue
+      const refreshedMedecin = {
+        introduction: lang === "ar" ? updatedData.introduction_ar : updatedData.introduction,
+        experiences: lang === "ar" ? updatedData.experiences_ar : updatedData.experiences,
+        formations: lang === "ar" ? updatedData.formations_ar : updatedData.formations,
+        telephone: updatedData.telephone,
+        fixe: updatedData.fixe,
+        localisation: lang === "ar" ? updatedData.localisation_ar : updatedData.localisation,
+        image: updatedData.image,
+        specialite: lang === "ar" ? updatedData.specialite_ar : updatedData.specialite
+      };
+      
+      setMedecin(refreshedMedecin);
+    }
+  } catch (err) {
+    console.error("Erreur fetch :", err);
+  }
+};
+
+
+
+
+
+
+
+
+
 
 const handleDelete = async (field, value) => {
   const id = `${Date.now()}-${Math.floor(Math.random() * 15000)}`;
@@ -152,6 +230,7 @@ const handleDelete = async (field, value) => {
 
   const renderField = (field, value, multiline = false, index = null) => {
     const key = index !== null ? `${field}-${index}` : field;
+  const isPhoneField = field === "telephone" || field === "fixe";
 
     return (
       <div className="field-wrapper">

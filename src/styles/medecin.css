@@ -451,6 +451,24 @@ html[dir="rtl"] .bullet {
   transform: none !important;
   direction: ltr !important; /* empêche le changement du point en trait */
 }
+/* Pour phone et fixe uniquement */
+.contact-item .field-value.phone,
+.contact-item .field-value.fixe {
+  direction: ltr;          
+  unicode-bidi: bidi-override; 
+  text-align: left;
+  letter-spacing: 0.1em;
+}
+.contact-item .field-value {
+  direction: ltr;
+  text-align: left;
+}
+
+.contact-item .edit-input {
+  direction: ltr;
+  text-align: left;
+}
+
 
 
 

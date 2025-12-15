@@ -34,15 +34,8 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen relative`}
       >
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="fixed top-0 left-0 w-full h-full object-cover -z-50"
-        >
-          <source src="/bg.mp4" type="video/mp4" />
-        </video>
+        
+     
 
         <NavbarWrapper /> {/* Client wrapper */}
 

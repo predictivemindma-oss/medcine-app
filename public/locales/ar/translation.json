@@ -176,7 +176,9 @@
   "analyse": "تحاليل / فحوصات",
   "message": "رسالتك",
   "submit": "احجز الموعد",
-    "password": "كلمة المرور",
+  "password": "كلمة المرور",
+    "terminate": "إنهاء",
+
 
 
 
@@ -225,7 +227,7 @@
   "add_formation": "إضافة تكوين",
   "undo": "تراجع",
   "speciality": "التخصص",
-  "experience": "خبرة",
+  "experience": "الخبرة",
   "formation": "التكوين",
 
   "fixe": "هاتف ثابت",
