@@ -189,78 +189,72 @@ export default function Accueil() {
 
       {/* AVIS PATIENTS */}
       <div className="patients-avis">
-        <div className="head">
-          <h1>{t("patients_title")}</h1>
-          <p>{t("patients_text")}</p>
-        </div>
+  <div className="head">
+    <h1>{t("patients_title")}</h1>
+    <p>{t("patients_text")}</p>
+  </div>
 
-        <div className="carousel-container">
-          <div className="avis-animation">
-            {Array(2) // duplicate 2 times
-              .fill()
-              .flatMap((_, repeatIndex) =>
-                [
-                  {
-                    name: "Hanane Mh",
-                    letter: "H",
-                    className: "hanane-letter",
-                    text: "Je recommande vivement DR OUAFAE EL MAHRAOUI pour ses compétences exceptionnelles et son approche empathique envers les patients",
+  <div className="carousel-container">
+    <div className="avis-animation">
+      {Array(2)
+        .fill()
+        .flatMap((_, repeatIndex) =>
+          [
+            {
+              name: "Hanane Mh",
+              letter: "H",
+              className: "hanane-letter",
+              textKey: "reviews.hanane",
+            },
+            {
+              name: "Zdenko Bican",
+              letter: "Z",
+              className: "zdenko-letter",
+              textKey: "reviews.zdenko",
+            },
+            {
+              name: "Fatiha Douiri",
+              letter: "F",
+              className: "fatiha-letter",
+              textKey: "reviews.fatiha",
+            },
+            {
+              name: "Soufiane Samoudi",
+              letter: "S",
+              className: "soufiane-letter",
+              textKey: "reviews.soufiane",
+            },
+          ].map((review, i) => (
+            <div key={`${repeatIndex}-${i}`} className="avis">
+              <div className="heading">
+                <div>
+                  <span className={review.className}>
+                    {review.letter}
+                  </span>
+                </div>
+                <div>
+                  <span className="avis-name">{review.name}</span>
+                  <br />
+                  <span className="review-google">
+                    {t("review_google")}
+                  </span>
+                </div>
+              </div>
 
+              <p>{t(review.textKey)}</p>
 
+              <div className="stars-rate">
+                {[...Array(5)].map((_, j) => (
+                  <Image key={j} src={star} alt="rating" />
+                ))}
+              </div>
+            </div>
+          ))
+        )}
+    </div>
+  </div>
+</div>
 
-                  },
-                  {
-                    name: "Zdenko Bican",
-                    letter: "Z",
-                    className: "zdenko-letter",
-                    text: "Dr Ouafae Elmehraoui saved my life and thanks to her I am still alive. I got proper treatment with such kindness and warmness that only a few doctor can give.",
-
-
-                  },
-                  {
-                    name: "Fatiha Douiri",
-                    letter: "F",
-                    className: "fatiha-letter",
-                    text: "Le Dr Mahrawi est un médecin distingué, doté d'une personnalité bienveillante et compréhensive. C'est une médecin hautement compétente.",
-
-
-                  },
-                  {
-                    name: "Soufiane Samoudi",
-                    letter: "S",
-                    className: "soufiane-letter",
-                    text: "Je recommande vivement Dr.Ouafae El Mahraoui à toute personne cherchant un endocrinologue. Elle est très compétente dans son métier et très humaine",
-
-
-                  },
-                ].map((review, i) => (
-                  <div key={`${repeatIndex}-${i}`} className="avis">
-
-                    <div className="heading">
-                      <div>
-                        <span className={review.className}>{review.letter}</span>
-                      </div>
-                      <div>
-                        <span className="avis-name">{review.name}</span> <br />
-                        <span className="review-google">Review on Google</span>
-                      </div>
-                    </div>
-                    <p>{review.text}</p>
-                    <div className="stars-rate">
-                      {[...Array(5)].map((_, j) => (
-                        <Image key={j} src={star} alt="rating" />
-                      ))}
-                    </div>
-
-
-                  </div>
-
-                ))
-              )}
-          </div>
-
-        </div>
-      </div>
     </div>
   );
 }

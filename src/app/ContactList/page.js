@@ -170,7 +170,7 @@ async function fetchContacts(page = 1, presence = filterPresence) {
   if (isLoading) {
     return (
       <div style={{ textAlign: "center", padding: "50px" }}>
-        <p>Vérification de l'authentification...</p>
+        <p>{t("checking_auth")}</p>
       </div>
     );
   }
@@ -184,7 +184,7 @@ async function fetchContacts(page = 1, presence = filterPresence) {
     );
   }
 
-  if (loading) return <p>Chargement des contacts...</p>;
+  if (loading) return <p>{t("loading_contacts")}</p>;
 
   return (
     <div className="contact-list-container">

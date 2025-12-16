@@ -23,9 +23,7 @@ h6 {
 
 
 /* Arabic active */
-html[dir="rtl"] .accueil-container * {
-    text-align: right;
-}
+
 
 .accueil-container {
     min-height: 100vh;
@@ -699,6 +697,11 @@ html[dir="rtl"] .conseil-text p
     line-height: 1.6;     
     font-size: 16px;        
     margin-bottom: 1em;     
+}
+html[dir="rtl"] .patients-avis p {
+  text-align: justify;
+    font-size: 18px; /* ajuste: 17px / 18px / 20px */
+
 }
 
 

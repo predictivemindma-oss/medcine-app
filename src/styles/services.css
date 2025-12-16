@@ -22,8 +22,6 @@
     text-align: center;
 }
 
-
-
 h2 {
     color: var(--main-blue);
     font-family: share !important;
@@ -38,11 +36,8 @@ h2 {
     gap: 20px;
     width: 95%;
     padding: 0;
-    /* remove extra horizontal padding to avoid shifting */
     margin: 0 auto;
 }
-
-
 
 .service:hover {
     background: rgba(0, 0, 0, 0.1);
@@ -54,9 +49,6 @@ h2 {
     flex-shrink: 0;
 }
 
-
-
-
 .contact-btn {
     text-decoration: none;
     text-align: center;
@@ -65,8 +57,6 @@ h2 {
     background: var(--main-blue);
     padding: 12px 50px;
     border-radius: 18px;
-
-
     margin-top: 50px;
     transition: background 0.3s ease;
 }
@@ -75,7 +65,131 @@ h2 {
     background: var(--main-red);
 }
 
+/* ============================================
+   SUPPORT RTL POUR L'ARABE
+   ============================================ */
 
+/* Conteneur principal */
+[dir="rtl"] .services-container {
+    direction: rtl;
+}
+
+/* Titre principal - reste centré */
+[dir="rtl"] .services-container h1 {
+    text-align: center;
+    direction: rtl;
+}
+
+/* Tous les titres h2 (dans les cartes) */
+[dir="rtl"] h2,
+[dir="rtl"] .services-container h2 {
+    text-align: right;
+    direction: rtl;
+}
+
+/* Tous les paragraphes */
+[dir="rtl"] p,
+[dir="rtl"] .services-container p {
+    text-align: justify;
+    direction: rtl;
+    text-justify: inter-word;
+}
+
+/* Cartes de services - sélecteur pour les divs avec classe relative */
+[dir="rtl"] .relative.flex.flex-col {
+    direction: rtl;
+    text-align: right;
+}
+
+/* Titre spécifique dans les cartes (class text-xl) */
+[dir="rtl"] .text-xl {
+    text-align: right;
+    direction: rtl;
+}
+
+/* Description dans les cartes (class text-md) */
+[dir="rtl"] .text-md {
+    text-align: justify;
+    direction: rtl;
+    text-justify: inter-word;
+}
+
+/* Boutons d'action (éditer/supprimer) - inverser position */
+[dir="rtl"] .absolute.top-3.right-3 {
+    right: auto;
+    left: 0.75rem;
+}
+
+/* Conteneur flex avec wrap */
+[dir="rtl"] .flex.flex-wrap {
+    direction: rtl;
+}
+
+/* ============================================
+   MODALE DE DÉTAILS
+   ============================================ */
+
+/* Modale - contenu principal */
+[dir="rtl"] div[style*="background: white"] {
+    direction: rtl;
+}
+
+/* Titre dans la modale */
+[dir="rtl"] div[style*="background: white"] h2 {
+    text-align: right;
+    direction: rtl;
+}
+
+/* Texte dans la modale */
+[dir="rtl"] div[style*="background: white"] p {
+    text-align: justify;
+    direction: rtl;
+    text-justify: inter-word;
+}
+
+/* ============================================
+   CLASSES GÉNÉRIQUES
+   ============================================ */
+
+/* Anciennes classes (compatibilité) */
+[dir="rtl"] .service-card h3,
+[dir="rtl"] .service-title,
+[dir="rtl"] .service-header h3,
+[dir="rtl"] .service h3,
+[dir="rtl"] .service-name,
+[dir="rtl"] .service-item h3 {
+    text-align: right;
+    direction: rtl;
+}
+
+[dir="rtl"] .service-card p,
+[dir="rtl"] .service-description,
+[dir="rtl"] .service-details p,
+[dir="rtl"] .service p,
+[dir="rtl"] .service-text,
+[dir="rtl"] .service-item p {
+    text-align: justify;
+    direction: rtl;
+    text-justify: inter-word;
+}
+
+[dir="rtl"] .service-card,
+[dir="rtl"] .service {
+    direction: rtl;
+}
+
+[dir="rtl"] .service-content {
+    text-align: right;
+}
+
+/* Boutons */
+[dir="rtl"] button {
+    direction: rtl;
+}
+
+/* ============================================
+   MEDIA QUERIES
+   ============================================ */
 
 @media (max-width: 1400px) {
     .service {
@@ -90,7 +204,6 @@ h2 {
         height: 520px !important;
     }
 }
-
 
 @media (max-width: 800px) {
     .services-row {
@@ -109,13 +222,10 @@ h2 {
     }
 }
 
-@media (min-width: 500px) and (max-width: 790px)  {
+@media (min-width: 500px) and (max-width: 790px) {
     .service {
         width: 100%;
         height: 800px !important;
         min-width: 300px;
     }
-
-
 }
-

@@ -10,7 +10,7 @@ import Image from "next/image";
 import "../../styles/services.css";
 
 export default function ServicesList() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation(); // Ajoutez i18n ici
   const [services, setServices] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -18,7 +18,7 @@ export default function ServicesList() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  // Vérifier l’authentification
+  // Vérifier l'authentification
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -34,6 +34,7 @@ export default function ServicesList() {
     checkAuth();
   }, []);
 
+  // Vérifier la taille de l'écran
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 900);
     handleResize();
@@ -41,18 +42,21 @@ export default function ServicesList() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Charger les services avec la langue actuelle
   useEffect(() => {
-    const getServices = async () => {
-      try {
-        const response = await axios.get("/api/services");
-        setServices(response.data.services || []);
-        console.log("Success!", response.data);
-      } catch (err) {
-        console.log("Error loading services:", err);
-      }
-    };
-    getServices();
-  }, []);
+  const getServices = async () => {
+    try {
+      const lang = i18n.language === 'ar' ? 'ar' : 'fr';
+      const response = await axios.get(`/api/services?lang=${lang}`);
+      setServices(response.data.services || []);
+    } catch (err) {
+      console.log("Error loading services:", err);
+    }
+  };
+
+  if (i18n.isInitialized) getServices();
+}, [i18n.language, i18n.isInitialized]);
+// Recharger quand la langue change
 
   const handleDelete = async (id) => {
     if (user?.role !== "doctor") {
@@ -60,7 +64,7 @@ export default function ServicesList() {
       return;
     }
 
-    if (!confirm("Êtes-vous sûr de vouloir supprimer ce service ?")) return;
+if (!confirm(t("confirm_delete"))) return;
 
     try {
       await axios.delete(`/api/services?id=${id}`);
@@ -101,7 +105,7 @@ export default function ServicesList() {
   if (loading) {
     return (
       <div className="services-container">
-        <p>Chargement...</p>
+        <p>{t("loading") }</p>
       </div>
     );
   }
@@ -193,7 +197,7 @@ export default function ServicesList() {
                   </Draggable>
                 ))
               ) : (
-                <p className="text-[#e2627e]">Aucun service disponible.</p>
+                <p className="text-[#e2627e]">{t("no_services_available")}</p>
               )}
 
               {provided.placeholder}

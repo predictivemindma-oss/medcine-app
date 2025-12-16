@@ -54,10 +54,12 @@
 
 
 
-  "expertise_title": "Expertise en soins préventifs et restauratifs",
+  "expertise_title": "Expertise en soins préventifs et thérapeutiques",
   "learn_more": "En savoir plus",
   "close": "Fermer",
   "contact_us": "Contactez-nous",
+    "loading": "Chargement...",
+
   
   "servicesData": [
     {
@@ -172,6 +174,8 @@
   "submit": "Prendre rendez-vous",
   "password": "Mot de passe",
   "terminate": "Terminer",
+    "addService": "Ajouter un service",
+
 
 
 
@@ -229,8 +233,45 @@
   "welcome_assistant": "Bienvenue Assistant !",
   "today_appointments": "Rendez-vous d'aujourd'hui",
 "presence_action": "Présence et action",
-  "scheduled_delete": "Suppression"
- 
+  "scheduled_delete": "Suppression",
+    "service_image": "Image du Service",
+  "current_image": "Image actuelle :",
+  "current": "Actuelle",
+  "no_file_chosen": "Aucun fichier choisi",
+  "leave_empty_to_keep": "Laissez vide pour garder l'image actuelle",
+  "title": "Titre *",
+  "service_title": "Titre du Service",
+  "description": "Description *",
+  "service_description": "Description du Service",
+  "cancel": "Annuler",
+  "save": "💾 Enregistrer",
+  "choose_file": "Choisir un fichier",
+  "upload_button": "Téléverser",
+  "no_file_sent": "Aucun fichier envoyé",
+  "upload_error": "Erreur lors de l’upload",
+  "title_required": "Le titre et la description sont obligatoires !",
+"no_permission": "Vous n'avez pas la permission d'effectuer cette action.",
+"image_required": "L'image est obligatoire pour un nouveau service !",
+"service_added": "Service ajouté avec succès !",
+"service_updated": "Service mis à jour avec succès !",
+  "add_new_service": "Ajouter un Nouveau Service",
+    "edit_service": "Modifier le Service",
+    "confirm_delete": "Êtes-vous sûr de vouloir supprimer ce service ?",
+   
+
+  "reviews": {
+    "hanane": "Je recommande vivement Dr Ouafae El Mahraoui pour ses compétences exceptionnelles et son approche empathique envers les patients.",
+    "zdenko": "Dr Ouafae El Mahraoui m’a sauvé la vie. Grâce à elle, je suis toujours en vie. J’ai reçu un traitement approprié avec une bienveillance et une humanité rares.",
+    "fatiha": "Le Dr Mahraoui est une médecin distinguée, dotée d’une personnalité bienveillante et compréhensive. Elle est hautement compétente.",
+    "soufiane": "Je recommande vivement Dr Ouafae El Mahraoui à toute personne recherchant un endocrinologue. Elle est très compétente et profondément humaine."
+  },
+  "review_google": "Avis sur Google",
+  "no_services_available": "Aucun service disponible"
+
+
+
+
+
 
 
   

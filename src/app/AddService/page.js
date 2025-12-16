@@ -6,6 +6,8 @@ export const dynamic = "force-dynamic";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslation } from "react-i18next";
+
 
 export default function AddService() {
     const [image, setImage] = useState(null);
@@ -16,9 +18,11 @@ export default function AddService() {
     const [existingImage, setExistingImage] = useState("");
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-
+    const { i18n } = useTranslation();
     const router = useRouter();
     const searchParams = useSearchParams();
+        const { t } = useTranslation();
+
     const serviceId = searchParams.get("id");
 
     // Vérifier l'authentification et le rôle
@@ -49,27 +53,38 @@ export default function AddService() {
     }, [router]);
 
     // Charger le service si on est en mode édition
-    useEffect(() => {
-        if (!serviceId || loading || !user) return;
-        setIsEdit(true);
 
-        const fetchService = async () => {
-            try {
-                const response = await axios.get("/api/services");
-                const service = response.data.services.find(s => s._id === serviceId);
-                if (service) {
-                    setTitle(service.title);
-                    setDesc(service.desc);
-                    setExistingImage(service.image);
+useEffect(() => {
+    if (!serviceId || loading || !user) return;
+    setIsEdit(true);
+
+    const fetchService = async () => {
+        try {
+            const response = await axios.get("/api/services");
+            const service = response.data.services.find(s => s._id === serviceId);
+
+            if (service) {
+                // En arabe, on récupère strictement les champs_ar
+                if (i18n.language === "ar") {
+                    setTitle(service.title_ar || ""); // jamais undefined
+
+                    setDesc(service.desc_ar || "");
+                } else {
+                  
+                setTitle(service.title || ""); 
+                setDesc(service.desc || ""); 
                 }
-            } catch (err) {
-                console.log("Error fetching service:", err);
-                alert("Erreur lors du chargement du service.");
-            }
-        };
 
-        fetchService();
-    }, [serviceId, loading, user]);
+                setExistingImage(service.image || "");
+            }
+        } catch (err) {
+            console.log("Error fetching service:", err);
+            alert("Erreur lors du chargement du service.");
+        }
+    };
+
+    fetchService();
+}, [serviceId, loading, user, i18n.language]);
 
     // Preview de l'image
     useEffect(() => {
@@ -83,62 +98,97 @@ export default function AddService() {
         return () => URL.revokeObjectURL(objectUrl);
     }, [image]);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        if (!title || !desc) {
-            alert("Le titre et la description sont obligatoires !");
-            return;
+    // Validation selon la langue active
+    const currentLang = i18n.language || "fr";
+    
+    // Pour toutes les langues, on valide que les champs ne sont pas vides
+    if (!title || !desc) {
+        alert(t("title_required"));
+        return;
+    }
+
+    try {
+        const formData = new FormData();
+
+        // Toujours envoyer la langue pour que l'API sache comment traiter les données
+        formData.append("lang", currentLang);
+
+        // Ajouter les champs selon la langue
+        if (currentLang === "fr") {
+            formData.append("title", title);
+            formData.append("desc", desc);
+        } else if (currentLang === "ar") {
+            // En mode arabe, on envoie aussi 'title' et 'desc' 
+            // L'API les interprétera comme title_ar et desc_ar grâce au paramètre 'lang'
+            formData.append("title", title);  // Devient title_ar côté API
+            formData.append("desc", desc);    // Devient desc_ar côté API
         }
 
-        // Double vérification côté client
-        if (user?.role !== "doctor") {
-            alert("Vous n'avez pas la permission d'effectuer cette action.");
-            return;
+        // Ajouter l'image si elle existe
+        if (image) formData.append("image", image);
+
+        // Ajouter l'ID pour l'édition
+        if (isEdit && serviceId) {
+            formData.append("id", serviceId);
         }
 
-        try {
-            const formData = new FormData();
+        // IMPORTANT: Utiliser PUT pour l'API (pas PATCH)
+        if (isEdit) {
+            // Construire l'URL avec l'ID comme query parameter
+            const url = `/api/services?id=${serviceId}`;
             
-            if (isEdit) {
-                formData.append("id", serviceId);
-                formData.append("title", title);
-                formData.append("desc", desc);
-                if (image) formData.append("image", image);
-                
-                await axios.patch("/api/services", formData, {
-                    headers: { "Content-Type": "multipart/form-data" },
-                    withCredentials: true,
-                });
-                alert("Service mis à jour avec succès !");
-            } else {
-                if (!image) {
-                    alert("L'image est obligatoire pour un nouveau service !");
-                    return;
-                }
-                formData.append("image", image);
-                formData.append("title", title);
-                formData.append("desc", desc);
-                
-             // Pour POST
-await axios.post("/api/services", formData, {
-  withCredentials: true, // envoie les cookies
-});
-
-await axios.patch("/api/services", formData, {
-  withCredentials: true,
-});
-
-                alert("Service ajouté avec succès !");
+            await axios.put(url, formData, {
+                headers: { 
+                    "Content-Type": "multipart/form-data",
+                    "Cache-Control": "no-cache"
+                },
+                withCredentials: true,
+            });
+            alert(t("service_updated"));
+        } else {
+            // Création : vérifier l'image
+            if (!image) {
+                alert(t("image_required"));
+                return;
             }
 
-            router.push("/Services");
-        } catch (err) {
-            console.error("Error saving service:", err);
-            const errorMsg = err.response?.data?.message || "Erreur lors de l'enregistrement du service.";
-            alert(errorMsg);
+            await axios.post("/api/services", formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+                withCredentials: true,
+            });
+
+            alert(t("service_added"));
         }
-    };
+
+        // Redirection
+        router.push("/Services");
+        
+    } catch (err) {
+        console.error("Error saving service:", err);
+        
+        // Meilleure gestion des erreurs
+        let errorMsg = t("save_error"); // Message par défaut
+        
+        if (err.response?.status === 401) {
+            errorMsg = t("not_authenticated");
+        } else if (err.response?.status === 403) {
+            errorMsg = t("access_denied");
+        } else if (err.response?.data?.error) {
+            errorMsg = err.response.data.error;
+        } else if (err.response?.data?.message) {
+            errorMsg = err.response.data.message;
+        } else if (err.message === "Network Error") {
+            errorMsg = t("network_error");
+        }
+        
+        alert(errorMsg);
+    }
+};
+
+
 
     // Afficher un loader pendant la vérification
     if (loading) {
@@ -160,7 +210,7 @@ await axios.patch("/api/services", formData, {
     return (
         <div className="min-h-screen text-gray-600 flex flex-col items-center p-8 pt-24">
             <h1 className="text-[#117090] text-3xl font-bold mb-6">
-                {isEdit ? "Modifier le Service" : "Ajouter un Nouveau Service"}
+    {isEdit ? t("edit_service") : t("add_new_service")}
             </h1>
             <form
                 onSubmit={handleSubmit}
@@ -169,11 +219,11 @@ await axios.patch("/api/services", formData, {
                 {/* Affichage de l'image */}
                 <div className="mb-4">
                     <label className="block text-[#117090] mb-2">
-                        Image du Service {!isEdit && <span className="text-red-500">*</span>}
+                        {t("service_image")} {!isEdit && <span className="text-red-500">*</span>}
                     </label>
                     {isEdit && existingImage && !preview && (
                         <div className="mb-3">
-                            <p className="text-sm text-gray-600 mb-1">Image actuelle :</p>
+                            <p className="text-sm text-gray-600 mb-1">{t("current_image")}</p>
                             <img
                                 src={existingImage}
                                 alt="Current"
@@ -199,20 +249,20 @@ await axios.patch("/api/services", formData, {
                     />
                     {isEdit && (
                         <p className="text-sm text-gray-500 mt-1">
-                            Laissez vide pour garder l'image actuelle
+                            {t("leave_empty_to_keep")}
                         </p>
                     )}
                 </div>
 
                 <div className="mb-4">
                     <label className="block text-[#117090] mb-2">
-                        Titre <span className="text-red-500">*</span>
+                        {t("title")} <span className="text-red-500">*</span>
                     </label>
                     <input
                         onChange={(e) => setTitle(e.target.value)}
                         value={title}
                         type="text"
-                        placeholder="Titre du Service"
+                        placeholder={t("service_title")}
                         required
                         className="w-full bg-white border-none rounded-md h-10 p-2 text-[16px] placeholder:text-gray-500 focus:outline-none focus:border-b-4 focus:border-[#d63b4a] hover:border-b-4 hover:border-[#d63b4a]"
                     />
@@ -220,12 +270,12 @@ await axios.patch("/api/services", formData, {
 
                 <div className="mb-4">
                     <label className="block text-[#117090] mb-2">
-                        Description <span className="text-red-500">*</span>
+                        {t("description")} <span className="text-red-500">*</span>
                     </label>
                     <textarea
                         onChange={(e) => setDesc(e.target.value)}
                         value={desc}
-                        placeholder="Description du Service"
+                        placeholder={t("service_description")}
                         rows={6}
                         required
                         className="w-full bg-white border-none rounded-md p-2 text-[16px] placeholder:text-gray-500 focus:outline-none focus:border-b-4 focus:border-[#d63b4a] hover:border-b-4 hover:border-[#d63b4a] resize-vertical"
@@ -238,13 +288,14 @@ await axios.patch("/api/services", formData, {
                         onClick={() => router.push("/Services")}
                         className="bg-gray-400 text-white text-lg rounded-[20px] h-[50px] px-8 border-none transition-colors duration-300 hover:bg-gray-500"
                     >
-                        Annuler
+                        {t("save")}
                     </button>
                     <button
                         type="submit"
                         className="bg-[#117090] text-white text-lg rounded-[20px] h-[50px] px-8 border-none transition-colors duration-300 hover:bg-[#d63b4a]"
                     >
-                        {isEdit ? "💾 Enregistrer" : "➕ Ajouter"}
+                              {isEdit ? t("save") : t("cancelled")}
+
                     </button>
                 </div>
             </form>
