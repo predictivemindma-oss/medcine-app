@@ -256,8 +256,10 @@ h2 {
 [dir="rtl"] .relative.flex.flex-col .text-xl {
     margin-top: 15px !important;
     text-align: right;
+
 }
 
 [dir="rtl"] .relative.flex.flex-col .text-md {
     margin-top: 10px !important;
 }
+

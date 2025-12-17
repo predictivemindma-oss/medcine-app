@@ -24,6 +24,11 @@ export default function AddService() {
         const { t } = useTranslation();
 
     const serviceId = searchParams.get("id");
+    // Ajouter ceci après les autres useEffect
+useEffect(() => {
+    document.documentElement.dir = i18n.dir();
+    document.documentElement.lang = i18n.language;
+}, [i18n.language]);
 
     // Vérifier l'authentification et le rôle
     useEffect(() => {

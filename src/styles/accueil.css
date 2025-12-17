@@ -456,21 +456,23 @@ html[dir="rtl"] .conseil-text {
     flex: 0 0 auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    width: 260px !important;
+    justify-content: space-between;  /* ⬅️ Répartir l'espace */
+    width: 280px !important;  /* ⬅️ Largeur fixe */
+    min-height: 280px;  /* ⬅️ Hauteur minimale */
     border: 1px solid var(--main-blue);
     border-top: 8px solid var(--main-blue);
     border-radius: 20px;
     padding: 20px;
     text-align: start;
     margin: 20px;
-
-
-   }
+}
 
 .avis .heading {
     display: flex;
+    align-items: center;
+    gap: 12px;  /* ⬅️ Espacement uniforme entre icône et texte */
     width: 100%;
+    margin-bottom: 15px;
 }
 
 @keyframes scroll {
@@ -483,7 +485,10 @@ html[dir="rtl"] .conseil-text {
 }
 
 .avis p {
-    font-size: 16px !important;
+    font-size: 15px !important;
+    line-height: 1.5;
+    margin: 12px 0;
+    flex-grow: 1;  /* ⬅️ Prend l'espace disponible */
 }
 
 .hanane-letter,
@@ -491,17 +496,28 @@ html[dir="rtl"] .conseil-text {
 .zdenko-letter,
 .soufiane-letter {
     border-radius: 50%;
-    width: fit-content !important;
+    width: 45px !important;  /* ⬅️ Largeur fixe */
+    height: 45px !important;  /* ⬅️ Hauteur fixe */
+    min-width: 45px;
     display: flex;
     justify-content: center;
-    align-self: center;
+    align-items: center;
     color: white;
-    font-size: x-large;
+    font-size: 20px;
     font-weight: bold;
-    padding: 10px 18px;
-    margin-right: 10px;
+    flex-shrink: 0;  /* ⬅️ Ne pas rétrécir */
 }
-
+.avis .heading > div:last-child {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.avis-name {
+    font-weight: bold;
+    font-size: 15px;
+    display: block;
+}
 .hanane-letter {
     background: #318878 !important;
 }
@@ -526,10 +542,24 @@ html[dir="rtl"] .conseil-text {
 
 .stars-rate {
     display: flex;
+    gap: 3px;
+    margin-top: auto;  /* ⬅️ Pousse les étoiles en bas */
 }
-
 .stars-rate img {
     width: 20px;
+}
+[dir="rtl"] .avis {
+    text-align: right;
+}
+[dir="rtl"] .avis .heading {
+    flex-direction: row-reverse;
+}
+[dir="rtl"] .hanane-letter,
+[dir="rtl"] .fatiha-letter,
+[dir="rtl"] .zdenko-letter,
+[dir="rtl"] .soufiane-letter {
+    margin-right: 0;
+    margin-left: 10px;
 }
 
 

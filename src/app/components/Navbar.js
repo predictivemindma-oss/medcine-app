@@ -202,7 +202,8 @@ export default function Navbar() {
                     onClick={() =>
                       setIsRoleDropdownOpen((prev) => !prev)
                     }
-                    className="text-white bg-[var(--main-blue)] px-4 py-2 border-4 border-[#4d96ae] rounded-xl font-normal hover:bg-[var(--main-red)] whitespace-nowrap"
+                    className="text-white bg-[var(--main-blue)] px-4 py-2 border-4 border-[#4d96ae] rounded-xl font-normal hover:bg-[var(--main-red)] hover:border-[#feb7c2] transition-colors duration-200 whitespace-nowrap"
+
                   >
                     {userRole === "doctor"
                       ? t("doctor_role")
@@ -223,7 +224,8 @@ export default function Navbar() {
               ) : (
                 <button
                   onClick={openLoginModal}
-                  className="text-white bg-[var(--main-blue)] px-4 py-2 border-4 border-[#4d96ae] rounded-xl font-normal hover:bg-[var(--main-red)] whitespace-nowrap"
+                  className="text-white bg-[var(--main-blue)] px-4 py-2 border-4 border-[#4d96ae] rounded-xl font-normal
+                  hover:bg-[var(--main-red)] hover:border-[#feb7c2] whitespace-nowrap "
                 >
                   {t("login")}
                 </button>
