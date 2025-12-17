@@ -200,7 +200,8 @@ const { t, i18n } = useTranslation();
       </div>
 
       {/* AVIS PATIENTS */}
-      <div className="patients-avis">
+      <div className="patients-avis" dir={i18n.language === "ar" ? "rtl" : "ltr"}>
+
   <div className="head">
     <h1>{t("patients_title")}</h1>
     <p>{t("patients_text")}</p>

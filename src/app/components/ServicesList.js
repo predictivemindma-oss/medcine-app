@@ -244,9 +244,16 @@ if (!confirm(t("confirm_delete"))) return;
               <h2 style={{ color: "#117090" }}>
                 {services.find((s) => s._id === activeIndex)?.title}
               </h2>
-              <p style={{ marginTop: "15px" }}>
-                {services.find((s) => s._id === activeIndex)?.desc}
-              </p>
+              <p
+  style={{
+    marginTop: "15px",
+    textAlign: "justify",
+    lineHeight: "1.6",
+  }}
+>
+  {services.find((s) => s._id === activeIndex)?.desc}
+</p>
+
               <button
                 onClick={() => setActiveIndex(null)}
                 style={{

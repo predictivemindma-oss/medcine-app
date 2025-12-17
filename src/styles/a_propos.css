@@ -300,7 +300,6 @@
 }
 /* Conteneur des accordions */
 .centre-complet .accordion-box {
-  min-height: 150px;         
   padding: 20px;              
   border-radius: 12px;       
   display: flex;
@@ -319,7 +318,6 @@
   margin-left: 10px;  
 }
 .centre-complet .accordion-content p {
-  font-size: 0.2rem;   
   font-weight: normal;  
   line-height: 1;    
 }

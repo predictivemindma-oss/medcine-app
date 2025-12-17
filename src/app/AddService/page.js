@@ -286,13 +286,13 @@ const handleSubmit = async (e) => {
                     <button
                         type="button"
                         onClick={() => router.push("/Services")}
-                        className="bg-gray-400 text-white text-lg rounded-[20px] h-[50px] px-8 border-none transition-colors duration-300 hover:bg-gray-500"
+                        className="bg-gray-400 text-white text-lg rounded-[20px] h-[50px] px-8 border-none transition-colors duration-300 hover:bg-[#d63b4a]"
                     >
-                        {t("save")}
+                        {t("cancel")}
                     </button>
                     <button
                         type="submit"
-                        className="bg-[#117090] text-white text-lg rounded-[20px] h-[50px] px-8 border-none transition-colors duration-300 hover:bg-[#d63b4a]"
+                        className="bg-[#117090] text-white text-lg rounded-[20px] h-[50px] px-8 border-none transition-colors duration-300 "
                     >
                               {isEdit ? t("save") : t("cancelled")}
 
