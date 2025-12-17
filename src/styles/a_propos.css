@@ -175,12 +175,10 @@
 }
 
 .centre-complet-text h2 {
-  font-size: 2rem;
   margin-bottom: 20px;
 }
 
 .centre-complet-text p {
-  font-size: 1rem;
   line-height: 1.6;
   margin-bottom: 30px;
 }
@@ -347,6 +345,17 @@
   line-height: 1.6;          
   text-justify: inter-word;  
   margin: 0;                 
+}
+/* Forcer les tailles normales pour À propos */
+.propos-container p {
+  font-size: 20px !important;
+  line-height: 1.6;
+  margin: 0 0 15px 0;
+}
+
+.accordion-content p {
+  font-size: 18px !important;
+  line-height: 1.5;
 }
 
 

@@ -215,11 +215,11 @@ h2 {
         width: 100%;
         height: 540px !important;
     }
-
-    p {
+    .services-container p {
         font-size: 18px !important;
-        margin: 0 !important;
+        margin: 20px 0 !important;
     }
+ 
 }
 
 @media (min-width: 500px) and (max-width: 790px) {
@@ -228,4 +228,36 @@ h2 {
         height: 800px !important;
         min-width: 300px;
     }
+}
+/* Forcer l'espacement entre image et titre */
+.relative.flex.flex-col .text-xl {
+    margin-top: 15px !important;
+    margin-bottom: 10px !important;
+}
+
+/* Espacement pour les paragraphes */
+.relative.flex.flex-col .text-md {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+/* Espacement pour les boutons */
+.relative.flex.flex-col button {
+    margin-top: 5px !important;
+}
+
+/* Si la carte n'a pas d'image, ajouter du padding en haut */
+.relative.flex.flex-col:not(:has(img)) h2 {
+    margin-top: 0 !important;
+    padding-top: 15px;
+}
+
+/* Mode RTL */
+[dir="rtl"] .relative.flex.flex-col .text-xl {
+    margin-top: 15px !important;
+    text-align: right;
+}
+
+[dir="rtl"] .relative.flex.flex-col .text-md {
+    margin-top: 10px !important;
 }
