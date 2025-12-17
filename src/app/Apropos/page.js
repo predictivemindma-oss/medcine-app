@@ -10,7 +10,7 @@ import plans from "../../../public/assets/icons/plans.png";
 import prevention from "../../../public/assets/icons/prevention.png";
 import fiabv from "../../../public/assets/icons/fiabv.png";
 import qualite from "../../../public/assets/icons/qualite.png";
-import tarif from "../../../public/assets/icons/tarif.png";
+import tarif from "../../../public/assets/icons/tariff.png";
 import "../../styles/a_propos.css";
 
 function Propos() {

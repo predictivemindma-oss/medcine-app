@@ -66,6 +66,7 @@ h6 {
     color: var(--main-red);
     font-size: 40px;
     background: none;
+    
 }
 
 .vie-saine .long-p {
@@ -270,6 +271,7 @@ h6 {
     width: 70%;
     text-align: center;
 }
+
 
 
 .soins-number {
@@ -656,7 +658,9 @@ p {
 }
 html[dir="rtl"] h1.dr {
     font-weight: bold !important;
-        font-size: 55px !important;
+    font-size: 55px !important;
+    text-align: right;    
+
 
   
 }
@@ -703,6 +707,19 @@ html[dir="rtl"] .patients-avis p {
     font-size: 18px; /* ajuste: 17px / 18px / 20px */
 
 }
+[dir="rtl"] .title {
+  text-align: right;
+}
+
+/* Fix pour les boutons en mode RTL (arabe) */
+html[dir="rtl"] .vie-saine .text {
+    text-align: right;
+}
+html[dir="rtl"] .choisir-text {
+    text-align: right;
+  
+}
+
 
 
 

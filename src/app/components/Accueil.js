@@ -22,12 +22,19 @@ import expertise2 from "../../../public/assets/icons/expertise2.png";
 import expertise3 from "../../../public/assets/icons/expertise3.png";
 import expertise4 from "../../../public/assets/icons/expertise4.png";
 
+
 import "@/styles/accueil.css";
 
 export default function Accueil() {
-  const { t } = useTranslation();
+const { t, i18n } = useTranslation();
   const slides = [slide1, slide2, slide3];
   const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+  document.documentElement.dir = i18n.dir();
+  document.documentElement.lang = i18n.language;
+}, [i18n.language]);
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -46,7 +53,12 @@ export default function Accueil() {
       <div className="vie-saine">
         <div className="text">
           <h1 className="dr">{t("doc_name")}</h1>
-          <h1>{t("for_life")}<span className="text-[#fe1952]">{t("healthy")}</span>{t("balance")}</h1>
+        <h1 className="title" style={{ fontFamily: "'Share'" }}>
+  {t("for_life")}
+  <span className="text-[#fe1952]">{t("healthy")}</span>
+  {t("balance")}
+</h1>
+
           <p className="long-p">{t("hero_description")}</p>
           <div className="numbers-flex">
             <div className="numbers">
