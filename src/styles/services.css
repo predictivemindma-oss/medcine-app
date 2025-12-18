@@ -22,12 +22,6 @@
     text-align: center;
 }
 
-h2 {
-    color: var(--main-blue);
-    font-family: share !important;
-    font-weight: bold !important;
-    font-size: x-large;
-}
 
 .flex-container {
     display: flex;
@@ -46,7 +40,6 @@ h2 {
 
 .service-pic {
     width: 100%;
-    flex-shrink: 0;
 }
 
 .contact-btn {
@@ -113,153 +106,15 @@ h2 {
     direction: rtl;
     text-justify: inter-word;
 }
-
-/* Boutons d'action (éditer/supprimer) - inverser position */
-[dir="rtl"] .absolute.top-3.right-3 {
-    right: auto;
-    left: 0.75rem;
+.titleee {
+    margin-top: 0.5rem; /* équivalent à mt-3 */
+        color: var(--main-blue);
+    font-family: 'Share', sans-serif;
+    font-weight: bold;
+    font-size: 1.5rem; /* ajuste selon ton besoin */
+    
 }
 
-/* Conteneur flex avec wrap */
-[dir="rtl"] .flex.flex-wrap {
-    direction: rtl;
-}
 
-/* ============================================
-   MODALE DE DÉTAILS
-   ============================================ */
 
-/* Modale - contenu principal */
-[dir="rtl"] div[style*="background: white"] {
-    direction: rtl;
-}
-
-/* Titre dans la modale */
-[dir="rtl"] div[style*="background: white"] h2 {
-    text-align: right;
-    direction: rtl;
-}
-
-/* Texte dans la modale */
-[dir="rtl"] div[style*="background: white"] p {
-    text-align: justify;
-    direction: rtl;
-    text-justify: inter-word;
-}
-
-/* ============================================
-   CLASSES GÉNÉRIQUES
-   ============================================ */
-
-/* Anciennes classes (compatibilité) */
-[dir="rtl"] .service-card h3,
-[dir="rtl"] .service-title,
-[dir="rtl"] .service-header h3,
-[dir="rtl"] .service h3,
-[dir="rtl"] .service-name,
-[dir="rtl"] .service-item h3 {
-    text-align: right;
-    direction: rtl;
-}
-
-[dir="rtl"] .service-card p,
-[dir="rtl"] .service-description,
-[dir="rtl"] .service-details p,
-[dir="rtl"] .service p,
-[dir="rtl"] .service-text,
-[dir="rtl"] .service-item p {
-    text-align: justify;
-    direction: rtl;
-    text-justify: inter-word;
-}
-
-[dir="rtl"] .service-card,
-[dir="rtl"] .service {
-    direction: rtl;
-}
-
-[dir="rtl"] .service-content {
-    text-align: right;
-}
-
-/* Boutons */
-[dir="rtl"] button {
-    direction: rtl;
-}
-
-/* ============================================
-   MEDIA QUERIES
-   ============================================ */
-
-@media (max-width: 1400px) {
-    .service {
-        width: 100%;
-        height: 560px !important;
-    }
-}
-
-@media (max-width: 1000px) {
-    .service {
-        width: 100%;
-        height: 520px !important;
-    }
-}
-
-@media (max-width: 800px) {
-    .services-row {
-        flex-direction: column;
-        width: 98%;
-    }
-
-    .service {
-        width: 100%;
-        height: 540px !important;
-    }
-    .services-container p {
-        font-size: 18px !important;
-        margin: 20px 0 !important;
-    }
- 
-}
-
-@media (min-width: 500px) and (max-width: 790px) {
-    .service {
-        width: 100%;
-        height: 800px !important;
-        min-width: 300px;
-    }
-}
-/* Forcer l'espacement entre image et titre */
-.relative.flex.flex-col .text-xl {
-    margin-top: 15px !important;
-    margin-bottom: 10px !important;
-}
-
-/* Espacement pour les paragraphes */
-.relative.flex.flex-col .text-md {
-    margin-top: 10px !important;
-    margin-bottom: 10px !important;
-}
-
-/* Espacement pour les boutons */
-.relative.flex.flex-col button {
-    margin-top: 5px !important;
-}
-
-/* Si la carte n'a pas d'image, ajouter du padding en haut */
-.relative.flex.flex-col:not(:has(img)) h2 {
-    margin-top: 0 !important;
-    padding-top: 15px;
-}
-
-/* Mode RTL */
-[dir="rtl"] .relative.flex.flex-col .text-xl {
-    margin-top: 15px !important;
-    text-align: right;
-
-}
-
-[dir="rtl"] .relative.flex.flex-col .text-md {
-    margin-top: 10px !important;
-}
 

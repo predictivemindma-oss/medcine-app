@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Cactus+Classical+Serif&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Playpen+Sans+Thai:wght@100..800&family=Share:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
+/* ============================================
+   VARIABLES - SCOPÉES À ACCUEIL
+   ============================================ */
 .accueilRoot {
     --main-blue: #117090;
     --main-red: #fe1952;
@@ -11,20 +14,9 @@
     transition: none !important;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: 'Share', sans-serif !important;
-    font-weight: bold !important;
-}
-
-
-/* Arabic active */
-
-
+/* ============================================
+   CONTAINER PRINCIPAL - TOUT EST SCOPÉ ICI
+   ============================================ */
 .accueil-container {
     min-height: 100vh;
     display: flex;
@@ -35,6 +27,18 @@ h6 {
     text-align: left;
 }
 
+/* ✅ PARAGRAPHES - SCOPÉS UNIQUEMENT À ACCUEIL */
+.accueil-container p {
+  font-family: 'Arial', sans-serif; 
+  font-size: 22px; 
+  line-height: 1.6; 
+  text-align: justify; 
+  margin-bottom: 1em; 
+}
+
+/* ============================================
+   SECTION VIE SAINE
+   ============================================ */
 .vie-saine {
     width: 92%;
     display: flex;
@@ -50,7 +54,7 @@ h6 {
     text-align: left;
 }
 
-.dr {
+.vie-saine .text .dr {
     color: var(--main-red) !important;
     margin-top: -20px;
 }
@@ -66,12 +70,11 @@ h6 {
     color: var(--main-red);
     font-size: 40px;
     background: none;
-    
 }
 
 .vie-saine .long-p {
     margin-right: 50px;
-    font-size: 17px;
+    font-size: 20px;
 }
 
 .vie-saine .numbers-flex {
@@ -79,7 +82,7 @@ h6 {
     margin: 10px 0;
 }
 
-.numbers-flex p {
+.vie-saine .numbers-flex p {
     margin: 0 !important;
 }
 
@@ -99,7 +102,8 @@ h6 {
     margin-top: 10px;
 }
 
-.accueil-links {
+/* Boutons */
+.accueil-container .accueil-links {
     display: inline-block;
     background: var(--main-blue);
     text-decoration: none;
@@ -112,15 +116,15 @@ h6 {
     font-size: 18px;
     font-weight: bold !important;
     text-align: inherit !important;
-
     transition: background 0.5s ease, border-color 0.5s ease;
 }
 
-.accueil-links:hover {
+.accueil-container .accueil-links:hover {
     background: var(--main-red);
     border-color: #feddddce;
 }
 
+/* Téléphone */
 .vie-saine .text .ligne-tel-flex {
     display: flex;
     border: 3px solid #348daa;
@@ -149,6 +153,7 @@ h6 {
     align-self: center;
 }
 
+/* Slider */
 .vie-saine .slider {
     width: 48%;
     position: relative;
@@ -188,9 +193,9 @@ h6 {
     background: var(--main-red);
 }
 
-/* ----------------- */
-/* Choisir Section */
-/* ----------------- */
+/* ============================================
+   SECTION CHOISIR
+   ============================================ */
 .choisir {
     width: 92%;
     display: flex;
@@ -246,7 +251,6 @@ h6 {
     width: 24px;
     height: 24px;
     border-radius: 50%;
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -258,10 +262,9 @@ h6 {
     object-fit: contain;
 }
 
-.choisir a:hover {
-    background: var(--main-red);
-}
-
+/* ============================================
+   TITRES SOINS
+   ============================================ */
 .h1-soins {
     color: var(--main-red);
     font-size: xx-large !important;
@@ -271,8 +274,6 @@ h6 {
     width: 70%;
     text-align: center;
 }
-
-
 
 .soins-number {
     background: var(--main-red);
@@ -290,16 +291,9 @@ h6 {
     align-items: center;
 }
 
-/* ----------------- */
-/* Troubles Section */
-/* ----------------- */
-html[dir="rtl"] .troubles-text,
-html[dir="rtl"] .suivi-text,
-html[dir="rtl"] .conseil-text {
-    padding-right: 20px;
-    margin: auto;
-}
-
+/* ============================================
+   SECTIONS TROUBLES / SUIVI / CONSEIL
+   ============================================ */
 .troubles {
     display: flex;
     justify-content: space-evenly;
@@ -326,7 +320,7 @@ html[dir="rtl"] .conseil-text {
 .conseil-text h1 {
     color: var(--main-blue);
     font-weight: bold !important;
-    font-size: 27px !important;
+    font-size: 35px !important;
 }
 
 .troubles-text p {
@@ -336,16 +330,8 @@ html[dir="rtl"] .conseil-text {
     width: 90%;
 }
 
-.troubles a:hover {
-    background: var(--main-red);
-}
-
-/* ----------------- */
-/* Suivi Section */
-/* ----------------- */
 .suivi,
-.conseil,
-.rencontrez {
+.conseil {
     width: 98%;
     display: flex;
     justify-content: space-evenly;
@@ -366,7 +352,8 @@ html[dir="rtl"] .conseil-text {
     padding-left: 50px;
 }
 
-.suivi-text p {
+.suivi-text p,
+.conseil-text p {
     font-size: 23px;
     width: 80%;
 }
@@ -376,31 +363,15 @@ html[dir="rtl"] .conseil-text {
     width: 45%;
 }
 
-.suivi-image img {
-    width: 90%;
-    border-radius: 20px;
-}
-
-.suivi a:hover {
-    background: var(--main-red);
-}
-
-/* ----------------- */
-/* Conseil Section */
-/* ----------------- */
+.suivi-image img,
 .conseil-image img {
     width: 90%;
     border-radius: 20px;
 }
 
-.conseil-text p {
-    font-size: 23px;
-    width: 80%;
-}
-
-/* ----------------- */
-/* Avis Section */
-/* ----------------- */
+/* ============================================
+   AVIS PATIENTS
+   ============================================ */
 .patients-avis {
     width: 98%;
     text-align: center;
@@ -409,16 +380,11 @@ html[dir="rtl"] .conseil-text {
 
 .patients-avis .head * {
     text-align: center !important;
-
 }
 
 .patients-avis h1 {
     color: var(--main-red);
     font-size: xx-large;
-}
-
-.h1-soins {
-    text-align: center;
 }
 
 .patients-avis p {
@@ -439,40 +405,12 @@ html[dir="rtl"] .conseil-text {
     overflow: hidden;
 }
 
-.carousel::-webkit-scrollbar {
-    display: none;
-}
-
 .avis-animation {
     display: flex;
     justify-content: center;
     gap: 8px;
     width: max-content;
     animation: scroll 40s linear infinite;
-    text-align: right;
-}
-
-.avis {
-    flex: 0 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;  /* ⬅️ Répartir l'espace */
-    width: 280px !important;  /* ⬅️ Largeur fixe */
-    min-height: 280px;  /* ⬅️ Hauteur minimale */
-    border: 1px solid var(--main-blue);
-    border-top: 8px solid var(--main-blue);
-    border-radius: 20px;
-    padding: 20px;
-    text-align: start;
-    margin: 20px;
-}
-
-.avis .heading {
-    display: flex;
-    align-items: center;
-    gap: 12px;  /* ⬅️ Espacement uniforme entre icône et texte */
-    width: 100%;
-    margin-bottom: 15px;
 }
 
 @keyframes scroll {
@@ -484,11 +422,34 @@ html[dir="rtl"] .conseil-text {
     animation-play-state: paused;
 }
 
+.avis {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 280px !important;
+    min-height: 280px;
+    border: 1px solid var(--main-blue);
+    border-top: 8px solid var(--main-blue);
+    border-radius: 20px;
+    padding: 20px;
+    text-align: start;
+    margin: 20px;
+}
+
+.avis .heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
 .avis p {
     font-size: 15px !important;
     line-height: 1.5;
     margin: 12px 0;
-    flex-grow: 1;  /* ⬅️ Prend l'espace disponible */
+    flex-grow: 1;
 }
 
 .hanane-letter,
@@ -496,8 +457,8 @@ html[dir="rtl"] .conseil-text {
 .zdenko-letter,
 .soufiane-letter {
     border-radius: 50%;
-    width: 45px !important;  /* ⬅️ Largeur fixe */
-    height: 45px !important;  /* ⬅️ Hauteur fixe */
+    width: 45px !important;
+    height: 45px !important;
     min-width: 45px;
     display: flex;
     justify-content: center;
@@ -505,34 +466,26 @@ html[dir="rtl"] .conseil-text {
     color: white;
     font-size: 20px;
     font-weight: bold;
-    flex-shrink: 0;  /* ⬅️ Ne pas rétrécir */
+    flex-shrink: 0;
 }
+
 .avis .heading > div:last-child {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 2px;
 }
+
 .avis-name {
     font-weight: bold;
     font-size: 15px;
     display: block;
 }
-.hanane-letter {
-    background: #318878 !important;
-}
 
-.fatiha-letter {
-    background: blueviolet !important;
-}
-
-.zdenko-letter {
-    background: #93582d !important;
-}
-
-.soufiane-letter {
-    background: #6a89a7 !important;
-}
+.hanane-letter { background: #318878 !important; }
+.fatiha-letter { background: blueviolet !important; }
+.zdenko-letter { background: #93582d !important; }
+.soufiane-letter { background: #6a89a7 !important; }
 
 .review-google {
     color: gray;
@@ -543,17 +496,69 @@ html[dir="rtl"] .conseil-text {
 .stars-rate {
     display: flex;
     gap: 3px;
-    margin-top: auto;  /* ⬅️ Pousse les étoiles en bas */
+    margin-top: auto;
 }
+
 .stars-rate img {
     width: 20px;
 }
+
+/* ============================================
+   MODE RTL - TOUT SCOPÉ À .accueil-container
+   ============================================ */
+[dir="rtl"] .accueil-container {
+    direction: rtl;
+}
+
+[dir="rtl"] .vie-saine .text {
+    text-align: right;
+}
+
+[dir="rtl"] .vie-saine .text .dr {
+    text-align: right;
+    font-size: 55px !important;
+}
+
+[dir="rtl"] .vie-saine .long-p {
+    font-family: 'Serif', 'Share', serif !important;
+    font-weight: bold;
+    text-align: justify;
+}
+
+[dir="rtl"] .choisir-text {
+    text-align: right;
+}
+
+[dir="rtl"] .choisir-text p,
+[dir="rtl"] .troubles-text p,
+[dir="rtl"] .suivi-text p,
+[dir="rtl"] .conseil-text p {
+    text-align: justify;
+    line-height: 1.6;
+    margin-bottom: 1em;
+}
+
+[dir="rtl"] .troubles-text,
+[dir="rtl"] .suivi-text,
+[dir="rtl"] .conseil-text {
+    padding-right: 20px;
+    padding-left: 0;
+    margin: auto;
+}
+
+[dir="rtl"] .patients-avis p {
+    text-align: justify;
+    
+}
+
 [dir="rtl"] .avis {
     text-align: right;
 }
+
 [dir="rtl"] .avis .heading {
     flex-direction: row-reverse;
 }
+
 [dir="rtl"] .hanane-letter,
 [dir="rtl"] .fatiha-letter,
 [dir="rtl"] .zdenko-letter,
@@ -562,8 +567,16 @@ html[dir="rtl"] .conseil-text {
     margin-left: 10px;
 }
 
+.arabic-number {
+    direction: ltr;
+    unicode-bidi: embed;
+    text-align: right;
+    font-family: 'Tajawal', sans-serif;
+}
 
-
+/* ============================================
+   RESPONSIVE
+   ============================================ */
 @media (max-width: 900px) {
     .vie-saine {
         flex-direction: column-reverse;
@@ -581,10 +594,10 @@ html[dir="rtl"] .conseil-text {
 
     .vie-saine .text a {
         padding: 10px 20px;
-        font-weight: 100
+        font-weight: 100;
     }
 
-    .text .ligne-tel-flex {
+    .vie-saine .text .ligne-tel-flex {
         width: 90% !important;
         gap: 14px;
     }
@@ -602,7 +615,6 @@ html[dir="rtl"] .conseil-text {
         width: 98%;
         margin-bottom: 2px;
         flex-direction: column;
-
     }
 
     .choisir-img {
@@ -612,11 +624,7 @@ html[dir="rtl"] .conseil-text {
 
     .choisir-img * {
         width: 90% !important;
-        border-radius: 20px;
-        margin: auto !important;
-        text-align: center !important;
     }
-
 
     .choisir .choisir-text {
         width: 95%;
@@ -661,8 +669,7 @@ html[dir="rtl"] .conseil-text {
 
     .troubles-text,
     .suivi-text,
-    .conseil-text,
-    .rencontrez-text {
+    .conseil-text {
         width: 98%;
         margin-bottom: 10px;
         padding-left: 20px;
@@ -682,71 +689,3 @@ html[dir="rtl"] .conseil-text {
         width: 95%;
     }
 }
-html[dir="rtl"] h1.dr {
-    font-weight: bold !important;
-    font-size: 55px !important;
-    text-align: right;    
-
-
-  
-}
-html[dir="rtl"] .long-p {
-    font-family: 'Noto Serif', 'Share', serif !important;
-    font-weight: bold; 
-      text-align: justify;       
-
-  }
-.arabic-number {
-    direction: ltr;       
-    unicode-bidi: embed;  
-    text-align: right;    
-    font-family: 'Tajawal', sans-serif; 
-}
-.troubles-text h1,
-.suivi-text h1,
-.conseil-text h1 {
-
-    color: var(--main-blue);
-    font-weight: bold !important;
-    font-size: 35px !important;
-}
-
-.accueil-container p {
-  font-family: 'Arial', sans-serif; 
-  font-size: 22px; 
-  line-height: 1.6; 
-  text-align: justify; 
-  margin-bottom: 1em; 
-}
-
-html[dir="rtl"] .choisir-text p,
-html[dir="rtl"] .troubles-text p,
-html[dir="rtl"] .suivi-text p,
-html[dir="rtl"] .conseil-text p
- {
-    text-align: justify;   
-    line-height: 1.6;     
-    font-size: 16px;        
-    margin-bottom: 1em;     
-}
-html[dir="rtl"] .patients-avis p {
-  text-align: justify;
-    font-size: 18px; /* ajuste: 17px / 18px / 20px */
-
-}
-[dir="rtl"] .title {
-  text-align: right;
-}
-
-/* Fix pour les boutons en mode RTL (arabe) */
-html[dir="rtl"] .vie-saine .text {
-    text-align: right;
-}
-html[dir="rtl"] .choisir-text {
-    text-align: right;
-  
-}
-
-
-
-

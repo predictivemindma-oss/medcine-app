@@ -171,7 +171,7 @@ if (!confirm(t("confirm_delete"))) return;
                           />
                         )}
 
-                        <h2 className="text-xl text-[#117090] mt-3">{service.title}</h2>
+                        <h2 className="titleee">{service.title}</h2>
 
                         <p
                           className="text-md break-words mt-2"

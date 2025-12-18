@@ -5,14 +5,14 @@
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
-  font-family: 'Inter', sans-serif;
   color: #333;
   padding: 50px 0;
 }
 
+
 /* Heading / Hero Section */
 .heading {
-  text-align: center;
+  text-align: center ;
   margin-bottom: 60px;
 }
 
@@ -26,6 +26,7 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 15px;
+  
 }
 
 .heading p:last-child {
@@ -128,6 +129,8 @@
   gap: 40px;
   justify-content: space-between;
   margin: 60px 0;
+   
+
 }
 
 .fiabilite {
@@ -139,6 +142,7 @@
   background: #f0f4f8;
   transition: all 0.3s ease;
   text-align: left; /* aligner le texte à gauche */
+  
 
 }
 
@@ -150,6 +154,7 @@
   font-size: 1.5rem;
   margin: 15px 0;
   color: #007090;
+   font-weight: bold;
 }
 
 .fiabilite p {
@@ -270,6 +275,7 @@
   font-size: 1rem;
   margin-bottom: 20px;
   color: #007090;
+  
 }
 
 .apropos-header h2 {
@@ -277,6 +283,8 @@
   margin-bottom: 20px;
   font-weight: bold;
   color: #ef404d;
+  text-align: center;
+
 }
 
 .apropos-header p {
@@ -357,6 +365,11 @@
   font-size: 18px !important;
   line-height: 1.5;
 }
+[dir="rtl"] .apropos-header h1,
+[dir="rtl"] .apropos-header h2 {
+  text-align: center !important;
+}
+
 
 
 

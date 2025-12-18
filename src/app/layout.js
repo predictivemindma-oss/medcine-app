@@ -17,6 +17,11 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 
 export const metadata = {
   title: "Dr. Ouafae Elmehraoui - Endocrinologie & Diabétologie",
