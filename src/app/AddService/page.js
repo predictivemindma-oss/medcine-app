@@ -257,7 +257,7 @@ export default function AddService() {
                 </div>
 
                 {/* Boutons */}
-                <div className="button-container">
+                <div className="button-containerss">
                     <button
                         type="button"
                         onClick={() => router.push("/Services")}
@@ -266,7 +266,7 @@ export default function AddService() {
                         {t("cancel")}
                     </button>
                     <button type="submit" className="btn-save">
-                        {isEdit ? t("save") : t("add")}
+                        {isEdit ? t("save") : t("save")}
                     </button>
                 </div>
             </form>

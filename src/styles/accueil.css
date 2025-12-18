@@ -75,6 +75,7 @@
 .vie-saine .long-p {
     margin-right: 50px;
     font-size: 20px;
+ 
 }
 
 .vie-saine .numbers-flex {
@@ -88,6 +89,7 @@
 
 .vie-saine .numbers-flex .numbers {
     margin-right: 25px;
+
 }
 
 .vie-saine .numbers-flex h1 {
@@ -380,11 +382,13 @@
 
 .patients-avis .head * {
     text-align: center !important;
+        font-family: 'Serif', 'Share', serif ;
+
 }
 
 .patients-avis h1 {
     color: var(--main-red);
-    font-size: xx-large;
+    font-size: xxx-large;
 }
 
 .patients-avis p {
@@ -392,9 +396,10 @@
     font-size: 18px;
 }
 
-.head {
+.head h1{
     width: 80%;
     margin: auto;
+
 }
 
 .carousel-container {
@@ -520,7 +525,7 @@
 }
 
 [dir="rtl"] .vie-saine .long-p {
-    font-family: 'Serif', 'Share', serif !important;
+    font-family: 'Serif', 'Share', serif ;
     font-weight: bold;
     text-align: justify;
 }
@@ -688,4 +693,10 @@
         font-size: 20px;
         width: 95%;
     }
+}
+.numbers {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centre horizontalement */
+  gap: 8px; /* 👈 ESPACE entre le numéro et le texte */
 }

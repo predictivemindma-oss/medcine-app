@@ -9,6 +9,8 @@ import Image from "next/image";
 
 import "../../styles/services.css";
 
+
+
 export default function ServicesList() {
   const { t, i18n } = useTranslation(); // Ajoutez i18n ici
   const [services, setServices] = useState([]);
