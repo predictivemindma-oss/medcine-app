@@ -136,8 +136,4 @@ html[dir="rtl"] .footer * {
         width: 90%;
     }
 }
-/* CSS pour le footer */
-.footer .address .phone a,
-.footer .address .local span {
-  font-weight: bold;
-}
+

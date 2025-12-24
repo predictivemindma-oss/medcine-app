@@ -50,6 +50,20 @@ const { t, i18n } = useTranslation();
   return (
     <div className="accueil-container">
       {/* HERO */}
+      {/* 
+<div className="absolute top-0 left-0 w-full h-screen overflow-hidden -z-10">
+  <video
+    autoPlay
+    loop
+    muted
+    playsInline
+    className="w-full h-full object-cover"
+  >
+    <source src="/bg.mp4" type="video/mp4" />
+  </video>
+  <div className="absolute inset-0 bg-black/30"></div>
+</div>
+*/}
       <div className="vie-saine">
         <div className="text">
           <h1 className="dr">{t("doc_name")}</h1>

@@ -6,13 +6,12 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import Image from "next/image";
+import LoadingOverlay from "../components/LoadingOverlay";
 
 import "../../styles/services.css";
 
-
-
 export default function ServicesList() {
-  const { t, i18n } = useTranslation(); // Ajoutez i18n ici
+  const { t, i18n } = useTranslation();
   const [services, setServices] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -29,8 +28,6 @@ export default function ServicesList() {
       } catch (err) {
         console.log("Not authenticated or error:", err);
         setUser(null);
-      } finally {
-        setLoading(false);
       }
     };
     checkAuth();
@@ -46,19 +43,21 @@ export default function ServicesList() {
 
   // Charger les services avec la langue actuelle
   useEffect(() => {
-  const getServices = async () => {
-    try {
-      const lang = i18n.language === 'ar' ? 'ar' : 'fr';
-      const response = await axios.get(`/api/services?lang=${lang}`);
-      setServices(response.data.services || []);
-    } catch (err) {
-      console.log("Error loading services:", err);
-    }
-  };
+    const getServices = async () => {
+      setLoading(true);
+      try {
+        const lang = i18n.language === 'ar' ? 'ar' : 'fr';
+        const response = await axios.get(`/api/services?lang=${lang}`);
+        setServices(response.data.services || []);
+      } catch (err) {
+        console.log("Error loading services:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  if (i18n.isInitialized) getServices();
-}, [i18n.language, i18n.isInitialized]);
-// Recharger quand la langue change
+    if (i18n.isInitialized) getServices();
+  }, [i18n.language, i18n.isInitialized]);
 
   const handleDelete = async (id) => {
     if (user?.role !== "doctor") {
@@ -66,7 +65,7 @@ export default function ServicesList() {
       return;
     }
 
-if (!confirm(t("confirm_delete"))) return;
+    if (!confirm(t("confirm_delete"))) return;
 
     try {
       await axios.delete(`/api/services?id=${id}`);
@@ -104,15 +103,12 @@ if (!confirm(t("confirm_delete"))) return;
     setServices(newItems);
   };
 
-  if (loading) {
-    return (
-      <div className="services-container">
-        <p>{t("loading") }</p>
-      </div>
-    );
-  }
-
   const isDoctor = user?.role === "doctor";
+
+  // Afficher uniquement le loader pendant le chargement
+  if (loading) {
+    return <LoadingOverlay show={true} />;
+  }
 
   return (
     <div className="services-container">
@@ -123,7 +119,7 @@ if (!confirm(t("confirm_delete"))) return;
           {(provided) => (
             <div
               className="flex flex-wrap justify-center gap-8 max-w-6xl"
-              style={{ justifyContent: "space-between", overflow: "hidden" }}
+              style={{ justifyContent: "flex-start", overflow: "hidden" }}
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
@@ -162,7 +158,6 @@ if (!confirm(t("confirm_delete"))) return;
                           </div>
                         )}
 
-                        {/* 📌 IMAGE FIXÉE : seulement si URL démarre par "/" */}
                         {service.image?.startsWith("/") && (
                           <Image
                             className="rounded-xl object-cover mx-auto w-full h-[280px]"
@@ -247,14 +242,14 @@ if (!confirm(t("confirm_delete"))) return;
                 {services.find((s) => s._id === activeIndex)?.title}
               </h2>
               <p
-  style={{
-    marginTop: "15px",
-    textAlign: "justify",
-    lineHeight: "1.6",
-  }}
->
-  {services.find((s) => s._id === activeIndex)?.desc}
-</p>
+                style={{
+                  marginTop: "15px",
+                  textAlign: "justify",
+                  lineHeight: "1.6",
+                }}
+              >
+                {services.find((s) => s._id === activeIndex)?.desc}
+              </p>
 
               <button
                 onClick={() => setActiveIndex(null)}
@@ -272,7 +267,6 @@ if (!confirm(t("confirm_delete"))) return;
               </button>
             </div>
 
-            {/* 📌 IMAGE MODALE FIXÉE */}
             {services.find((s) => s._id === activeIndex)?.image?.startsWith("/") && (
               <div style={{ flex: 1 }}>
                 <Image

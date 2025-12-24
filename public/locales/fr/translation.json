@@ -128,7 +128,7 @@
   "propos_centre_text": "Du suivi du diabète aux conseils nutritionnels, nous prenons soin de chaque aspect de votre santé.",
   "propos_prise_title": "Prise en charge complète du diabète",
   "propos_plans_title": "Plans nutritionnels personnalisés",
-  "propos_prevention_title": "Prévention & Bien-être durable",
+  "propos_prevention_title": "Prévention et soins de santé",
 
 
 
@@ -158,7 +158,7 @@
   "contact_title": "Prenez rendez-vous pour votre consultation médicale",
   "contact_doc": "Besoin d’un avis médical ? Le Dr Ouafae ELMEHRAOUI vous répond.",
 
-
+ "validate_changes": "Valider les modifications",
   "fix_label": "FIX :",
   "tel_label": "TEL :",
   "local_label": "Localisation :",
@@ -266,6 +266,8 @@
     "soufiane": "Je recommande vivement Dr Ouafae El Mahraoui à toute personne recherchant un endocrinologue. Elle est très compétente et profondément humaine."
   },
   "review_google": "Avis sur Google",
+    "items_per_page": "Éléments par page",
+
   "no_services_available": "Aucun service disponible"
 
 

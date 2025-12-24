@@ -1,4 +1,3 @@
-// models/contact.js
 import mongoose from "mongoose";
 
 const contactSchema = new mongoose.Schema({
@@ -18,7 +17,7 @@ const contactSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: [true, "L'email est requis"],
+    required: false,
     trim: true,
     lowercase: true
   },
@@ -39,10 +38,10 @@ const contactSchema = new mongoose.Schema({
     enum: ["en cours", "confirmé", "annulé"],
     default: "en cours",
   },
-    terminated: { type: Boolean, default: false }, // ← Nouveau champ
+    
 
 }, {
-  timestamps: true // Supprime le champ createdAt manuel
+  timestamps: true 
 });
 
 // ⚡ Middleware corrigé pour l'auto-incrémentation

@@ -1,9 +1,7 @@
 // src/app/lib/mongoose.js
 import mongoose from "mongoose";
-import dotenv from "dotenv";
 
-// ✅ Charger les variables depuis le fichier .env
-dotenv.config({ path: ".env" });
+
 
 const MONGODB_URI = process.env.MONGODB_URI;
 

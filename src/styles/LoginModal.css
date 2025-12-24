@@ -239,3 +239,18 @@
 * {
   touch-action: manipulation;
 }
+/* =========================
+   RTL – Arabe
+   ========================= */
+[dir="rtl"] .login-label {
+  text-align: right;
+}
+
+[dir="rtl"] .login-input {
+  text-align: right;
+}
+
+/* Optionnel : bouton centré reste OK */
+[dir="rtl"] .login-submit-btn {
+  text-align: center;
+}

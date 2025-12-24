@@ -75,11 +75,12 @@
 
 /* Expertises / Checklists */
 .expertises {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 40px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px 40px;
   margin-top: 20px;
 }
+
 
 .expertise-flex {
   display: flex;
@@ -88,12 +89,7 @@
   margin-bottom: 15px;
 }
 
-.expertises {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* deux colonnes */
-  gap: 20px 40px; /* 20px vertical, 40px horizontal */
-  margin-top: 20px;
-}
+
 
 .expertise-flex {
   display: flex;
@@ -105,14 +101,22 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 20px;  /* cercle plus petit */
-  height: 20px; /* cercle plus petit */
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  background-color: #007090; /* bleu Framer */
+  background-color: #007090;
   color: #fff;
-  font-weight: bold;
-  font-size: 0.9rem; /* plus petit */
+
+  /* 🔥 FIX IMPORTANT */
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1;
+ 
+  /* évite toute déformation visuelle */
+  flex-shrink: 0;
 }
+
 
 .expertise-flex p {
   margin: 0;

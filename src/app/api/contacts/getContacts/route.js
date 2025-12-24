@@ -5,22 +5,17 @@ import { jwtVerify } from "jose";
 
 export async function GET(request) {
   try {
-    // ✅ VÉRIFICATION D'AUTHENTIFICATION
+    // ✅ Vérification d'authentification
     const token = request.cookies.get("token")?.value;
-
     if (!token) {
-      return NextResponse.json(
-        { message: "Non authentifié" },
-        { status: 401 }
-      );
+      return NextResponse.json({ message: "Non authentifié" }, { status: 401 });
     }
 
-    // ✅ VÉRIFIER LE TOKEN ET LE RÔLE
+    // ✅ Vérification du token et du rôle
     try {
       const secret = new TextEncoder().encode(process.env.JWT_SECRET);
       const { payload } = await jwtVerify(token, secret);
 
-      // Vérifier que c'est un doctor ou assistant
       if (!["doctor", "assistant"].includes(payload.role)) {
         return NextResponse.json(
           { message: "Accès refusé : réservé aux docteurs et assistants" },
@@ -28,36 +23,32 @@ export async function GET(request) {
         );
       }
     } catch (err) {
-      return NextResponse.json(
-        { message: "Token invalide" },
-        { status: 401 }
-      );
+      return NextResponse.json({ message: "Token invalide" }, { status: 401 });
     }
 
-    // ✅ SI AUTHENTIFIÉ, CONTINUER AVEC LA LOGIQUE NORMALE
+    // ✅ Connexion à la DB
     await connectDB();
 
-    // 📌 Récupérer TOUS les paramètres de l'URL
+    // 📌 Récupérer les paramètres
     const { searchParams } = new URL(request.url);
     const page = parseInt(searchParams.get("page")) || 1;
     const limit = parseInt(searchParams.get("limit")) || 15;
     const presence = searchParams.get("presence") || "tous";
     const date = searchParams.get("date") || "";
 
-    // 📌 Construire la query de filtrage
-    let query = { terminated: { $ne: true } };
+    // 📌 Construire la query (sans terminated)
+    let query = {};
 
     // 🔹 Filtre par présence
     if (presence !== "tous") {
       query.presence = presence;
     }
 
-    // 🔹 Filtre par date (IMPORTANT: createdAt est un objet Date ISO)
+    // 🔹 Filtre par date
     if (date) {
-      // Convertir la date string "YYYY-MM-DD" en objets Date
-      const startDate = new Date(date); // Ex: 2025-12-09T00:00:00.000Z
+      const startDate = new Date(date);
       const endDate = new Date(date);
-      endDate.setDate(endDate.getDate() + 1); // Ex: 2025-12-10T00:00:00.000Z
+      endDate.setDate(endDate.getDate() + 1);
 
       query.createdAt = {
         $gte: startDate,
@@ -65,28 +56,23 @@ export async function GET(request) {
       };
     }
 
-    // Debug: afficher la query
+    // Debug : voir la query
     console.log("Query MongoDB:", JSON.stringify(query, null, 2));
     console.log("Filtres:", { page, limit, presence, date });
 
-    // 📌 Compter le nombre total de contacts avec les filtres
+    // 🔹 Pagination
     const totalContacts = await Contact.countDocuments(query);
-
-    // 📌 Calculer le skip (combien d'éléments sauter)
     const skip = (page - 1) * limit;
 
-    // 📌 Récupérer les contacts paginés avec les filtres
     const contacts = await Contact.find(query)
-      .sort({ contactId: 1 })  // Tri par ID croissant
+      .sort({ contactId: 1 })
       .skip(skip)
       .limit(limit);
 
-    // 📌 Calculer les informations de pagination
     const totalPages = Math.ceil(totalContacts / limit);
     const hasNextPage = page < totalPages;
     const hasPrevPage = page > 1;
 
-    // 📌 Retourner les données + métadonnées de pagination
     return NextResponse.json({
       contacts,
       pagination: {

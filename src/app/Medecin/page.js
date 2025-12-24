@@ -5,35 +5,37 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaEdit, FaSave, FaTrash, FaUndo, FaPlus } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import LoadingOverlay from "../components/LoadingOverlay";
 import "../../styles/medecin.css";
 
-
 export default function Medecin() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [medecin, setMedecin] = useState(null);
   const [editingField, setEditingField] = useState("");
   const [tempValue, setTempValue] = useState("");
   const [userRole, setUserRole] = useState(null);
   const [pendingDeletes, setPendingDeletes] = useState([]);
-  const { i18n } = useTranslation();
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const fetchMedecin = async () => {
+      setLoading(true);
+      const lang = i18n.language.startsWith("ar") ? "ar" : "fr";
+      console.log("Langue envoyée au backend:", lang);
+      const res = await fetch(`/api/medecin?lang=${lang}`, { cache: "no-store" });
+      
+      console.log("i18n.language:", i18n.language);
+      console.log("Lang utilisé pour fetch:", lang);
 
-useEffect(() => {
-  const fetchMedecin = async () => {
-    const lang = i18n.language.startsWith("ar") ? "ar" : "fr";
-    console.log("Langue envoyée au backend:", lang);
-    const res = await fetch(`/api/medecin?lang=${lang}`, { cache: "no-store" });
-    
-console.log("i18n.language:", i18n.language);
-console.log("Lang utilisé pour fetch:", lang);
+      const data = await res.json();
+      setMedecin(data);
+      setLoading(false);
+    };
 
-    const data = await res.json();
-    setMedecin(data);
-  };
-
-  fetchMedecin();
-}, [i18n.language]);
-
+    if (i18n.isInitialized) {
+      fetchMedecin();
+    }
+  }, [i18n.language, i18n.isInitialized]);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -49,160 +51,136 @@ console.log("Lang utilisé pour fetch:", lang);
     checkAuth();
   }, []);
 
-  if (!medecin) return <p>{t("loading") || "Chargement..."}</p>;
+  if (loading) return <LoadingOverlay show={true} />;
 
   const startEdit = (field, value) => {
     setEditingField(field);
     setTempValue(value);
   };
 
-const handleSave = async (field, index = null) => {
-  if (!medecin) return;
+  const handleSave = async (field, index = null) => {
+    if (!medecin) return;
 
-  const lang = i18n.language.startsWith("ar") ? "ar" : "fr";
+    const lang = i18n.language.startsWith("ar") ? "ar" : "fr";
 
-  let payload = {};
+    let payload = {};
 
-  if (index !== null) {
-    // C'est un tableau (experiences ou formations)
-    if (lang === "ar") {
-      // CAS SPÉCIAL: Modification d'une seule ligne arabe
-      payload = {
-        editArabicLine: {
-          field: field,
-          index: index,
-          value: tempValue
-        }
-      };
-    } else {
-      // Modification FR: on envoie tout le tableau FR
-      const updatedArray = [...(medecin[field] || [])];
-      updatedArray[index] = tempValue;
-      payload = {
-        [field]: updatedArray,
-        lang: lang
-      };
-    }
-  } else {
-    // Champ simple
-    if (lang === "ar") {
-      payload = {
-        [`${field}_ar`]: tempValue,
-        lang: lang
-      };
-    } else {
-      payload = {
-        [field]: tempValue,
-        lang: lang
-      };
-    }
-  }
-
-  // Mise à jour optimiste de l'UI
-  setMedecin((prev) => {
-    const updated = { ...prev };
     if (index !== null) {
-      const arrField = lang === "ar" ? `${field}_ar` : field;
-      const arr = [...(updated[arrField] || [])];
-      arr[index] = tempValue;
-      updated[arrField] = arr;
+      if (lang === "ar") {
+        payload = {
+          editArabicLine: {
+            field: field,
+            index: index,
+            value: tempValue
+          }
+        };
+      } else {
+        const updatedArray = [...(medecin[field] || [])];
+        updatedArray[index] = tempValue;
+        payload = {
+          [field]: updatedArray,
+          lang: lang
+        };
+      }
     } else {
-      const fieldName = lang === "ar" ? `${field}_ar` : field;
-      updated[fieldName] = tempValue;
+      if (lang === "ar") {
+        payload = {
+          [`${field}_ar`]: tempValue,
+          lang: lang
+        };
+      } else {
+        payload = {
+          [field]: tempValue,
+          lang: lang
+        };
+      }
     }
-    return updated;
-  });
 
-  setEditingField("");
-
-  try {
-    const res = await fetch("/api/medecin", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
+    setMedecin((prev) => {
+      const updated = { ...prev };
+      if (index !== null) {
+        const arrField = lang === "ar" ? `${field}_ar` : field;
+        const arr = [...(updated[arrField] || [])];
+        arr[index] = tempValue;
+        updated[arrField] = arr;
+      } else {
+        const fieldName = lang === "ar" ? `${field}_ar` : field;
+        updated[fieldName] = tempValue;
+      }
+      return updated;
     });
 
-    if (!res.ok) {
-      const errText = await res.text();
-      console.error("Erreur sauvegarde côté serveur :", errText);
-    } else {
-      // Rafraîchir les données depuis le serveur
-      const updatedData = await res.json();
-      
-      // Reconstruire l'objet medecin avec les bonnes données selon la langue
-      const refreshedMedecin = {
-        introduction: lang === "ar" ? updatedData.introduction_ar : updatedData.introduction,
-        experiences: lang === "ar" ? updatedData.experiences_ar : updatedData.experiences,
-        formations: lang === "ar" ? updatedData.formations_ar : updatedData.formations,
-        telephone: updatedData.telephone,
-        fixe: updatedData.fixe,
-        localisation: lang === "ar" ? updatedData.localisation_ar : updatedData.localisation,
-        image: updatedData.image,
-        specialite: lang === "ar" ? updatedData.specialite_ar : updatedData.specialite
-      };
-      
-      setMedecin(refreshedMedecin);
+    setEditingField("");
+
+    try {
+      const res = await fetch("/api/medecin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const errText = await res.text();
+        console.error("Erreur sauvegarde côté serveur :", errText);
+      } else {
+        const updatedData = await res.json();
+        
+        const refreshedMedecin = {
+          introduction: lang === "ar" ? updatedData.introduction_ar : updatedData.introduction,
+          experiences: lang === "ar" ? updatedData.experiences_ar : updatedData.experiences,
+          formations: lang === "ar" ? updatedData.formations_ar : updatedData.formations,
+          telephone: updatedData.telephone,
+          fixe: updatedData.fixe,
+          localisation: lang === "ar" ? updatedData.localisation_ar : updatedData.localisation,
+          image: updatedData.image,
+          specialite: lang === "ar" ? updatedData.specialite_ar : updatedData.specialite
+        };
+        
+        setMedecin(refreshedMedecin);
+      }
+    } catch (err) {
+      console.error("Erreur fetch :", err);
     }
-  } catch (err) {
-    console.error("Erreur fetch :", err);
-  }
-};
+  };
 
+  const handleDelete = async (field, value) => {
+    const id = `${Date.now()}-${Math.floor(Math.random() * 15000)}`;
 
-
-
-
-
-
-
-
-
-const handleDelete = async (field, value) => {
-  const id = `${Date.now()}-${Math.floor(Math.random() * 15000)}`;
-
-  // Retirer localement l'élément
-  setMedecin((prev) => ({
-    ...prev,
-    [field]: (prev[field] || []).filter((item) => item !== value),
-  }));
-
-  // Ajouter à pendingDeletes
-  setPendingDeletes((prev) => [...prev, { id, field, value }]);
-
-  // Supprimer de pendingDeletes automatiquement après 10 secondes
-  const deleteTimeout = setTimeout(() => {
-    setPendingDeletes((prev) => prev.filter((p) => p.id !== id));
-  }, 5000); // 10 secondes
-
-  try {
-    const res = await fetch("/api/medecin", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ delete: true, field, value }),
-    });
-
-    if (!res.ok) throw new Error("Erreur serveur");
-
-    const updatedFromServer = await res.json();
-    if (updatedFromServer) setMedecin(updatedFromServer);
-
-    // On laisse le timeout de 10 sec pour le Undo
-  } catch (err) {
-    console.error("Erreur suppression :", err);
-
-    // Rétablir l'élément supprimé en cas d'erreur
     setMedecin((prev) => ({
       ...prev,
-      [field]: [...(prev[field] || []), value],
+      [field]: (prev[field] || []).filter((item) => item !== value),
     }));
 
-    // Annuler le timeout et retirer de pendingDeletes
-    clearTimeout(deleteTimeout);
-    setPendingDeletes((prev) => prev.filter((p) => p.id !== id));
-  }
-};
+    setPendingDeletes((prev) => [...prev, { id, field, value }]);
 
+    const deleteTimeout = setTimeout(() => {
+      setPendingDeletes((prev) => prev.filter((p) => p.id !== id));
+    }, 5000);
 
+    try {
+      const res = await fetch("/api/medecin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ delete: true, field, value }),
+      });
+
+      if (!res.ok) throw new Error("Erreur serveur");
+
+      const updatedFromServer = await res.json();
+      if (updatedFromServer) setMedecin(updatedFromServer);
+
+    } catch (err) {
+      console.error("Erreur suppression :", err);
+
+      setMedecin((prev) => ({
+        ...prev,
+        [field]: [...(prev[field] || []), value],
+      }));
+
+      clearTimeout(deleteTimeout);
+      setPendingDeletes((prev) => prev.filter((p) => p.id !== id));
+    }
+  };
 
   const undoDelete = async (id) => {
     const pending = pendingDeletes.find((p) => p.id === id);
@@ -230,7 +208,6 @@ const handleDelete = async (field, value) => {
 
   const renderField = (field, value, multiline = false, index = null) => {
     const key = index !== null ? `${field}-${index}` : field;
-  const isPhoneField = field === "telephone" || field === "fixe";
 
     return (
       <div className="field-wrapper">
@@ -381,68 +358,66 @@ const handleDelete = async (field, value) => {
             )}
           </div>
 
-         <ul className="list-items">
-  {medecin.experiences?.map((exp, idx) => (
-    <li key={idx} className="list-item">
-      <i className="bullet">•</i>
-      <div className="list-item-content">
-        {renderField("experiences", exp, false, idx)}
-      </div>
-      {userRole === "doctor" && (
-        <button
-          className="icon-btn delete-btn"
-          onClick={() => handleDelete("experiences", exp)}
-          title={t("delete") || "Supprimer"}
-        >
-          <FaTrash />
-        </button>
-      )}
-    </li>
-  ))}
-</ul>
-
+          <ul className="list-items">
+            {medecin.experiences?.map((exp, idx) => (
+              <li key={idx} className="list-item">
+                <i className="bullet">•</i>
+                <div className="list-item-content">
+                  {renderField("experiences", exp, false, idx)}
+                </div>
+                {userRole === "doctor" && (
+                  <button
+                    className="icon-btn delete-btn"
+                    onClick={() => handleDelete("experiences", exp)}
+                    title={t("delete") || "Supprimer"}
+                  >
+                    <FaTrash />
+                  </button>
+                )}
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* FORMATIONS */}
-       <div className="section">
-  <div className="section-header">
-    <h3>{t("formation")}</h3>
-    {userRole === "doctor" && (
-      <button
-        onClick={() => {
-          const updatedFormations = [...(medecin.formations || []), ""];
-          setMedecin({ ...medecin, formations: updatedFormations });
-          setEditingField(`formations-${updatedFormations.length - 1}`);
-          setTempValue("");
-        }}
-        className="add-btn"
-      >
-        <FaPlus /> {t("add_formation")}
-      </button>
-    )}
-  </div>
+        <div className="section">
+          <div className="section-header">
+            <h3>{t("formation")}</h3>
+            {userRole === "doctor" && (
+              <button
+                onClick={() => {
+                  const updatedFormations = [...(medecin.formations || []), ""];
+                  setMedecin({ ...medecin, formations: updatedFormations });
+                  setEditingField(`formations-${updatedFormations.length - 1}`);
+                  setTempValue("");
+                }}
+                className="add-btn"
+              >
+                <FaPlus /> {t("add_formation")}
+              </button>
+            )}
+          </div>
 
-  <ul className="list-items">
-    {medecin.formations?.map((form, idx) => (
-      <li key={idx} className="list-item">
-        <i className="bullet">•</i>
-        <div className="list-item-content">
-          {renderField("formations", form, false, idx)}
+          <ul className="list-items">
+            {medecin.formations?.map((form, idx) => (
+              <li key={idx} className="list-item">
+                <i className="bullet">•</i>
+                <div className="list-item-content">
+                  {renderField("formations", form, false, idx)}
+                </div>
+                {userRole === "doctor" && (
+                  <button
+                    className="icon-btn delete-btn"
+                    onClick={() => handleDelete("formations", form)}
+                    title={t("delete") || "Supprimer"}
+                  >
+                    <FaTrash />
+                  </button>
+                )}
+              </li>
+            ))}
+          </ul>
         </div>
-        {userRole === "doctor" && (
-          <button
-            className="icon-btn delete-btn"
-            onClick={() => handleDelete("formations", form)}
-            title={t("delete") || "Supprimer"}
-          >
-            <FaTrash />
-          </button>
-        )}
-      </li>
-    ))}
-  </ul>
-</div>
-
 
         {/* UNDO */}
         {pendingDeletes.length > 0 && (

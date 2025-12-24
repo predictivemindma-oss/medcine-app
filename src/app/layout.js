@@ -1,12 +1,13 @@
-
 // src/app/layout.js
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "./components/Footer";
-import NavbarWrapper from "./components/NavbarWrapper"; // NEW wrapper for client hooks
+import NavbarWrapper from "./components/NavbarWrapper";
+import LoadingOverlay from "./components/LoadingOverlay"; // ← Ajoute ceci
 import "../styles/footer.css";
+import connectDB from "./lib/mongoose"; // 👈 AJOUTE ÇA
 
-
+connectDB(); // 🔥 pré-connexion MongoDB (sans await)
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,11 +18,11 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
 export const viewport = {
   width: "device-width",
   initialScale: 1,
 };
-
 
 export const metadata = {
   title: "Dr. Ouafae Elmehraoui - Endocrinologie & Diabétologie",
@@ -32,17 +33,14 @@ export const metadata = {
   },
 };
 
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen relative`}
       >
-        
-     
-
-        <NavbarWrapper /> {/* Client wrapper */}
+        <LoadingOverlay /> {/* ← Ajoute le loader ici */}
+        <NavbarWrapper />
 
         <div className="relative z-10">
           <main className="w-full">{children}</main>
@@ -52,5 +50,3 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
-
-

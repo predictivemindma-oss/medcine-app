@@ -156,7 +156,8 @@ export default function LoginModal({ closeModal }) {
             disabled={loading} 
             className="login-submit-btn"
           >
-            {loading ? "Connexion..." : "Se connecter"}
+           {loading ? t("loading") : t("login")}
+
           </button>
         </form>
       </div>

@@ -2,14 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import LoadingOverlay from "../components/LoadingOverlay";
 import "./contactList.css";
 import { useTranslation } from "react-i18next";
-import i18n from "../../i18n";
-
 
 export default function ContactListPage() {
-    const { t } = useTranslation(); // <-- initialiser t ici
-
+  const { t } = useTranslation();
   const router = useRouter();
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -19,53 +17,37 @@ export default function ContactListPage() {
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(15); // ⭐ Nouveau state
   const [pagination, setPagination] = useState({
     totalPages: 1,
     totalContacts: 0,
     hasNextPage: false,
     hasPrevPage: false,
   });
-  const [filterPresence, setFilterPresence] = useState("tous");
+  const [filterPresence, setFilterPresence] = useState("en cours");
   const [filterDate, setFilterDate] = useState("");
-  const [terminatedContacts, setTerminatedContacts] = useState([]);
 
- async function handleTerminate(id) {
-  try {
-    await fetch("/api/contacts/terminateContact", { // Assure-toi que le chemin est correct
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id }),
-    });
-
-    // Retirer la ligne côté front
-    setTerminatedContacts(prev => [...prev, id]);
-  } catch (err) {
-    console.error("Erreur lors de la terminaison :", err);
-  }
-}
-
-
-
+  const [localPresenceChanges, setLocalPresenceChanges] = useState({});
 
   function getRowColor(presence) {
-  switch (presence) {
-    case "confirmé":
-      return "#d4edda"; // vert clair
-    case "annulé":
-      return "#f8d7da"; // rouge clair
-    case "en cours":
-    default:
-      return "#fff3cd"; // jaune clair
+    switch (presence) {
+      case "confirmé":
+        return "#d4edda";
+      case "annulé":
+        return "#f8d7da";
+      case "en cours":
+      default:
+        return "#fff3cd";
+    }
   }
-}
 
-  // ✅ Vérification de l'authentification via token
+  // Vérification de l'authentification
   useEffect(() => {
     async function checkAuth() {
       try {
         const res = await fetch("/api/auth/me", {
           method: "GET",
-          credentials: "include", // Important pour envoyer les cookies
+          credentials: "include",
         });
 
         if (!res.ok) {
@@ -76,7 +58,7 @@ export default function ContactListPage() {
 
         const data = await res.json();
         setIsAuthenticated(true);
-        setUserRole(data.user?.role); // Accès au rôle depuis data.user
+        setUserRole(data.user?.role);
         setIsLoading(false);
       } catch (err) {
         console.error("Erreur d'authentification:", err);
@@ -88,72 +70,36 @@ export default function ContactListPage() {
     checkAuth();
   }, []);
 
-  // 📌 Fonction pour récupérer les contacts avec pagination et filtrage
-async function fetchContacts(page = 1, presence = filterPresence) {
-  setLoading(true);
-  try {
-    // Construire l'URL avec tous les filtres
-    let url = `/api/contacts/getContacts?page=${page}&limit=15&presence=${presence}`;
-    
-    // Ajouter le filtre date seulement s'il y en a un
-    if (filterDate) {
-      url += `&date=${filterDate}`;
-    }
-    
-    console.log("Fetching URL:", url); // Pour debug
-    
-    const res = await fetch(url, {
-      credentials: "include",
-    });
-    
-    if (!res.ok) throw new Error("Erreur lors de la récupération");
-    const data = await res.json();
-    
-    // NE PLUS FILTRER COTÉ FRONTEND - l'API le fait déjà
-    setContacts(data.contacts);
-    setPagination(data.pagination);
-    setCurrentPage(page);
-    
-  } catch (err) {
-    console.error("Erreur lors de la récupération", err);
-  } finally {
-    setLoading(false);
-  }
-}
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      fetchContacts(1);
-    }
-  }, [isAuthenticated]);
-
-  // 📌 Quand le filtre change (présence ou date)
-  useEffect(() => {
-    if (isAuthenticated) {
-      fetchContacts(1, filterPresence);
-    }
-  }, [filterPresence, filterDate]);
-
-  // 📌 Mise à jour du champ "presence"
-  async function handlePresence(id, presence) {
+  // Récupération des contacts avec itemsPerPage
+  async function fetchContacts(page = 1, presence = filterPresence) {
+    setLoading(true);
     try {
-      const res = await fetch("/api/contacts/updateContact", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ id, presence }),
-      });
-      if (!res.ok) throw new Error("Erreur lors de la mise à jour");
+      let url = `/api/contacts/getContacts?page=${page}&limit=${itemsPerPage}&presence=${presence}`;
+      if (filterDate) url += `&date=${filterDate}`;
 
-      setContacts((prev) =>
-        prev.map((c) => (c._id === id ? { ...c, presence } : c))
-      );
+      const res = await fetch(url, { credentials: "include" });
+      if (!res.ok) throw new Error("Erreur lors de la récupération");
+
+      const data = await res.json();
+      setContacts(data.contacts);
+      setPagination(data.pagination);
+      setCurrentPage(page);
     } catch (err) {
-      console.error("Erreur de mise à jour", err);
+      console.error("Erreur lors de la récupération", err);
+    } finally {
+      setLoading(false);
     }
   }
 
-  // 📌 Fonctions de navigation
+  useEffect(() => {
+    if (isAuthenticated) fetchContacts(1);
+  }, [isAuthenticated, itemsPerPage]); // ⭐ Ajout de itemsPerPage
+
+  useEffect(() => {
+    if (isAuthenticated) fetchContacts(1, filterPresence);
+  }, [filterPresence, filterDate, isAuthenticated]);
+
+  // Navigation pagination
   const goToNextPage = () => {
     if (pagination.hasNextPage) fetchContacts(currentPage + 1, filterPresence);
   };
@@ -166,291 +112,184 @@ async function fetchContacts(page = 1, presence = filterPresence) {
     fetchContacts(page, filterPresence);
   };
 
-  // 📌 Si l'utilisateur n'est pas authentifié, afficher "Unauthorized"
-  if (isLoading) {
-    return (
-      <div style={{ textAlign: "center", padding: "50px" }}>
-        <p>{t("checking_auth")}</p>
-      </div>
-    );
+  if (isLoading || loading) {
+    return <LoadingOverlay show={true} />;
   }
-
-  if (!isAuthenticated) {
-    return (
-      <div style={{ textAlign: "center", padding: "50px" }}>
-        <h1>🚫 Accès non autorisé</h1>
-
-      </div>
-    );
-  }
-
-  if (loading) return <p>{t("loading_contacts")}</p>;
 
   return (
     <div className="contact-list-container">
-        {/* Message Bonjour [Rôle] */}
-   {userRole && (
-  <h2 style={{ marginBottom: "20px", color: "#fe1952"}}>
-    {userRole === "doctor" ? t("welcome_doctor") : t("welcome_assistant")}
-  </h2>
-)}
+      {userRole && (
+        <h2 style={{ marginBottom: "20px", color: "#fe1952" }}>
+          {userRole === "doctor" ? t("welcome_doctor") : t("welcome_assistant")}
+        </h2>
+      )}
       <h1>{t("contact_list")}</h1>
 
-     
+      {/* Filtres */}
+      <div style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center", flexWrap: "wrap" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <label htmlFor="presenceFilter" style={{ fontWeight: "bold" }}>{t("filter_presence")} :</label>
+          <select
+            id="presenceFilter"
+            value={filterPresence}
+            onChange={(e) => setFilterPresence(e.target.value)}
+            style={{ padding: "6px 10px", borderRadius: "5px", border: "1px solid #ccc", backgroundColor: "transparent" }}
+          >
+            <option value="tous">{t("all")}</option>
+            <option value="en cours">{t("in_progress")}</option>
+            <option value="confirmé">{t("confirmed")}</option>
+            <option value="annulé">{t("cancelled")}</option>
+          </select>
+        </div>
 
- <div
-  style={{
-    marginBottom: "20px",
-    display: "flex",
-    gap: "15px",
-    alignItems: "center",
-    flexWrap: "wrap",
-  }}
->
-  {/* 🔹 Filtre par présence */}
-  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-    <label htmlFor="presenceFilter" style={{ fontWeight: "bold" }}>
-      {t("filter_presence")} :
-    </label>
-    <select
-      id="presenceFilter"
-      value={filterPresence}
-      onChange={(e) => setFilterPresence(e.target.value)}
-      style={{
-        padding: "6px 10px",
-        borderRadius: "5px",
-        border: "1px solid #ccc",
-        backgroundColor: "transparent",
-      }}
-    >
-      <option value="tous">{t("all")}</option>
-      <option value="en cours">{t("in_progress")}</option>
-      <option value="confirmé">{t("confirmed")}</option>
-      <option value="annulé">{t("cancelled")}</option>
-    </select>
-  </div>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <label htmlFor="dateFilter" style={{ fontWeight: "bold", whiteSpace: "nowrap" }}>{t("filter_date")} :</label>
+          <input
+            id="dateFilter"
+            type="date"
+            value={filterDate}
+            onChange={(e) => setFilterDate(e.target.value)}
+            style={{ padding: "6px 10px", borderRadius: "5px", border: "1px solid #ccc", backgroundColor: "#f9f9f9" }}
+          />
+        </div>
 
-  {/* 🔹 Filtre par date */}
-  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-  <label htmlFor="dateFilter" style={{ fontWeight: "bold", whiteSpace: "nowrap" }}>
-    {t("filter_date")} :
-  </label>
-  <input
-    id="dateFilter"
-    type="date"
-    value={filterDate}
-    onChange={(e) => setFilterDate(e.target.value)}
-    style={{
-      padding: "6px 10px",
-      borderRadius: "5px",
-      border: "1px solid #ccc",
-      backgroundColor: "#f9f9f9",
-    }}
-  />
-</div>
+        {/* ⭐ Nouveau sélecteur pour le nombre d'items par page */}
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <label htmlFor="itemsPerPage" style={{ fontWeight: "bold", whiteSpace: "nowrap" }}>
+            {t("items_per_page") || "Items par page"} :
+          </label>
+          <select
+            id="itemsPerPage"
+            value={itemsPerPage}
+            onChange={(e) => {
+              setItemsPerPage(Number(e.target.value));
+              setCurrentPage(1);
+            }}
+            style={{ padding: "6px 10px", borderRadius: "5px", border: "1px solid #ccc", backgroundColor: "transparent" }}
+          >
+            <option value={5}>5</option>
+            <option value={10}>10</option>
+            <option value={15}>15</option>
+            <option value={20}>20</option>
+            <option value={30}>30</option>
+            <option value={50}>50</option>
+          </select>
+        </div>
+      </div>
 
-</div>
+      {/* Boutons export / today */}
+      <button className="export-btn" onClick={() => window.open("/api/contacts/exportContacts", "_blank")}>
+        {t("export_all_contacts")}
+      </button>
 
+      <button
+        style={{ padding: "6px 12px", backgroundColor: "#006887", color: "#fff", border: "none", borderRadius: "5px", cursor: "pointer", marginLeft: "10px" }}
+        onClick={() => {
+          const todayStr = new Date().toISOString().split('T')[0];
+          setFilterDate(todayStr);
+        }}
+      >
+        {t("today_appointments")}
+      </button>
 
-      {/* Bouton export */}
-    <button
-  className="export-btn"
-  onClick={() => window.open("/api/contacts/exportContacts", "_blank")}
->
-  {t("export_all_contacts")}
-</button>
-<button
-  style={{
-    padding: "6px 12px",
-    backgroundColor: "#006887",
-    color: "#fff",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-    marginLeft: "10px",
-  }}
-  onClick={() => {
-    const today = new Date();
-    // Format YYYY-MM-DD pour l'input date
-    const todayStr = today.toISOString().split('T')[0];
-    setFilterDate(todayStr);
-    // Pas besoin d'appeler fetchContacts ici, le useEffect le fera
-  }}
->
-{t("today_appointments")}
-</button>
-
-
-
-
-
-
-      {/* Tableau des contacts */}
+      {/* Tableau */}
       {contacts.length === 0 ? (
-  <p>{t("no_contacts_found")}</p>
+        <p>{t("no_contacts_found")}</p>
       ) : (
         <>
           <table className="contact-table">
             <thead>
               <tr>
-           <th>{t("id")}</th>
-    <th>{t("first_name")}</th>
-    <th>{t("last_name")}</th>
-    <th>{t("email")}</th>
-    <th>{t("phone_number")}</th>
-    <th>{t("service")}</th>
-    <th>{t("message")}</th>
-    <th>{t("date")}</th>
-    <th>{t("presence")}</th>
-    <th>{t("action")}</th>
-
+                <th>{t("id")}</th>
+                <th>{t("first_name")}</th>
+                <th>{t("last_name")}</th>
+                <th>{t("email")}</th>
+                <th>{t("phone_number")}</th>
+                <th>{t("service")}</th>
+                <th>{t("message")}</th>
+                <th>{t("date")}</th>
+                <th>{t("presence")}</th>
               </tr>
             </thead>
-<tbody>
-  {contacts
-    .filter((contact) => !terminatedContacts.includes(contact._id))
-    .map((contact) => (
-      <tr
-        key={contact._id}
-        style={{
-          backgroundColor: getRowColor(contact.presence || "en cours"),
-          transition: "background-color 0.3s",
-        }}
-      >
-        <td>{contact.contactId}</td>
-        <td>{contact.prenom}</td>
-        <td>{contact.nom}</td>
-        <td>{contact.email}</td>
-        <td>{contact.numero}</td>
-        <td>{contact.service}</td>
-        <td
-  data-label={t("message")}
-  title={contact.message}  // ✅ le texte complet apparaît au survol
-  style={{
-    maxWidth: "250px",      // largeur max pour garder les lignes uniformes
-    overflow: "hidden",     // cache le texte qui dépasse
-    textOverflow: "ellipsis", // affiche "..." si le texte est trop long
-    whiteSpace: "nowrap",   // empêche le retour à la ligne
-    cursor: "pointer"       // indique que c’est survolable
-  }}
->
-  {contact.message}
-</td>
-
-        <td>
-          {contact.createdAt
-            ? new Date(contact.createdAt).toLocaleString("fr-FR", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-              })
-            : "—"}
-        </td>
-        <td>
-          <select
-            value={contact.presence || "en cours"}
-            onChange={(e) => handlePresence(contact._id, e.target.value)}
-            style={{
-              padding: "6px 10px",
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-              backgroundColor: "transparent",
-              fontWeight: "500",
-            }}
-          >
-            <option value="en cours">{t("in_progress")}</option>
-            <option value="confirmé">{t("confirmed")}</option>
-            <option value="annulé">{t("cancelled")}</option>
-          </select>
-        </td>
-        {/* Nouvelle colonne Action */}
-        <td>
-          <button
-            onClick={() => handleTerminate(contact._id)}
-            style={{
-              padding: "6px 12px",
-              backgroundColor: "#28a745",
-              color: "#fff",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-            }}
-          >
-            {t("terminate")}
-          </button>
-        </td>
-      </tr>
-  ))}
-</tbody>
-
-
+            <tbody>
+              {contacts.map(contact => (
+                <tr
+                  key={contact._id}
+                  style={{ backgroundColor: getRowColor(localPresenceChanges[contact._id] ?? contact.presence), transition: "background-color 0.3s" }}
+                >
+                  <td>{contact.contactId}</td>
+                  <td>{contact.prenom}</td>
+                  <td>{contact.nom}</td>
+                  <td>{contact.email}</td>
+                  <td>{contact.numero}</td>
+                  <td>{contact.service}</td>
+                  <td title={contact.message} style={{ maxWidth: "250px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", cursor: "pointer" }}>
+                    {contact.message}
+                  </td>
+                  <td>{contact.createdAt ? new Date(contact.createdAt).toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" }) : "—"}</td>
+                  <td>
+                    <select
+                      value={localPresenceChanges[contact._id] ?? contact.presence}
+                      onChange={(e) => setLocalPresenceChanges(prev => ({ ...prev, [contact._id]: e.target.value }))}
+                      style={{ padding: "6px 10px", borderRadius: "5px", border: "1px solid #ccc", backgroundColor: "transparent", fontWeight: "500" }}
+                    >
+                      <option value="en cours">{t("in_progress")}</option>
+                      <option value="confirmé">{t("confirmed")}</option>
+                      <option value="annulé">{t("cancelled")}</option>
+                    </select>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
 
+          {/* Bouton validate */}
+          <div style={{ textAlign: "center", marginTop: "15px" }}>
+            <button
+              className="validate-btn"
+              onClick={async () => {
+                try {
+                  const updates = Object.entries(localPresenceChanges).map(([id, presence]) => ({ id, presence }));
+                  if (updates.length === 0) {
+                    alert("Aucune modification à sauvegarder");
+                    return;
+                  }
+
+                  const res = await fetch("/api/contacts/bulkUpdatePresence", {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "include",
+                    body: JSON.stringify({ updates }),
+                  });
+                  if (!res.ok) throw new Error("Erreur lors de la sauvegarde");
+
+                  setContacts(prev =>
+                    prev.map(c => localPresenceChanges[c._id] ? { ...c, presence: localPresenceChanges[c._id] } : c)
+                  );
+                  setLocalPresenceChanges({});
+                  
+                  await fetchContacts(currentPage, filterPresence);
+                  
+                  alert("Modifications sauvegardées avec succès !");
+                } catch (err) {
+                  console.error(err);
+                  alert("Erreur lors de la sauvegarde");
+                }
+              }}
+            >
+              {t("validate_changes")}
+            </button>
+          </div>
+
           {/* Pagination */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "8px",
-              margin: "25px 0",
-              flexWrap: "wrap",
-            }}
-          >
-            <button
-              onClick={goToPrevPage}
-              disabled={!pagination.hasPrevPage}
-              style={{
-                padding: "8px 16px",
-                background: "transparent",
-                color: pagination.hasPrevPage ? "#333" : "#ccc",
-                border: "1px solid #ddd",
-                borderRadius: "4px",
-                cursor: pagination.hasPrevPage ? "pointer" : "not-allowed",
-              }}
-            >
-              ← {t("previous")}
-            </button>
-
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "8px", margin: "25px 0", flexWrap: "wrap" }}>
+            <button onClick={goToPrevPage} disabled={!pagination.hasPrevPage} style={{ padding: "8px 16px", background: "transparent", color: pagination.hasPrevPage ? "#333" : "#ccc", border: "1px solid #ddd", borderRadius: "4px", cursor: pagination.hasPrevPage ? "pointer" : "not-allowed" }}>← {t("previous")}</button>
             <div style={{ display: "flex", gap: "5px" }}>
-              {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map(
-                (page) => (
-                  <button
-                    key={page}
-                    onClick={() => goToPage(page)}
-                    style={{
-                      padding: "6px 12px",
-                      background: currentPage === page ? "#333" : "transparent",
-                      color: currentPage === page ? "white" : "#333",
-                      border: `1px solid ${
-                        currentPage === page ? "#333" : "#ddd"
-                      }`,
-                      borderRadius: "4px",
-                      cursor: "pointer",
-                    }}
-                  >
-                    {page}
-                  </button>
-                )
-              )}
+              {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map(page => (
+                <button key={page} onClick={() => goToPage(page)} style={{ padding: "6px 12px", background: currentPage === page ? "#333" : "transparent", color: currentPage === page ? "white" : "#333", border: `1px solid ${currentPage === page ? "#333" : "#ddd"}`, borderRadius: "4px", cursor: "pointer" }}>{page}</button>
+              ))}
             </div>
-
-            <button
-              onClick={goToNextPage}
-              disabled={!pagination.hasNextPage}
-              style={{
-                padding: "8px 16px",
-                background: "transparent",
-                color: pagination.hasNextPage ? "#333" : "#ccc",
-                border: "1px solid #ddd",
-                borderRadius: "4px",
-                cursor: pagination.hasNextPage ? "pointer" : "not-allowed",
-              }}
-            >
-              {t("next")} →
-            </button>
+            <button onClick={goToNextPage} disabled={!pagination.hasNextPage} style={{ padding: "8px 16px", background: "transparent", color: pagination.hasNextPage ? "#333" : "#ccc", border: "1px solid #ddd", borderRadius: "4px", cursor: pagination.hasNextPage ? "pointer" : "not-allowed" }}>{t("next")} →</button>
           </div>
         </>
       )}

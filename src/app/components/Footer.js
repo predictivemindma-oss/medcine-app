@@ -45,7 +45,7 @@ const { t } = useTranslation();
 
 
         <div className="address">
-          <h2>{t("address_title")}</h2>
+          <h2>{t("contact")}</h2>
           <div className="phone">
             <Image src={phone} alt="phone" width={40} height={40} className="footer-icon" />
             <a href="tel:05 36 69 60 48">05 36 69 60 48</a>
