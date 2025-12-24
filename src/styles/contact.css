@@ -7,6 +7,13 @@
 
 html[dir="rtl"] .contact-container * {
     text-align: right;
+        font-family: 'Share', serif;
+        
+
+
+}
+html[dir="rtl"] .contact-container .contact-numbers {
+    font-family: 'Share', serif;
 }
 
 .contact-container {
@@ -88,11 +95,18 @@ html[dir="rtl"] .contact-container * {
 .contact-container .fix span:first-child,
 .contact-container .tel span:first-child,
 .contact-container .local span:first-child {
-    font-size: 16px;
+    font-size: 18px;
     color: #666;
-    font-weight: 600;
+    font-weight: bold;
 }
 
+html[dir="rtl"] .contact-container .fix span:first-child,
+html[dir="rtl"] .contact-container .tel span:first-child,
+html[dir="rtl"] .contact-container .local span:first-child {
+
+        font-weight: bold;
+         font-size: 20px;
+}
 .contact-container .blue-spans {
     color: var(--main-blue);
     font-size: 20px;
@@ -298,3 +312,4 @@ html[dir="rtl"] .contact-container * {
     gap: 2px;
     line-height: 1.2;
 }
+

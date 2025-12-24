@@ -125,72 +125,154 @@ export default function ContactListPage() {
       )}
       <h1>{t("contact_list")}</h1>
 
-      {/* Filtres */}
-      <div style={{ marginBottom: "20px", display: "flex", gap: "15px", alignItems: "center", flexWrap: "wrap" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <label htmlFor="presenceFilter" style={{ fontWeight: "bold" }}>{t("filter_presence")} :</label>
-          <select
-            id="presenceFilter"
-            value={filterPresence}
-            onChange={(e) => setFilterPresence(e.target.value)}
-            style={{ padding: "6px 10px", borderRadius: "5px", border: "1px solid #ccc", backgroundColor: "transparent" }}
-          >
-            <option value="tous">{t("all")}</option>
-            <option value="en cours">{t("in_progress")}</option>
-            <option value="confirmé">{t("confirmed")}</option>
-            <option value="annulé">{t("cancelled")}</option>
-          </select>
-        </div>
+   
+    {/* Boutons export / today */}
+<div className="k-btno">
+  <button
+    className="btn-main export-btn"
+    onClick={() => window.open("/api/contacts/exportContacts", "_blank")}
+  >
+    {t("export_all_contacts")}
+  </button>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <label htmlFor="dateFilter" style={{ fontWeight: "bold", whiteSpace: "nowrap" }}>{t("filter_date")} :</label>
-          <input
-            id="dateFilter"
-            type="date"
-            value={filterDate}
-            onChange={(e) => setFilterDate(e.target.value)}
-            style={{ padding: "6px 10px", borderRadius: "5px", border: "1px solid #ccc", backgroundColor: "#f9f9f9" }}
-          />
-        </div>
+  <button
+    className="btn-main"
+    onClick={() => {
+      const todayStr = new Date().toISOString().split('T')[0];
+      setFilterDate(todayStr);
+    }}
+  >
+    {t("today_appointments")}
+  </button>
+</div>
 
-        {/* ⭐ Nouveau sélecteur pour le nombre d'items par page */}
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <label htmlFor="itemsPerPage" style={{ fontWeight: "bold", whiteSpace: "nowrap" }}>
-            {t("items_per_page") || "Items par page"} :
-          </label>
-          <select
-            id="itemsPerPage"
-            value={itemsPerPage}
-            onChange={(e) => {
-              setItemsPerPage(Number(e.target.value));
-              setCurrentPage(1);
-            }}
-            style={{ padding: "6px 10px", borderRadius: "5px", border: "1px solid #ccc", backgroundColor: "transparent" }}
-          >
-            <option value={5}>5</option>
-            <option value={10}>10</option>
-            <option value={15}>15</option>
-            <option value={20}>20</option>
-            <option value={30}>30</option>
-            <option value={50}>50</option>
-          </select>
-        </div>
-      </div>
 
-      {/* Boutons export / today */}
-      <button className="export-btn" onClick={() => window.open("/api/contacts/exportContacts", "_blank")}>
-        {t("export_all_contacts")}
-      </button>
 
-      <button
-        style={{ padding: "6px 12px", backgroundColor: "#006887", color: "#fff", border: "none", borderRadius: "5px", cursor: "pointer", marginLeft: "10px" }}
-        onClick={() => {
-          const todayStr = new Date().toISOString().split('T')[0];
-          setFilterDate(todayStr);
-        }}
-      >
-        {t("today_appointments")}
-      </button>
+
+{/* Filtres */}
+<div
+  style={{
+    display: "flex",
+    flexWrap: "wrap",
+    gap: "15px",
+    alignItems: "center",
+    marginBottom: "20px",
+  }}
+>
+  {/* Filtre Présence */}
+  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+    <label
+      htmlFor="presenceFilter"
+      style={{
+        fontWeight: "bold",
+        color: "var(--main-blue)",
+        whiteSpace: "nowrap",
+        fontSize: "14px",
+      }}
+    >
+      {t("filter_presence")} :
+    </label>
+    <select
+      id="presenceFilter"
+      value={filterPresence}
+      onChange={(e) => setFilterPresence(e.target.value)}
+      style={{
+        padding: "6px 12px",
+        borderRadius: "6px",
+        border: "1px solid var(--main-blue)",
+        backgroundColor: "var(--second-blue)",
+        color: "var(--main-blue)",
+        fontSize: "14px",
+        outline: "none",
+        minWidth: "120px",
+        transition: "all 0.2s ease",
+        cursor: "pointer",
+      }}
+    >
+      <option value="tous">{t("all")}</option>
+      <option value="en cours">{t("in_progress")}</option>
+      <option value="confirmé">{t("confirmed")}</option>
+      <option value="annulé">{t("cancelled")}</option>
+    </select>
+  </div>
+
+  {/* Filtre Date */}
+  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+    <label
+      htmlFor="dateFilter"
+      style={{
+        fontWeight: "bold",
+        color: "var(--main-blue)",
+        whiteSpace: "nowrap",
+        fontSize: "14px",
+      }}
+    >
+      {t("filter_date")} :
+    </label>
+    <input
+      id="dateFilter"
+      type="date"
+      value={filterDate}
+      onChange={(e) => setFilterDate(e.target.value)}
+      style={{
+        padding: "6px 12px",
+        borderRadius: "6px",
+        border: "1px solid var(--main-blue)",
+        backgroundColor: "var(--second-blue)",
+        color: "var(--main-blue)",
+        fontSize: "14px",
+        outline: "none",
+        minWidth: "140px",
+        transition: "all 0.2s ease",
+        cursor: "pointer",
+      }}
+    />
+  </div>
+
+  {/* Filtre Items per Page */}
+  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+    <label
+      htmlFor="itemsPerPage"
+      style={{
+        fontWeight: "bold",
+        color: "var(--main-blue)",
+        whiteSpace: "nowrap",
+        fontSize: "14px",
+      }}
+    >
+      {t("items_per_page") || "Items par page"} :
+    </label>
+    <select
+      id="itemsPerPage"
+      value={itemsPerPage}
+      onChange={(e) => {
+        setItemsPerPage(Number(e.target.value));
+        setCurrentPage(1);
+      }}
+      style={{
+        padding: "6px 12px",
+        borderRadius: "6px",
+        border: "1px solid var(--main-blue)",
+        backgroundColor: "var(--second-blue)",
+        color: "var(--main-blue)",
+        fontSize: "14px",
+        outline: "none",
+        minWidth: "80px",
+        transition: "all 0.2s ease",
+        cursor: "pointer",
+      }}
+    >
+      <option value={5}>5</option>
+      <option value={10}>10</option>
+      <option value={15}>15</option>
+      <option value={20}>20</option>
+      <option value={30}>30</option>
+      <option value={50}>50</option>
+    </select>
+  </div>
+</div>
+
+
 
       {/* Tableau */}
       {contacts.length === 0 ? (

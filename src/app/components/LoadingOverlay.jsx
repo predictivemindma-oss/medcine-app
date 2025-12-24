@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
+import Image from "next/image";
 import "../../styles/LoadingOverlay.css";
 
 export default function LoadingOverlay({ show = false }) {
@@ -35,7 +36,17 @@ export default function LoadingOverlay({ show = false }) {
 
   return (
     <div className="loading-overlay">
-      <div className="loading-spinner"></div>
+      <div className="loading-spinner">
+        <div className="logo-container">
+          <Image 
+            src="/logo.png" 
+            alt="Logo" 
+            width={60} 
+            height={60}
+            className="loading-logo"
+          />
+        </div>
+      </div>
     </div>
   );
 }

@@ -76,7 +76,7 @@ const { t, i18n } = useTranslation();
           <p className="long-p">{t("hero_description")}</p>
           <div className="numbers-flex">
             <div className="numbers">
-              <h1>5+</h1>
+              <h1>6+</h1>
               <p>{t("experience_years")}</p>
             </div>
             <div className="numbers">
