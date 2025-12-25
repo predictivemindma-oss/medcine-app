@@ -390,3 +390,44 @@ font-size: 12px;
   cursor: pointer;
   textAlign: center;
 }
+/* ============================================
+   FIX BOUTONS MOBILE ARABE
+   ============================================ */
+
+@media (max-width: 900px) {
+    /* Conteneur des boutons en colonne */
+    .k-btno {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+        width: 100% !important;
+        margin-bottom: 20px !important;
+        align-items: stretch !important;
+    }
+
+    /* Boutons pleine largeur */
+    .k-btno .btn-main,
+    .k-btno .export-btn {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 12px 20px !important;
+        text-align: center !important;
+        display: block !important;
+    }
+
+    /* Arabe mobile - forcer même style */
+    html[dir="rtl"] .k-btno {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    html[dir="rtl"] .k-btno .btn-main,
+    html[dir="rtl"] .k-btno .export-btn {
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        text-align: center !important;
+    }
+}
