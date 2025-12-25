@@ -153,6 +153,10 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: column;
   gap: 0.25rem;
 }
+.contact-item-p {
+  text-align: justify; /* Justifie le texte de l'adresse */
+  text-justify: inter-word; /* Espacement uniforme entre les mots */
+}
 
 .appointment-btn {
   display: block;

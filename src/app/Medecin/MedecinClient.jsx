@@ -321,7 +321,7 @@ export default function Medecin() {
             {renderField("fixe", medecin.fixe)}
           </div>
 
-          <div className="contact-item">
+          <div className="contact-item-p">
             <strong>{t("address") || "Adresse"}:</strong>
             {renderField("localisation", medecin.localisation)}
           </div>
