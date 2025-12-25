@@ -17,6 +17,11 @@ export default function Medecin() {
   const [pendingDeletes, setPendingDeletes] = useState([]);
   const [loading, setLoading] = useState(true);
 
+
+  useEffect(() => {
+    document.documentElement.dir = i18n.dir();
+    document.documentElement.lang = i18n.language;
+}, [i18n.language]);
   useEffect(() => {
     const fetchMedecin = async () => {
       setLoading(true);

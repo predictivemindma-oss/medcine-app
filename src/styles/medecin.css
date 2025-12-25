@@ -153,10 +153,6 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: column;
   gap: 0.25rem;
 }
-.contact-item-p {
-  text-align: justify; /* Justifie le texte de l'adresse */
-  text-justify: inter-word; /* Espacement uniforme entre les mots */
-}
 
 .appointment-btn {
   display: block;
@@ -475,4 +471,26 @@ html[dir="rtl"] .bullet {
 
 
 
+html[dir="rtl"] .medecin-container,
+html[dir="rtl"] .intro,
+html[dir="rtl"] .intro-text,
+html[dir="rtl"] .section,
+html[dir="rtl"] .contact-text,
+html[dir="rtl"] .speciality-field,
+html[dir="rtl"] .contact-item,
+html[dir="rtl"] .field-value,
+html[dir="rtl"] .list-item-content,
+html[dir="rtl"] p,
+html[dir="rtl"] span:not(.soins-number):not(.bullet) {
+    text-align: justify !important;
+    text-justify: inter-word !important;
+    line-height: 1.8 !important;
+}
 
+/* Justification pour contact-item-p uniquement en français */
+.contact-item-p {
+    text-align: justify !important;
+    text-justify: inter-word !important;
+    line-height: 1.8 !important;
+    margin: 0 !important;
+}
