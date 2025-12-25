@@ -1,13 +1,14 @@
 // src/app/layout.js
 import { Geist, Geist_Mono } from "next/font/google";
+import { Suspense } from "react"; // ✅ AJOUT
 import "./globals.css";
 import Footer from "./components/Footer";
 import NavbarWrapper from "./components/NavbarWrapper";
-import LoadingOverlay from "./components/LoadingOverlay"; // ← Ajoute ceci
+import LoadingOverlay from "./components/LoadingOverlay";
 import "../styles/footer.css";
-import connectDB from "./lib/mongoose"; // 👈 AJOUTE ÇA
+import connectDB from "./lib/mongoose";
 
-connectDB(); // 🔥 pré-connexion MongoDB (sans await)
+connectDB(); // pré-connexion MongoDB
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,7 +40,11 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen relative`}
       >
-        <LoadingOverlay /> {/* ← Ajoute le loader ici */}
+       
+        <Suspense fallback={null}>
+          <LoadingOverlay />
+        </Suspense>
+
         <NavbarWrapper />
 
         <div className="relative z-10">
