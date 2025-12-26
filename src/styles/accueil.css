@@ -707,10 +707,8 @@
    MODE RTL - FIX NUMÉROTATION
    ============================================ */
 
-[dir="rtl"] .headings {
-    flex-direction: row-reverse;
-    justify-content: flex-start;
-}
+
+
 
 [dir="rtl"] .soins-number {
     margin-left: 10px;
