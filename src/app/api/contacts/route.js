@@ -19,11 +19,11 @@ export async function POST(request) {
     const { prenom, nom, email, numero, service, message } = data;
     
     // Validation
-    if (!prenom || !nom || !email) {
+    if (!prenom || !nom ) {
       return NextResponse.json(
         { 
           success: false,
-          message: "Prénom, nom et email sont requis" 
+          message: "Prénom, nom sont requis" 
         }, 
         { status: 400 }
       );

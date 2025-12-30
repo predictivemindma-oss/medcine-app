@@ -162,7 +162,7 @@ const handleSubmit = async (e) => {
               <span>{t("email")}</span><br />
 
 
-              <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+              <input type="email" name="email" value={formData.email} onChange={handleChange}  />
 
             </label>
 
