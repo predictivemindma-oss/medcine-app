@@ -6,7 +6,8 @@
 "scripts": {
   "dev": "next dev --webpack",
   "build": "next build --webpack",
-  "start": "next start -p $PORT",
+"start": "node server.js",
+
   "lint": "eslint"
 },
 
