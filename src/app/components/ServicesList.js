@@ -158,14 +158,34 @@ export default function ServicesList() {
                           </div>
                         )}
 
-                        {service.image?.startsWith("/") && (
-                          <Image
-                            className="rounded-xl object-cover mx-auto w-full h-[280px]"
-                            src={service.image}
-                            alt={service.title}
-                            width={400}
-                            height={300}
-                          />
+                        {/* SECTION IMAGE CORRIGÉE - Affiche toutes les images */}
+                        {service.image && (
+                          <div className="image-container rounded-xl overflow-hidden w-full h-[280px]">
+                            {service.image.startsWith("/") ? (
+                              // Image locale - utilise Next.js Image
+                              <Image
+                                src={service.image}
+                                alt={service.title}
+                                width={400}
+                                height={300}
+                                className="w-full h-full object-cover"
+                                priority={index < 3} // Priorité pour les premières images
+                              />
+                            ) : (
+                              // Image Cloudinary - utilise img simple avec gestion d'erreur
+                              <img
+                                src={service.image}
+                                alt={service.title}
+                                className="w-full h-full object-cover"
+                                onError={(e) => {
+                                  console.error('Erreur chargement image Cloudinary:', service.image);
+                                  e.target.src = '/default-service.jpg';
+                                  e.target.onerror = null; // Évite les boucles infinies
+                                }}
+                                onLoad={() => console.log('Image Cloudinary chargée:', service.image)}
+                              />
+                            )}
+                          </div>
                         )}
 
                         <h2 className="titleee">{service.title}</h2>
@@ -203,6 +223,7 @@ export default function ServicesList() {
         </Droppable>
       </DragDropContext>
 
+      {/* MODAL POUR VOIR PLUS DE DÉTAILS */}
       {activeIndex !== null && (
         <div
           onClick={() => setActiveIndex(null)}
@@ -267,15 +288,36 @@ export default function ServicesList() {
               </button>
             </div>
 
-            {services.find((s) => s._id === activeIndex)?.image?.startsWith("/") && (
-              <div style={{ flex: 1 }}>
-                <Image
-                  src={services.find((s) => s._id === activeIndex)?.image}
-                  alt={services.find((s) => s._id === activeIndex)?.title}
-                  width={400}
-                  height={400}
-                  style={{ width: "100%", height: "auto", borderRadius: "18px" }}
-                />
+            {/* SECTION IMAGE DU MODAL CORRIGÉE */}
+            {services.find((s) => s._id === activeIndex)?.image && (
+              <div style={{ flex: 1, minWidth: isMobile ? "100%" : "300px" }}>
+                {services.find((s) => s._id === activeIndex)?.image?.startsWith("/") ? (
+                  // Image locale dans modal
+                  <Image
+                    src={services.find((s) => s._id === activeIndex)?.image || ''}
+                    alt={services.find((s) => s._id === activeIndex)?.title || ''}
+                    width={400}
+                    height={400}
+                    style={{ width: "100%", height: "auto", borderRadius: "18px" }}
+                  />
+                ) : (
+                  // Image Cloudinary dans modal
+                  <img
+                    src={services.find((s) => s._id === activeIndex)?.image || ''}
+                    alt={services.find((s) => s._id === activeIndex)?.title || ''}
+                    style={{ 
+                      width: "100%", 
+                      height: "auto", 
+                      borderRadius: "18px",
+                      maxHeight: "400px",
+                      objectFit: "cover"
+                    }}
+                    onError={(e) => {
+                      e.target.src = '/default-service.jpg';
+                      e.target.onerror = null;
+                    }}
+                  />
+                )}
               </div>
             )}
           </div>
