@@ -159,13 +159,16 @@ export default function ServicesList() {
                         )}
 
                     {service.image && (
-  <Image
-    className="rounded-xl object-cover mx-auto w-full h-[280px]"
-    src={service.image}
-    alt={service.title}
-    width={400}
-    height={300}
-  />
+ <Image
+  className="rounded-xl object-cover mx-auto w-full h-[280px]"
+  src={service.image}
+  alt={service.title}
+  width={400}
+  height={300}
+  unoptimized
+  priority
+/>
+
 )}
 
 
