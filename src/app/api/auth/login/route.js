@@ -1,3 +1,5 @@
+export const runtime = "nodejs";
+
 import dbConnect from "@/app/lib/mongoose";
 import User from "@/app/models/User";
 import bcrypt from "bcrypt";
