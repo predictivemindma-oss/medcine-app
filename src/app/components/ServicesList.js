@@ -158,15 +158,16 @@ export default function ServicesList() {
                           </div>
                         )}
 
-                        {service.image?.startsWith("/") && (
-                          <Image
-                            className="rounded-xl object-cover mx-auto w-full h-[280px]"
-                            src={service.image}
-                            alt={service.title}
-                            width={400}
-                            height={300}
-                          />
-                        )}
+                    {service.image && (
+  <Image
+    className="rounded-xl object-cover mx-auto w-full h-[280px]"
+    src={service.image}
+    alt={service.title}
+    width={400}
+    height={300}
+  />
+)}
+
 
                         <h2 className="titleee">{service.title}</h2>
 
@@ -267,7 +268,8 @@ export default function ServicesList() {
               </button>
             </div>
 
-            {services.find((s) => s._id === activeIndex)?.image?.startsWith("/") && (
+            {services.find((s) => s._id === activeIndex)?.image && (
+
               <div style={{ flex: 1 }}>
                 <Image
                   src={services.find((s) => s._id === activeIndex)?.image}
