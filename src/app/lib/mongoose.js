@@ -1,43 +1,32 @@
 // src/app/lib/mongoose.js
 import mongoose from "mongoose";
 
+const MONGODB_URI = process.env.MONGODB_URI;
+
 let cached = global.mongoose;
 
 if (!cached) {
   cached = global.mongoose = { conn: null, promise: null };
 }
 
-async function connectDB() {
-  if (cached.conn) return cached.conn;
+export default async function connectDB() {
+  // 🔁 Déjà connecté
+  if (cached.conn) {
+    return cached.conn;
+  }
 
-  const MONGODB_URI = process.env.MONGODB_URI;
-
-  // ⚠️ IMPORTANT : NE PAS throw au build
+  // ❌ Runtime ONLY – si absent → vraie erreur
   if (!MONGODB_URI) {
-    console.warn("⚠️ MONGODB_URI non définie (build time)");
-    return null;
+    throw new Error("❌ MONGODB_URI est manquante au runtime");
   }
 
   if (!cached.promise) {
-    const opts = {
+    cached.promise = mongoose.connect(MONGODB_URI, {
       bufferCommands: false,
-    };
-
-    cached.promise = mongoose
-      .connect(MONGODB_URI, opts)
-      .then((mongoose) => {
-        console.log("✅ MongoDB connecté avec succès");
-        return mongoose;
-      })
-      .catch((error) => {
-        console.error("❌ Erreur MongoDB :", error);
-        cached.promise = null;
-        throw error;
-      });
+    });
   }
 
   cached.conn = await cached.promise;
+  console.log("✅ MongoDB connecté");
   return cached.conn;
 }
-
-export default connectDB;
