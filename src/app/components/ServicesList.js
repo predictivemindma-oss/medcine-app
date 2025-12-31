@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-
+import Image from "next/image";
 import LoadingOverlay from "../components/LoadingOverlay";
 
 import "../../styles/services.css";
@@ -158,13 +158,14 @@ export default function ServicesList() {
                           </div>
                         )}
 
-                       {service.image && (
-  <img
-    src={service.image}
-    alt={service.title}
-    className="rounded-xl object-cover mx-auto w-full h-[280px]"
-    loading="lazy"
-  />
+                        {service.image?.startsWith("/") && (
+                          <Image
+                            className="rounded-xl object-cover mx-auto w-full h-[280px]"
+                            src={service.image}
+                            alt={service.title}
+                            width={400}
+                            height={300}
+                          />
                         )}
 
                         <h2 className="titleee">{service.title}</h2>
@@ -266,17 +267,16 @@ export default function ServicesList() {
               </button>
             </div>
 
-         {services.find((s) => s._id === activeIndex)?.image && (
-  <img
-    src={services.find((s) => s._id === activeIndex)?.image}
-    alt={services.find((s) => s._id === activeIndex)?.title}
-    style={{
-      width: "100%",
-      height: "auto",
-      borderRadius: "18px"
-    }}
+            {services.find((s) => s._id === activeIndex)?.image?.startsWith("/") && (
+              <div style={{ flex: 1 }}>
+                <Image
+                  src={services.find((s) => s._id === activeIndex)?.image}
+                  alt={services.find((s) => s._id === activeIndex)?.title}
+                  width={400}
+                  height={400}
+                  style={{ width: "100%", height: "auto", borderRadius: "18px" }}
                 />
-        
+              </div>
             )}
           </div>
         </div>
