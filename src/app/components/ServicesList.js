@@ -279,6 +279,8 @@ export default function ServicesList() {
                   alt={services.find((s) => s._id === activeIndex)?.title}
                   width={400}
                   height={400}
+                    unoptimized
+
                   style={{ width: "100%", height: "auto", borderRadius: "18px" }}
                 />
               </div>
