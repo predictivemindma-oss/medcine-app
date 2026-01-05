@@ -80,7 +80,6 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 
-/* Colonne droite : intro + autres sections */
 .right-column {
   flex: 1; /* prend le reste de l’espace disponible */
   display: flex;

@@ -383,8 +383,9 @@ export default function Medecin() {
             ))}
           </ul>
         </div>
+        
 
-        {/* FORMATIONS */}
+        {/* FORMATIOn */}
         <div className="section">
           <div className="section-header">
             <h3>{t("formation")}</h3>
