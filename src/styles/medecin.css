@@ -400,7 +400,11 @@ i { font-size: 17px; }
 /* =======================
    Images
 ======================= */
-img { display: block; max-width: 100%; height: auto; }
+.medecin-container img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
 
 /* =======================
    Responsive
