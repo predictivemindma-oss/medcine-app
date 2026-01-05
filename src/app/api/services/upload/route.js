@@ -68,16 +68,21 @@ export const POST = async (req) => {
     console.log("📤 Upload vers Cloudinary en cours...");
 
     // UPLOAD À CLOUDINARY
-    const uploadResult = await cloudinary.v2.uploader.upload(dataURI, {
-      folder: 'medical-app/services',
-      public_id: `service_${Date.now()}_${auth.userId || 'unknown'}`,
-      resource_type: 'image',
-      transformation: [
-        { width: 800, height: 600, crop: 'fill' },
-        { quality: 'auto:good' }
-      ],
-      timeout: 30000 // 30 secondes timeout
-    });
+const uploadResult = await cloudinary.v2.uploader.upload(dataURI, {
+  folder: 'medical-app/services',
+  public_id: `service_${Date.now()}`,
+  resource_type: 'image',
+
+  // ✅ NE JAMAIS COUPER
+  crop: 'limit',
+  width: 2000,
+  height: 2000,
+
+  // ✅ optimisation
+  quality: 'auto:good',
+  fetch_format: 'auto'
+});
+
 
     // URL CLOUDINARY
     const imageUrl = uploadResult.secure_url;

@@ -39,36 +39,40 @@ async function uploadToCloudinary(file) {
     // Convertir File en buffer
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    
-    // Convertir buffer en base64 pour Cloudinary
-    const base64Image = buffer.toString('base64');
+
+    // Convertir buffer en base64
+    const base64Image = buffer.toString("base64");
     const dataURI = `data:${file.type};base64,${base64Image}`;
 
-    console.log("📤 Upload vers Cloudinary...");
+    console.log("📤 Upload vers Cloudinary (sans crop)...");
 
-    // Upload vers Cloudinary
     const uploadResult = await cloudinary.v2.uploader.upload(dataURI, {
-      folder: 'medical-app/services',
+      folder: "medical-app/services",
       public_id: `service_${Date.now()}`,
-      resource_type: 'auto',
-      transformation: [
-        { width: 800, height: 600, crop: 'fill' },
-        { quality: 'auto:good' }
-      ]
+      resource_type: "image",
+
+      // ✅ NE JAMAIS COUPER L’IMAGE
+      crop: "limit",
+      width: 2000,
+      height: 2000,
+
+      // ✅ Optimisation auto
+      quality: "auto:good",
+      fetch_format: "auto",
     });
 
-    console.log("✅ Image uploadée sur Cloudinary:", uploadResult.secure_url);
-    
+    console.log("✅ Image uploadée (complète):", uploadResult.secure_url);
+
     return {
       url: uploadResult.secure_url,
-      public_id: uploadResult.public_id
+      public_id: uploadResult.public_id,
     };
-    
   } catch (error) {
     console.error("❌ Erreur Cloudinary:", error);
-    throw new Error(`Erreur upload Cloudinary: ${error.message}`);
+    throw new Error("Erreur upload Cloudinary");
   }
 }
+
 
 // ======================================================
 // POST - VERSION AVEC CLOUDINARY
