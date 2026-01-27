@@ -131,10 +131,10 @@ h1, h2, h3, h4, h5, h6 {
   transform: scale(1.1);
 }
 
+
 .contact-text {
   display: flex;
   flex-direction: column;
-  text-align: justify; /* Texte justifié dans contact */
 }
 
 .contact-title {
@@ -163,10 +163,36 @@ h1, h2, h3, h4, h5, h6 {
   gap: 0.25rem;
 }
 
-.contact-item {
+.contact-item,
+.contact-item-p {
   display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+  align-items: center; /* centre verticalement */
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* Important : aligne le contenu retourné par renderField */
+.contact-item .field-wrapper,
+.contact-item-p .field-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+/* Icônes */
+.contact-item svg,
+.contact-item-p svg {
+  color: var(--main-blue);
+  font-size: 20px;
+  min-width: 22px; /* alignement parfait entre toutes les lignes */
+}
+
+/* CAS spécial : texte multiline (adresse) */
+.contact-item-p {
+  align-items: flex-start; /* icône alignée en haut */
+}
+
+.contact-item-p svg {
+  margin-top: 4px; /* ajustement visuel fin */
 }
 
 .appointment-btn {
@@ -449,6 +475,7 @@ i { font-size: 17px; }
     margin-top: 10px; /* ou 15px selon l'espacement souhaité */
     position: relative; /* si jamais tu as du positionnement sur l'image */
     z-index: 1; /* pour que ça reste au-dessus de l'image si nécessaire */
+    font-size: 14,5px;
 
 }
 /* Titre "Spécialité" en gras */

@@ -308,18 +308,16 @@ export default function Medecin() {
             </>
           )}
         </div>
-
+//here
 <div className="contact-text">
   <div className="speciality-field">
-    <i>{t("speciality")}:</i>
     {renderField("specialite", medecin.specialite)}
   </div>
 
   <h3 className="contact-title">{t("contact")}</h3>
 
   <div className="contact-item">
- <FaMobile />
-    {renderField("telephone", medecin.telephone)}
+ <FaMobile /> {renderField("telephone", medecin.telephone)}
   </div>
 
   <div className="contact-item">
