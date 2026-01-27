@@ -138,8 +138,24 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .contact-title {
-  color: var(--teal) !important;
+  color: var(--main-red); /* titre contact en rouge */
+  margin-top: 15px;
+  margin-bottom: 10px;
 }
+.contact-item svg,
+.contact-item-p svg,
+.speciality-field i {
+  color: var(--main-blue); /* couleur principale pour les icônes */
+  margin-right: 8px;       /* espace entre icône et texte */
+  vertical-align: middle;
+}
+
+.contact-title {
+  color: var(--main-blue); /* titre contact en rouge */
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
 
 .speciality-field {
   display: flex;

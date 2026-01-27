@@ -3,10 +3,11 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaEdit, FaSave, FaTrash, FaUndo, FaPlus } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import LoadingOverlay from "../components/LoadingOverlay";
 import "../../styles/medecin.css";
+import { FaEdit, FaSave, FaTrash, FaUndo, FaPlus, FaMobile, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
+
 
 export default function Medecin() {
   const { t, i18n } = useTranslation();
@@ -308,33 +309,35 @@ export default function Medecin() {
           )}
         </div>
 
-        <div className="contact-text">
-          <div className="speciality-field">
-            <i>{t("speciality")}:</i>
-            {renderField("specialite", medecin.specialite)}
-          </div>
+<div className="contact-text">
+  <div className="speciality-field">
+    <i>{t("speciality")}:</i>
+    {renderField("specialite", medecin.specialite)}
+  </div>
 
-          <h3 className="contact-title">{t("contact")}</h3>
+  <h3 className="contact-title">{t("contact")}</h3>
 
-          <div className="contact-item">
-            <strong>{t("phone") || "Tél"}:</strong>
-            {renderField("telephone", medecin.telephone)}
-          </div>
+  <div className="contact-item">
+ <FaMobile />
+    {renderField("telephone", medecin.telephone)}
+  </div>
 
-          <div className="contact-item">
-            <strong>{t("fixe") || "Fixe"}:</strong>
-            {renderField("fixe", medecin.fixe)}
-          </div>
+  <div className="contact-item">
+    <FaPhone /> 
+    {renderField("fixe", medecin.fixe)}
+  </div>
 
-          <div className="contact-item-p">
-            <strong>{t("address") || "Adresse"}:</strong>
-            {renderField("localisation", medecin.localisation)}
-          </div>
+  <div className="contact-item-p">
+    <FaMapMarkerAlt /> 
+    {renderField("localisation", medecin.localisation)}
+  </div>
 
-          <Link href="/Contact" className="appointment-btn">
-            {t("appointment")}
-          </Link>
-        </div>
+  <Link href="/Contact" className="appointment-btn">
+    {t("appointment")}
+  </Link>
+</div>
+
+
       </div>
 
       {/* INTRO */}

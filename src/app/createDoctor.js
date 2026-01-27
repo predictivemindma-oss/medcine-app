@@ -3,6 +3,7 @@ dotenv.config({ path: ".env" });
 
 import connectDB from "./lib/mongoose.js";
 import User from "./models/User.js";
+
 import bcrypt from "bcrypt";  // ✅ BCRYPT
 async function createNewUser() {
   await connectDB();
