@@ -308,7 +308,7 @@ export default function Medecin() {
             </>
           )}
         </div>
-//here
+
 <div className="contact-text">
   <div className="speciality-field">
     {renderField("specialite", medecin.specialite)}
