@@ -338,7 +338,6 @@ export default function Medecin() {
 
       </div>
 
-      {/* INTRO */}
       <div className="intro">
         <h3>{t("doc_name")}</h3>
         <div className="intro-text">
