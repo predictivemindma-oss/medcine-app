@@ -29,12 +29,12 @@
   "for_life": "Pour une vie ",
   "healthy": "saine ",
   "balance": "et un équilibre durable",
-  "hero_description": " Dr. Ouafae El Mahraoui s’engage à vous offrir des soins personnalisés et de haute qualité en endocrinologie, diabétologie et nutrition, dans un environnement professionnel et bienveillant.",
+"hero_description": "Dr Ouafae ElMehraoui, spécialiste en Endocrinologie, Diabétologie, maladies métaboliques et Nutrition, s’engage à vous offrir des soins personnalisés et de haute qualité, dans un environnement professionnel et bienveillant.",
   "experience_years": "Années d'expérience",
   "patients": "Patients pris en charge",
   "experts": "Experts médicaux",
   "appointment": "Prenez rendez-vous",
-  "choisir_title": "Pourquoi choisir la Dr. Ouafae MEHRAOUI pour votre santé ?",
+  "choisir_title": "Pourquoi choisir le Dr. Ouafae ELMEHRAOUI pour votre santé ?",
   "choisir_text": "Notre approche ne se limite pas au traitement, elle cherche à optimiser la manière dont vous prenez soin de votre santé et de votre alimentation.",
   "expertise_1": "Expertise médicale reconnue",
   "expertise_2": "Suivi personnalisé et attentif pour chaque patient",
@@ -47,8 +47,8 @@
   "suivi_title": "Suivi du diabète",
   "conseil_title": "Conseil du diabète",
   "conseil_text": "Plans alimentaires personnalisés, conçus pour soutenir la santé globale, favoriser l’équilibre nutritionnel, prévenir les carences, accompagner la gestion des maladies chroniques et promouvoir un mode de vie durable.",
-  "patients_title": "Avis de nos patients sur Dr. Ouafae EL MEHRAOUI",
-"patients_text": "Avec le Dr. Ouafae El Mahraoui, chaque patient bénéficie d’un suivi personnalisé visant sa guérison. Découvrez les expériences et avis de nos patients.",
+  "patients_title": "Avis de nos patients sur Dr. Ouafae ELMEHRAOUI",
+"patients_text": "Avec le Dr. Ouafae ElMehraoui, chaque patient bénéficie d’un suivi personnalisé visant sa guérison. Découvrez les expériences et avis de nos patients.",
 
   "suivi_text": "Une gestion personnalisée du taux de sucre dans le sang et de la prévention des complications, grâce à un suivi régulier, des conseils nutritionnels adaptés et un accompagnement médical complet pour améliorer votre santé au quotidien.",
 
@@ -260,10 +260,10 @@
    
 
   "reviews": {
-    "hanane": "Je recommande vivement Dr Ouafae El Mahraoui pour ses compétences exceptionnelles et son approche empathique envers les patients.",
-    "zdenko": "Grâce à Allah et à Dr Ouafae El Mahraoui, je suis toujours en vie. Dr Ouafae El Mahraoui m’a sauvé la vie en me prodiguant un traitement approprié avec une bienveillance et une humanité rares.",
-    "fatiha": "Le Dr Mahraoui est une médecin distinguée, dotée d’une personnalité bienveillante et compréhensive. Elle est hautement compétente.",
-    "soufiane": "Je recommande vivement Dr Ouafae El Mahraoui à toute personne recherchant un endocrinologue. Elle est très compétente et profondément humaine."
+    "hanane": "Je recommande vivement Dr Ouafae ElMehraoui pour ses compétences exceptionnelles et son approche empathique envers les patients.",
+    "zdenko": "Grâce à Allah et à Dr Ouafae ElMehraoui, je suis toujours en vie. Dr Ouafae ElMehraoui m’a sauvé la vie en me prodiguant un traitement approprié avec une bienveillance et une humanité rares.",
+    "fatiha": "Le Dr ELMehraoui est une médecin distinguée, dotée d’une personnalité bienveillante et compréhensive. Elle est hautement compétente.",
+    "soufiane": "Je recommande vivement Dr Ouafae ElMehraoui à toute personne recherchant un endocrinologue. Elle est très compétente et profondément humaine."
   },
   "review_google": "Avis sur Google",
     "items_per_page": "Éléments par page",

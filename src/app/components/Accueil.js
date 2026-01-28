@@ -80,7 +80,7 @@ const { t, i18n } = useTranslation();
               <p>{t("experience_years")}</p>
             </div>
             <div className="numbers">
-              <h1>900+</h1>
+              <h1>2000+</h1>
               <p>{t("patients")}</p>
             </div>
             {/*
